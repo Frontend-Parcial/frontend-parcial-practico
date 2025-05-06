@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import logo from '../assets/UNICESAR 2024.png'
+import { useAuth } from '../providers/AuthProvider'
 
 // Ejemplo de theme (puedes reemplazar con el real si lo tienes)
 const theme = {
@@ -14,6 +15,7 @@ const theme = {
 }
 
 export function Header() {
+  const auth = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -61,6 +63,12 @@ export function Header() {
               {tab} ↓
             </button>
           ))}
+          <button
+            className='px-5 py-3 min-w-[100px] m-[10px] mr-[40px] ml-[20px] cursor-pointer transition-colors duration-[400ms] rounded hover:bg-red-300'
+            onClick={() => auth.logOut()}
+          >
+            Logout
+          </button>
         </div>
       </nav>
     </div>
