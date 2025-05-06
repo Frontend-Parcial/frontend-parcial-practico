@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 @import "tailwindcss";
-
+a{color: #1976d2;
+}
 @theme{
   --color-primario: #42a542;
   --color-oscuro: #107b42;
@@ -16,14 +17,14 @@
   --color-texto-oscuro: #666666;
   --color-texto-claro: #808080;
   --sombra: rgba(0, 0, 0, 0.15);
-  --error-color: #d32f2f;
-  --error-claro: #ffebee;
-  --aceptacion-color: #2e7d32;
-  --aceptacion-claro: #e8f5e9;
-  --advertencia-color: #f57c00;
-  --advertencia-claro: #fff3e0;
-  --info-color: #1976d2;
-  --info-claro: #e3f2fd;
+  --color-error: #d32f2f;
+  --color-error-claro: #ffebee;
+  --color-aceptacion: #2e7d32;
+  --color-aceptacion-claro: #e8f5e9;
+  --color-advertencia: #f57c00;
+  --color-advertencia-claro: #fff3e0;
+  --color-info: #1976d2;
+  --color-info-claro: #e3f2fd;
   --font-principal: "Open Sans", sans-serif; 
   --font-institucional: "Arial", sans-serif; 
   --font-complementario: "Rubik", "Montserrat", "Times New Roman", serif;

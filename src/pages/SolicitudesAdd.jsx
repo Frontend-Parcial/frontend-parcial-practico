@@ -182,12 +182,10 @@ export function SolicitudesAdd(){
         </div>
       </nav>
 
-      {/* Main Content */}
       <main className="flex-grow bg-gray-100 p-4">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Student Information Form */}
-          <div className="bg-green-300 rounded-lg overflow-hidden">
-            <h2 className="p-4 text-center text-lg font-medium">Información del estudiante</h2>
+          <div className="bg-claro rounded-lg overflow-hidden">
+            <h2 className="p-4 text-center text-oscuro text-lg font-medium">Información del estudiante</h2>
             <div className="bg-yellow-300 h-1"></div>
             <form className="p-4 space-y-4" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-4">
@@ -205,7 +203,7 @@ export function SolicitudesAdd(){
                     <option value="CE">CE</option>
                     <option value="Pasaporte">Pasaporte</option>
                   </select>
-                  {errors.documentType && <p className="text-red-500 text-xs">{errors.documentType}</p>}
+                  {errors.documentType && <p className="text-error text-xs">{errors.documentType}</p>}
                 </div>
                 <div>
                   <label className="block mb-1">Documento</label>
@@ -217,7 +215,7 @@ export function SolicitudesAdd(){
                     placeholder="1234567890"
                     className={`w-full p-2 border rounded ${errors.documentNumber ? 'border-red-500' : ''}`}
                   />
-                  {errors.documentNumber && <p className="text-red-500 text-xs">{errors.documentNumber}</p>}
+                  {errors.documentNumber && <p className="text-error text-xs">{errors.documentNumber}</p>}
                 </div>
               </div>
 
@@ -231,7 +229,7 @@ export function SolicitudesAdd(){
                   placeholder="Daniel Gustavo Rodriguez Mena"
                   className={`w-full p-2 border rounded ${errors.fullName ? 'border-red-500' : ''}`}
                 />
-                {errors.fullName && <p className="text-red-500 text-xs">{errors.fullName}</p>}
+                {errors.fullName && <p className="text-error text-xs">{errors.fullName}</p>}
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -244,7 +242,7 @@ export function SolicitudesAdd(){
                     onChange={handleStudentChange}
                     className={`w-full p-2 border rounded ${errors.birthDate ? 'border-red-500' : ''}`}
                   />
-                  {errors.birthDate && <p className="text-red-500 text-xs">{errors.birthDate}</p>}
+                  {errors.birthDate && <p className="text-error text-xs">{errors.birthDate}</p>}
                 </div>
                 <div>
                   <label className="block mb-1">Correo Electrónico</label>
@@ -256,7 +254,7 @@ export function SolicitudesAdd(){
                     placeholder="danielrodriguez@unicesar.edu.co"
                     className={`w-full p-2 border rounded ${errors.email ? 'border-red-500' : ''}`}
                   />
-                  {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+                  {errors.email && <p className="text-error text-xs">{errors.email}</p>}
                 </div>
               </div>
 
@@ -271,7 +269,7 @@ export function SolicitudesAdd(){
                     placeholder="1234567890"
                     className={`w-full p-2 border rounded ${errors.phone ? 'border-red-500' : ''}`}
                   />
-                  {errors.phone && <p className="text-red-500 text-xs">{errors.phone}</p>}
+                  {errors.phone && <p className="text-error text-xs">{errors.phone}</p>}
                 </div>
                 <div>
                   <label className="block mb-1">Dirección</label>
@@ -283,7 +281,7 @@ export function SolicitudesAdd(){
                     placeholder="Carrera 21 # 24-56"
                     className={`w-full p-2 border rounded ${errors.address ? 'border-red-500' : ''}`}
                   />
-                  {errors.address && <p className="text-red-500 text-xs">{errors.address}</p>}
+                  {errors.address && <p className="text-error text-xs">{errors.address}</p>}
                 </div>
               </div>
 
@@ -302,7 +300,7 @@ export function SolicitudesAdd(){
                     <option value="ingenieria electronica">Ingeniería Electrónica</option>
                     <option value="derecho">Derecho</option>
                   </select>
-                  {errors.program && <p className="text-red-500 text-xs">{errors.program}</p>}
+                  {errors.program && <p className="text-error text-xs">{errors.program}</p>}
                 </div>
                 <div>
                   <label className="block mb-1">Facultad</label>
@@ -318,7 +316,7 @@ export function SolicitudesAdd(){
                     <option value="ciencias economicas">Ciencias Económicas</option>
                     <option value="ciencias juridicas">Ciencias Jurídicas</option>
                   </select>
-                  {errors.faculty && <p className="text-red-500 text-xs">{errors.faculty}</p>}
+                  {errors.faculty && <p className="text-error text-xs">{errors.faculty}</p>}
                 </div>
               </div>
 
@@ -333,7 +331,7 @@ export function SolicitudesAdd(){
                     placeholder="85"
                     className={`w-full p-2 border rounded ${errors.creditsApproved ? 'border-red-500' : ''}`}
                   />
-                  {errors.creditsApproved && <p className="text-red-500 text-xs">{errors.creditsApproved}</p>}
+                  {errors.creditsApproved && <p className="text-error text-xs">{errors.creditsApproved}</p>}
                 </div>
                 <div>
                   <label className="block mb-1">Promedio</label>
@@ -348,7 +346,7 @@ export function SolicitudesAdd(){
                     max="5"
                     className={`w-full p-2 border rounded ${errors.average ? 'border-red-500' : ''}`}
                   />
-                  {errors.average && <p className="text-red-500 text-xs">{errors.average}</p>}
+                  {errors.average && <p className="text-error text-xs">{errors.average}</p>}
                 </div>
               </div>
 
@@ -396,7 +394,7 @@ export function SolicitudesAdd(){
               <div className="text-center">
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                  className="bg-primario text-complementario py-2 px-4 rounded hover:bg-oscuro"
                 >
                   Guardar Información
                 </button>
@@ -405,8 +403,8 @@ export function SolicitudesAdd(){
           </div>
 
           {/* Agreement Information Form */}
-          <div className="bg-green-300 rounded-lg overflow-hidden">
-            <h2 className="p-4 text-center text-lg font-medium">Información del Convenio</h2>
+          <div className="bg-claro rounded-lg overflow-hidden">
+            <h2 className="p-4 text-center text-oscuro text-lg font-medium">Información del Convenio</h2>
             <div className="bg-yellow-300 h-1"></div>
             <form className="p-4 space-y-4" onSubmit={handleSubmit}>
               <div>
@@ -422,7 +420,7 @@ export function SolicitudesAdd(){
                   <option value="Universidad de Los Andes">Universidad de Los Andes</option>
                   <option value="Universidad Javeriana">Universidad Javeriana</option>
                 </select>
-                {errors.institution && <p className="text-red-500 text-xs">{errors.institution}</p>}
+                {errors.institution && <p className="text-error text-xs">{errors.institution}</p>}
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -440,7 +438,7 @@ export function SolicitudesAdd(){
                     <option value="España">España</option>
                     <option value="Argentina">Argentina</option>
                   </select>
-                  {errors.country && <p className="text-red-500 text-xs">{errors.country}</p>}
+                  {errors.country && <p className="text-error text-xs">{errors.country}</p>}
                 </div>
               </div>
 
@@ -458,11 +456,11 @@ export function SolicitudesAdd(){
                   <option value="Madrid">Madrid</option>
                   <option value="Buenos Aires">Buenos Aires</option>
                 </select>
-                {errors.city && <p className="text-red-500 text-xs">{errors.city}</p>}
+                {errors.city && <p className="text-error text-xs">{errors.city}</p>}
               </div>
 
               <div className="bg-yellow-300 h-1 my-2"></div>
-              <h3 className="font-medium">Convenio</h3>
+              <h3 className="text-oscuro font-medium">Convenio</h3>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -478,7 +476,7 @@ export function SolicitudesAdd(){
                     <option value="Nacional">Nacional</option>
                     <option value="Regional">Regional</option>
                   </select>
-                  {errors.type && <p className="text-red-500 text-xs">{errors.type}</p>}
+                  {errors.type && <p className="text-error text-xs">{errors.type}</p>}
                 </div>
                 <div>
                   <label className="block mb-1">Descripción</label>
@@ -490,7 +488,7 @@ export function SolicitudesAdd(){
                     className={`w-full p-2 border rounded ${errors.description ? 'border-red-500' : ''}`}
                     rows={2}
                   ></textarea>
-                  {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
+                  {errors.description && <p className="text-error text-xs">{errors.description}</p>}
                 </div>
               </div>
 
@@ -519,7 +517,7 @@ export function SolicitudesAdd(){
                     className={`w-full p-2 border rounded ${errors.requirements ? 'border-red-500' : ''}`}
                     rows={2}
                   ></textarea>
-                  {errors.requirements && <p className="text-red-500 text-xs">{errors.requirements}</p>}
+                  {errors.requirements && <p className="text-error text-xs">{errors.requirements}</p>}
                 </div>
                 <div>
                   <label className="block mb-1">Cupos disponibles</label>
@@ -532,7 +530,7 @@ export function SolicitudesAdd(){
                     min="1"
                     className={`w-full p-2 border rounded ${errors.availableSpots ? 'border-red-500' : ''}`}
                   />
-                  {errors.availableSpots && <p className="text-red-500 text-xs">{errors.availableSpots}</p>}
+                  {errors.availableSpots && <p className="text-error text-xs">{errors.availableSpots}</p>}
                 </div>
               </div>
 
@@ -551,7 +549,7 @@ export function SolicitudesAdd(){
               <div className="text-center">
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                  className="bg-primario text-complementario py-2 px-4 rounded hover:bg-oscuro"
                 >
                   Guardar Convenio
                 </button>

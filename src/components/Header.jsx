@@ -36,7 +36,7 @@ export function Header() {
           CONVENIOS
         </li>
         <li
-          onClick={() => navigate('/convocatoria')}
+          onClick={() => navigate('/solicitudes')}
           className='text-[#675d4e] font-medium cursor-pointer hover:text-claro'
         >
           CONVOCATORIA
