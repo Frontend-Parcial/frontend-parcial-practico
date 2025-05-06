@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     switch (rol) {
       case 'admin':
         commonActions()
-        navigate('/prueba')
+        navigate('/reporte')
         // navigate('/dashboard') <- Aqui hay que poner esto, aguanta
         break
       case 'user':
