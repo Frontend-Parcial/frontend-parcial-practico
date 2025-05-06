@@ -6,3 +6,10 @@ npm install
 ```
 npm run dev
 ```
+
+
+#### Modulos que se estan utilizando
+
+- React-router-dom
+- Zustand
+- Tabler-icons
