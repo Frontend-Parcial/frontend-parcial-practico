@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import logo from '../assets/UNICESAR 2024.png'
 
-/* #2fb44b #4dd269 #61e67d */
-
 export function Header() {
   const navigate = useNavigate()
   return (
@@ -16,7 +14,7 @@ export function Header() {
           QUIENES SOMOS
         </li>
         <li
-          onClick={() => navigate('/normatividad')}
+          onClick={() => navigate('/prueba')}
           className='text-[#675d4e] font-medium cursor-pointer hover:text-claro'
         >
           NORMATIVIDAD
