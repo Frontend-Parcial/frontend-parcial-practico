@@ -34,26 +34,10 @@ export const AuthProvider = ({ children }) => {
   function loginAction(payload) {
     const { rol, user_id, nombre, token } = payload
     console.log(payload.rol) // TODO: Quitar esta vaina pa la presentacion, solo para pruebas
-    const commonActions = () => {
-      setUser(user_id)
-      setToken(token)
-      localStorage.setItem('site', rol)
-    }
-
-    switch (rol) {
-      case 'admin':
-        commonActions()
-        navigate('/reporte')
-        // navigate('/dashboard') <- Aqui hay que poner esto, aguanta
-        break
-      case 'user':
-        commonActions()
-        // navigate('/docentes') <- aqui deberia ir a alguna ruta, la cual no se xd
-        break
-      default:
-        console.error('Rol no reconocido')
-        break
-    }
+    setUser(user_id)
+    setToken(token)
+    localStorage.setItem('site', rol)
+    navigate('/reporte')
   }
 
   const logOut = () => {
@@ -61,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     setToken('')
     localStorage.removeItem('site')
     sessionStorage.removeItem('user-storage')
-    navigate('/login')
+    navigate('/')
   }
 
   return <AuthContext.Provider value={{ token, user, loginPost, logOut }}>{children}</AuthContext.Provider>
