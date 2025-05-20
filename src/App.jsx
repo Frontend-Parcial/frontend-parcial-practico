@@ -22,15 +22,12 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path='/' element={<Login />} />
-          {/* <Route path='/quienes-somos' element={<QuienesSomos />} /> */}
-          {/* <Route path='/login' element={<Login />} /> */}
           <Route path='/prueba' element={<Pruebas />} />
           <Route path='/reporte' element={<Reporte />} />
           <Route path='/estudiantes' element={<CrearEstudiante />} />
           <Route path='/listado' element={<ListadoEstudiantes />} />
           <Route path='/estudiantes/:id' element={<ObtenerEstudiante />} />
           <Route path='/estudiantes/actualizar/:id' element={<ActualizarEstudiante />} />
-          {/* Esto es una ruta privada */}
           <Route element={<PrivateRoute />}></Route>
 
           {/* <Route path='/asignaturas' element={<Asignaturas />} /> */}
