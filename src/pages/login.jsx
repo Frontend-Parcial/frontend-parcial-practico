@@ -50,6 +50,8 @@ export function Login() {
     }
   }
 
+  // prueba prueba prueba
+
   return (
     <div className='flex flex-col justify-center items-center'>
       <header className='w-full p-4 mb-[20px]'>
@@ -65,7 +67,7 @@ export function Login() {
               <img src={logoUniversidad} alt='Logo' className='h-32 mb-6' />
             </div>
             <div className=' w-[80%] gap-2.5 flex flex-col'>
-              <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3'>
+              <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 hover:scale-105'>
                 <div className='bg-[#DBEBE3] rounded-full w-[40px] h-[40px] flex justify-center items-center'> - </div>
                 <div className='flex flex-col'>
                   <p className='font-bold'>Movilidad Internacional</p>
@@ -73,7 +75,7 @@ export function Login() {
                 </div>
               </div>
 
-              <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3'>
+              <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 hover:scale-105'>
                 <div className='bg-[#DBEBE3] rounded-full w-[40px] h-[40px] flex justify-center items-center'> - </div>
                 <div className='flex flex-col'>
                   <p className='font-bold'>Seguimiento Academico</p>
@@ -81,7 +83,7 @@ export function Login() {
                 </div>
               </div>
 
-              <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3'>
+              <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 hover:scale-105'>
                 <div className='bg-[#DBEBE3] rounded-full w-[40px] h-[40px] flex justify-center items-center'> - </div>
                 <div className='flex flex-col'>
                   <p className='font-bold'>Gestion Documental</p>
