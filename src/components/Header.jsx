@@ -2,6 +2,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import logo from '../assets/UNICESAR 2024.png'
 import { useAuth } from '../providers/AuthProvider'
 
+
 const theme = {
   colorGradiente: 'linear-gradient(to right, #2fb44b, #4dd269)',
   sombra: 'rgba(0,0,0,0.2)',
