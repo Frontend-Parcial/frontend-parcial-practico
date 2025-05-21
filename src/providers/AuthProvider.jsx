@@ -36,13 +36,16 @@ export const AuthProvider = ({ children }) => {
     console.log(payload.rol) // TODO: Quitar esta vaina pa la presentacion, solo para pruebas
     setUser(user_id)
     setToken(token)
-    localStorage.setItem('site', rol)
+    localStorage.setItem('site', token)
+    console.log(token)
+    console.log(localStorage.getItem('site'))
+    // localStorage.setItem('site', rol)
     navigate('/reporte')
   }
 
   const logOut = () => {
     setUser(null)
-    setToken('')
+    // setToken('')
     localStorage.removeItem('site')
     sessionStorage.removeItem('user-storage')
     navigate('/')
