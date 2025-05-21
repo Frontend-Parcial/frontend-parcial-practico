@@ -2,7 +2,17 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import logo from '../assets/UNICESAR 2024.png'
 import { useAuth } from '../providers/AuthProvider'
 
-/* #2fb44b #4dd269 #61e67d */
+
+const theme = {
+  colorGradiente: 'linear-gradient(to right, #2fb44b, #4dd269)',
+  sombra: 'rgba(0,0,0,0.2)',
+  fontInstitucional: 'sans-serif',
+  grisClaro: '#f0f0f0',
+  blanco: '#ffffff',
+  colorOscuro: '#000000',
+  colorTextoOscuro: '#333333',
+  colorClaro: '#cccccc',
+}
 
 export function Header() {
   const auth = useAuth()

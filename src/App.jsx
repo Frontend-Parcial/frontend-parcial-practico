@@ -4,7 +4,7 @@ import { Home } from './pages/home'
 import { QuienesSomos } from './pages/quienes-somos'
 import { Login } from './pages/login'
 import { AuthProvider } from './providers/AuthProvider'
-// import { Pruebas } from './pages/pruebas'
+import { Pruebas } from './pages/pruebas'
 import { Reporte } from './pages/reporte'
 import PrivateRoute from './providers/PrivateRoute'
 import { CrearEstudiante } from './pages/estudiantes/crear-estudiante'
@@ -27,12 +27,12 @@ function App() {
           {/* <Route path='/quienes-somos' element={<QuienesSomos />} /> */}
           {/* <Route path='/login' element={<Login />} /> */}
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
+          <Route path='/prueba' element={<Pruebas />} />
           <Route path='/reporte' element={<Reporte />} />
           <Route path='/estudiantes' element={<CrearEstudiante />} />
           <Route path='/listado' element={<ListadoEstudiantes />} />
           <Route path='/estudiantes/:id' element={<ObtenerEstudiante />} />
           <Route path='/estudiantes/actualizar/:id' element={<ActualizarEstudiante />} />
-          {/* Esto es una ruta privada */}
           <Route element={<PrivateRoute />}></Route>
 
           {/* <Route path='/asignaturas' element={<Asignaturas />} /> */}
