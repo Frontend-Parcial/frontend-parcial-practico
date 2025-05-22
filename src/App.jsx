@@ -26,22 +26,18 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path='/' element={<Login />} />
-          {/* <Route path='/quienes-somos' element={<QuienesSomos />} /> */}
-          {/* <Route path='/login' element={<Login />} /> */}
-          {/* <Route path='/prueba' element={<Pruebas />} /> */}
-
-          {/* <Route path='/prueba' element={<Pruebas />} /> */}
-          <Route path='/reporte' element={<Reporte />} />
-          <Route path='/dashboard' element={<DashboardTablero />} />
-          <Route path='/estudiantes/nuevo' element={<CrearEstudiante />} />
-          <Route path='/estudiantes/listado' element={<ListadoEstudiantes />} />
-          <Route path='/estudiantes/:id' element={<ObtenerEstudiante />} />
-          <Route path='/estudiantes/actualizar/:id' element={<ActualizarEstudiante />} />
-          <Route path='/docentes/listado' element={<ListadoDocentes />} />
-          <Route path='/docentes/nuevo' element={<CrearDocente />} />
-          <Route path='/docentes/:id' element={<ObtenerDocentes />} />
-          <Route path='/docentes/actualizar/:id' element={<ActualizarDocentes />} />
-          <Route element={<PrivateRoute />}></Route>
+          <Route element={<PrivateRoute />}>
+            <Route path='/dashboard' element={<DashboardTablero />} />
+            <Route path='/reporte' element={<Reporte />} />
+            <Route path='/estudiantes/nuevo' element={<CrearEstudiante />} />
+            <Route path='/estudiantes' element={<ListadoEstudiantes />} />
+            <Route path='/estudiantes/:id' element={<ObtenerEstudiante />} />
+            <Route path='/estudiantes/actualizar/:id' element={<ActualizarEstudiante />} />
+            <Route path='/docentes' element={<ListadoDocentes />} />
+            <Route path='/docentes/nuevo' element={<CrearDocente />} />
+            <Route path='/docentes/:id' element={<ObtenerDocentes />} />
+            <Route path='/docentes/actualizar/:id' element={<ActualizarDocentes />} />
+          </Route>
 
           {/* <Route path='/asignaturas' element={<Asignaturas />} /> */}
           {/* <Route path='/solicitudes' element={<Solicitudes />} /> */}

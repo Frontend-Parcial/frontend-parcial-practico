@@ -2,7 +2,6 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import logo from '../assets/UNICESAR 2024.png'
 import { useAuth } from '../providers/AuthProvider'
 
-
 const theme = {
   colorGradiente: 'linear-gradient(to right, #2fb44b, #4dd269)',
   sombra: 'rgba(0,0,0,0.2)',
@@ -19,7 +18,7 @@ export function Header() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const tabs = ['Convenio', 'Solicitudes', 'Asignaturas', 'Seguimiento', 'Reporte']
+  const tabs = ['Estudiantes', 'Docentes', 'Convenio', 'Solicitudes', 'Asignaturas', 'Seguimiento', 'Reporte']
 
   // Detectar la pestaña activa desde la URL
   const currentPath = location.pathname.toLowerCase()
@@ -27,7 +26,7 @@ export function Header() {
 
   return (
     <div>
-      <header className=' flex justify-between items-center bg-claro'>
+      <header className=' flex justify-between items-center bg-claro pl-8 pr-8'>
         <div className='flex items-center'>
           <div className='text-white mr-2'>
             <div className='text-4xl font-bold' style={{ fontFamily: theme.fontInstitucional }}>
