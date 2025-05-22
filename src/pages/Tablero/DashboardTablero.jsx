@@ -48,6 +48,14 @@ const DashboardTablero = () => {
         {renderComponent('convenios', <ConveniosPais isExpanded={expanded === 'convenios'} />)}
         {renderComponent('docente', <MovilidadDocente isExpanded={expanded === 'docente'} />)}
 
+        {renderComponent('estudiantes', <EstudiantesCursos isExpanded={expanded === 'estudiantes'} />)}
+        {renderComponent('relacion', <RelacionDuracion isExpanded={expanded === 'relacion'} />)}
+        {renderComponent('distribucion', <DistribucionMovilidad isExpanded={expanded === 'distribucion'} />)}
+
+        {renderComponent('tasaMovilidad', <TasaMovilidad isExpanded={expanded === 'tasaMovilidad'} />)}
+        {renderComponent('tipoConvenio', <EstudiantesTipoConvenio isExpanded={expanded === 'tipoConvenio'} />)}
+        {renderComponent('duracionPais', <DuracionMovilidadPais isExpanded={expanded === 'duracionPais'} />)}
+
         {renderComponent(
           'duracion',
           <div className='flex flex-col items-center'>
@@ -57,10 +65,6 @@ const DashboardTablero = () => {
           </div>,
         )}
 
-        {renderComponent('estudiantes', <EstudiantesCursos isExpanded={expanded === 'estudiantes'} />)}
-        {renderComponent('relacion', <RelacionDuracion isExpanded={expanded === 'relacion'} />)}
-        {renderComponent('distribucion', <DistribucionMovilidad isExpanded={expanded === 'distribucion'} />)}
-
         {renderComponent(
           'tasa',
           <div className='flex flex-col items-center'>
@@ -68,11 +72,6 @@ const DashboardTablero = () => {
             <div className='text-sm text-center'>Tasa participación eventos docente</div>
           </div>,
         )}
-
-        {renderComponent('tasaMovilidad', <TasaMovilidad isExpanded={expanded === 'tasaMovilidad'} />)}
-        {renderComponent('tipoConvenio', <EstudiantesTipoConvenio isExpanded={expanded === 'tipoConvenio'} />)}
-        {renderComponent('duracionPais', <DuracionMovilidadPais isExpanded={expanded === 'duracionPais'} />)}
-
         {renderComponent(
           'demanda',
           <div className='flex flex-col items-center'>

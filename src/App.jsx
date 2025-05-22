@@ -23,7 +23,7 @@ import { ActualizarDocentes } from './pages/docentes/actualizar-docentes'
 function App() {
   return (
     <div>
-      {/* <DashboardTablero></DashboardTablero> */}
+      {/* <DashboardTablero></DashboardTablero>  */}
       <AuthProvider>
         <Routes>
           <Route path='/' element={<Login />} />
