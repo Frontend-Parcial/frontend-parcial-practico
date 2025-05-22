@@ -90,10 +90,8 @@ export async function updateStudent(data, id) {
 
 export async function listStudents() {
   const userToken = localStorage.getItem('site')
-  console.log(userToken)
   try {
     console.log('Token enviado:', userToken)
-    console.log('Datos enviados:')
     const response = await fetch(`${apiUrl}/api/estudiantes/`, {
       method: 'GET',
       headers: {
@@ -112,7 +110,6 @@ export async function listStudents() {
     return data.estudiantes
   } catch (error) {
     console.error('Error al hacer la solicitud:', error)
-    throw new Error('adfasdfasdfasdfasdf')
   }
 }
 
