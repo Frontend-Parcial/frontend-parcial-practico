@@ -2,7 +2,7 @@ import { useState } from 'react';
 import EvolucionMovilidad from './component/EvolucionMovilidad';
 import ConveniosPais from './component/ConveniosPais';
 import MovilidadDocente from './component/MovilidadDocente';
-import DuracionPromedio from './component/DuracionPromedio';
+// import DuracionPromedio from './component/DuracionPromedio';
 import EstudiantesCursos from './component/EstudiantesCursos';
 import RelacionDuracion from './component/RelacionDuracion';
 import DistribucionMovilidad from './component/DistribucionMovilidad';
@@ -44,24 +44,9 @@ const DashboardTablero = () => {
         {renderComponent('convenios', <ConveniosPais isExpanded={expanded === 'convenios'} />)}
         {renderComponent('docente', <MovilidadDocente isExpanded={expanded === 'docente'} />)}
 
-        {renderComponent('duracion', 
-          <div className="flex flex-col items-center">
-            <DuracionPromedio />
-            <div className="text-xl font-bold mt-2">6.59</div>
-            <div className="text-sm text-center">Total convenios internacionales</div>
-          </div>
-        )}
-
         {renderComponent('estudiantes', <EstudiantesCursos isExpanded={expanded === 'estudiantes'} />)}
         {renderComponent('relacion', <RelacionDuracion isExpanded={expanded === 'relacion'} />)}
         {renderComponent('distribucion', <DistribucionMovilidad isExpanded={expanded === 'distribucion'} />)}
-
-        {renderComponent('tasa', 
-          <div className="flex flex-col items-center">
-            <div className="text-xl font-bold">9</div>
-            <div className="text-sm text-center">Tasa participación eventos docente</div>
-          </div>
-        )}
 
         {renderComponent('tasaMovilidad', <TasaMovilidad isExpanded={expanded === 'tasaMovilidad'} />)}
         {renderComponent('tipoConvenio', <EstudiantesTipoConvenio isExpanded={expanded === 'tipoConvenio'} />)}
