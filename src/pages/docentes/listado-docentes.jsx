@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
-import { listStudents } from '../../lib/estudiantes-data'
 import { useNavigate } from 'react-router-dom'
+import { listDocentes } from '../../lib/docentes-data'
 
-//! ESTE ES EL PUNTO DE ENTRADA DE LOS ESTUDIANTES
-export function ListadoEstudiantes() {
+//! ESTE ES EL PUNTO DE ENTRADA DE LOS DOCENTES
+export function ListadoDocentes() {
   const [datos, setDatos] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await listStudents()
+      const data = await listDocentes()
       setDatos(data)
     }
 
@@ -19,10 +19,10 @@ export function ListadoEstudiantes() {
   return (
     <div className='max-w-6xl mx-auto p-6'>
       <div className='flex justify-between items-center mb-8'>
-        <h1 className='text-3xl font-bold text-gray-800'>Gestión de Estudiantes</h1>
+        <h1 className='text-3xl font-bold text-gray-800'>Gestión de Docentes</h1>
         <button
           className='bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md transition-all flex items-center gap-2'
-          onClick={() => navigate('/estudiantes/nuevo')}
+          onClick={() => navigate('/docentes/nuevo')}
         >
           <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
             <path
@@ -31,12 +31,12 @@ export function ListadoEstudiantes() {
               clipRule='evenodd'
             />
           </svg>
-          Nuevo Estudiante
+          Nuevo Docente
         </button>
       </div>
 
       <div className='bg-white rounded-xl shadow-md p-6'>
-        <h2 className='text-xl font-semibold text-gray-700 mb-6'>Listado de Estudiantes</h2>
+        <h2 className='text-xl font-semibold text-gray-700 mb-6'>Listado de Docentes</h2>
 
         {datos.length === 0 ? (
           <div className='text-center py-12'>
@@ -54,21 +54,21 @@ export function ListadoEstudiantes() {
                 d='M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z'
               />
             </svg>
-            <p className='mt-4 text-gray-500'>No hay estudiantes registrados</p>
+            <p className='mt-4 text-gray-500'>No hay docentes registrados</p>
             <button
               className='mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-all'
-              onClick={() => navigate('/estudiantes/nuevo')}
+              onClick={() => navigate('/docentes/nuevo')}
             >
-              Registrar Primer Estudiante
+              Registrar Primer Docente
             </button>
           </div>
         ) : (
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-            {datos.map(estudiante => (
+            {datos.map(docente => (
               <div
-                key={estudiante._id}
+                key={docente._id}
                 className='bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer'
-                onClick={() => navigate(`/estudiantes/${estudiante._id}`)}
+                onClick={() => navigate(`/docentes/${docente._id}`)}
               >
                 <div className='p-5'>
                   <div className='flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-blue-100 rounded-full'>
@@ -87,8 +87,8 @@ export function ListadoEstudiantes() {
                       />
                     </svg>
                   </div>
-                  <h3 className='text-lg font-medium text-center text-gray-800 mb-1'>{estudiante.nombre_completo}</h3>
-                  <p className='text-sm text-center text-gray-500'>ID: {estudiante.documento_identidad}</p>
+                  <h3 className='text-lg font-medium text-center text-gray-800 mb-1'>{docente.nombre_completo}</h3>
+                  <p className='text-sm text-center text-gray-500'>ID: {docente.documento_identidad}</p>
                 </div>
                 <div className='bg-gray-50 px-4 py-3 text-right'>
                   <span className='text-xs font-medium text-blue-600 hover:text-blue-800 transition-colors'>
