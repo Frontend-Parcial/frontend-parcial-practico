@@ -1,12 +1,20 @@
 import { Route, Routes } from 'react-router-dom'
-import './App.css'
 import { Home } from './pages/home'
 import { QuienesSomos } from './pages/quienes-somos'
 import { Login } from './pages/login'
 import { AuthProvider } from './providers/AuthProvider'
-import { Pruebas } from './pages/pruebas'
+// import { Pruebas } from './pages/pruebas'
 import { Reporte } from './pages/reporte'
 import PrivateRoute from './providers/PrivateRoute'
+import { CrearEstudiante } from './pages/estudiantes/crear-estudiante'
+import { ListadoEstudiantes } from './pages/estudiantes/listado-estudiantes'
+import { ObtenerEstudiante } from './pages/estudiantes/obtener-estudiante'
+import { ActualizarEstudiante } from './pages/estudiantes/actualizar-estudiante'
+import DashboardTablero from './pages/Tablero/DashboardTablero'
+import { ListadoDocentes } from './pages/docentes/listado-docentes'
+import { CrearDocente } from './pages/docentes/crear-docente'
+import { ObtenerDocentes } from './pages/docentes/obtener-docentes'
+import { ActualizarDocentes } from './pages/docentes/actualizar-docentes'
 // import { Asignaturas } from './pages/asignaturas'
 // import { Solicitudes } from './pages/solicitudes'
 // import { Convenios } from './pages/convenio'
@@ -15,25 +23,33 @@ import PrivateRoute from './providers/PrivateRoute'
 function App() {
   return (
     <div>
+      {/* <DashboardTablero></DashboardTablero>  */}
       <AuthProvider>
         <Routes>
           <Route path='/' element={<Login />} />
           {/* <Route path='/quienes-somos' element={<QuienesSomos />} /> */}
           {/* <Route path='/login' element={<Login />} /> */}
-          <Route path='/prueba' element={<Pruebas />} />
-          {/* Esto es una ruta privada */}
-          <Route element={<PrivateRoute />}>
-            <Route path='/reporte' element={<Reporte />} />
-          </Route>
+          {/* <Route path='/prueba' element={<Pruebas />} /> */}
+
+          {/* <Route path='/prueba' element={<Pruebas />} /> */}
+          <Route path='/reporte' element={<Reporte />} />
+          <Route path='/estudiantes/nuevo' element={<CrearEstudiante />} />
+          <Route path='/estudiantes/listado' element={<ListadoEstudiantes />} />
+          <Route path='/estudiantes/:id' element={<ObtenerEstudiante />} />
+          <Route path='/estudiantes/actualizar/:id' element={<ActualizarEstudiante />} />
+          <Route path='/docentes/listado' element={<ListadoDocentes />} />
+          <Route path='/docentes/nuevo' element={<CrearDocente />} />
+          <Route path='/docentes/:id' element={<ObtenerDocentes />} />
+          <Route path='/docentes/actualizar/:id' element={<ActualizarDocentes />} />
+          <Route element={<PrivateRoute />}></Route>
 
           {/* <Route path='/asignaturas' element={<Asignaturas />} /> */}
           {/* <Route path='/solicitudes' element={<Solicitudes />} /> */}
           {/* <Route path='/convenio' element={<Convenios />} /> */}
-          {/* <Route path='/seguimiento' element={<Seguimiento />} /> */}
+          {/* <Route path='/seguimiento' element={<Seguimiento />} /> */}
         </Routes>
       </AuthProvider>
     </div>
   )
 }
-
 export default App

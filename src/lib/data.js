@@ -1,6 +1,3 @@
-//! Aqui se manejaran los datos enviados por la api, asi como los fetch de datos
-//! y se reenviaran a los componentes del sistema
-
 const apiUrl = import.meta.env.VITE_API_URL
 
 export async function getUser(data) {
@@ -17,10 +14,7 @@ export async function getUser(data) {
     }
 
     const responseData = await response.json()
-    console.log('Respuesta:', responseData) // <- Aqui estoy validando si funciona o no xd
-
-    // TENER EN CUENTA si se va a acceder a alguna propiedad,
-    // se tiene que poner responseData.body.(la propiedad)
+    console.log('Respuesta:', responseData)
     return responseData
   } catch (error) {
     console.error('Error al iniciar sesión:', error)
