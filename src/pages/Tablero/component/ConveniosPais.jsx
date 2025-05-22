@@ -51,11 +51,9 @@ const ConveniosPais = ({ isExpanded }) => {
     });
   }, []);
 
-  // Inicializar mapa solo cuando Leaflet esté listo
   useEffect(() => {
     if (!isMapReady || !window.L || !mapRef.current) return;
 
-    // Limpiar mapa existente
     if (mapInstanceRef.current) {
       mapInstanceRef.current.remove();
       mapInstanceRef.current = null;
@@ -63,7 +61,6 @@ const ConveniosPais = ({ isExpanded }) => {
     }
 
     try {
-      // Crear nuevo mapa
       const map = window.L.map(mapRef.current, {
         zoomControl: isExpanded,
         scrollWheelZoom: isExpanded,
@@ -75,12 +72,10 @@ const ConveniosPais = ({ isExpanded }) => {
         attributionControl: false
       }).setView([20, 0], isExpanded ? 2 : 1);
 
-      // Agregar capa de tiles
       window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
       }).addTo(map);
 
-      // Agregar marcadores
       convenios.forEach((convenio) => {
         const marker = window.L.marker([convenio.lat, convenio.lng])
           .addTo(map)

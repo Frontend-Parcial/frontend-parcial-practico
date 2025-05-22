@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   function loginAction(payload) {
     const { rol, user_id, nombre, token } = payload
-    console.log(payload.rol) // TODO: Quitar esta vaina pa la presentacion, solo para pruebas
+    console.log(payload.rol) //! solo para pruebas
     setUser(user_id)
     setToken(token)
     localStorage.setItem('site', token)
