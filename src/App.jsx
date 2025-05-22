@@ -23,7 +23,6 @@ import { ActualizarDocentes } from './pages/docentes/actualizar-docentes'
 function App() {
   return (
     <div>
-      {/* <DashboardTablero></DashboardTablero>  */}
       <AuthProvider>
         <Routes>
           <Route path='/' element={<Login />} />
@@ -32,7 +31,7 @@ function App() {
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
 
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
-          <Route path='/reporte' element={<Reporte />} />
+          <Route path='/reporte' element={<DashboardTablero />} />
           <Route path='/estudiantes/nuevo' element={<CrearEstudiante />} />
           <Route path='/estudiantes/listado' element={<ListadoEstudiantes />} />
           <Route path='/estudiantes/:id' element={<ObtenerEstudiante />} />

@@ -26,7 +26,7 @@ const EstudiantesCursos = ({ isExpanded }) => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis type="number" />
           <YAxis type="category" dataKey="programa" />
-          <Bar dataKey="estudiantes" fill="#22c55e" />
+          <Bar dataKey="estudiantes" fill="#107b42" />
         </BarChart>
       </ResponsiveContainer>
     </div>
