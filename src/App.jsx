@@ -31,7 +31,8 @@ function App() {
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
 
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
-          <Route path='/reporte' element={<DashboardTablero />} />
+          <Route path='/reporte' element={<Reporte />} />
+          <Route path='/dashboard' element={<DashboardTablero />} />
           <Route path='/estudiantes/nuevo' element={<CrearEstudiante />} />
           <Route path='/estudiantes/listado' element={<ListadoEstudiantes />} />
           <Route path='/estudiantes/:id' element={<ObtenerEstudiante />} />
@@ -45,7 +46,7 @@ function App() {
           {/* <Route path='/asignaturas' element={<Asignaturas />} /> */}
           {/* <Route path='/solicitudes' element={<Solicitudes />} /> */}
           {/* <Route path='/convenio' element={<Convenios />} /> */}
-          {/* <Route path='/seguimiento' element={<Seguimiento />} /> */}
+          {/* <Route path='/seguimiento' element={<Seguimiento/>}/> */}
         </Routes>
       </AuthProvider>
     </div>

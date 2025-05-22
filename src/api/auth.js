@@ -19,5 +19,9 @@ export const login = (email, password) => {
         password: password
     };
 
-    return axiosClient.post('auth/login', loggingData);
+    const response = axiosClient.post('auth/login', loggingData);
+    localStorage.setItem("token", response["token"])
+    return response["message"]
 };
+
+export const verifyToken = () => axiosClient.get('/auth/verifyToken')
