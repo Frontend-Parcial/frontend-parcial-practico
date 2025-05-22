@@ -9,6 +9,7 @@ import DistribucionMovilidad from './component/DistribucionMovilidad'
 import TasaMovilidad from './component/TasaMovilidad'
 import EstudiantesTipoConvenio from './component/EstudiantesTipoConvenio'
 import DuracionMovilidadPais from './component/DuracionMovilidadPais'
+import { Header } from '../../components/Header'
 
 const DashboardTablero = () => {
   const [expanded, setExpanded] = useState(null)
@@ -35,15 +36,10 @@ const DashboardTablero = () => {
     )
   }
 
-  return (
-    <div className='p-4 bg-gray-100 min-h-screen'>
-      <div className='flex justify-center mb-4'>
-        <h1 className='text-3xl font-bold text-green-600'>
-          Panel de Indicadores <span className='text-blue-900'>ORPI</span>
-        </h1>
-      </div>
-
-      <div className='grid grid-cols-3 gap-4'>
+return (
+  <div className='p-4 bg-gray-100 min-h-screen'>
+    <div className='flex gap-4'>
+      <div className='flex-1 grid grid-cols-3 gap-4'>
         {renderComponent('evolucion', <EvolucionMovilidad isExpanded={expanded === 'evolucion'} />)}
         {renderComponent('convenios', <ConveniosPais isExpanded={expanded === 'convenios'} />)}
         {renderComponent('docente', <MovilidadDocente isExpanded={expanded === 'docente'} />)}
@@ -55,56 +51,75 @@ const DashboardTablero = () => {
         {renderComponent('tasaMovilidad', <TasaMovilidad isExpanded={expanded === 'tasaMovilidad'} />)}
         {renderComponent('tipoConvenio', <EstudiantesTipoConvenio isExpanded={expanded === 'tipoConvenio'} />)}
         {renderComponent('duracionPais', <DuracionMovilidadPais isExpanded={expanded === 'duracionPais'} />)}
-
-        {renderComponent(
-          'duracion',
-          <div className='flex flex-col items-center'>
-            <DuracionPromedio />
-            <div className='text-xl font-bold mt-2'>6.59</div>
-            <div className='text-sm text-center'>Total convenios internacionales</div>
-          </div>,
-        )}
-
-        {renderComponent(
-          'tasa',
-          <div className='flex flex-col items-center'>
-            <div className='text-xl font-bold'>9</div>
-            <div className='text-sm text-center'>Tasa participación eventos docente</div>
-          </div>,
-        )}
-        {renderComponent(
-          'demanda',
-          <div className='flex flex-col items-center'>
-            <div className='text-xl font-bold'>3.64</div>
-            <div className='text-sm text-center'>Demanda Cursos de Idiomas (%)</div>
-          </div>,
-        )}
-
-        {renderComponent(
-          'docentes',
-          <div className='flex flex-col items-center'>
-            <div className='text-xl font-bold'>100</div>
-            <div className='text-sm text-center'>Total Docentes Movilizados</div>
-          </div>,
-        )}
-
-        {renderComponent(
-          'estudiantesMovilizados',
-          <div className='flex flex-col items-center'>
-            <div className='text-xl font-bold'>165</div>
-            <div className='text-sm text-center'>Estudiantes Movilizados</div>
-          </div>,
-        )}
-
-        {renderComponent(
-          'total',
-          <div className='flex flex-col items-center'>
-            <div className='text-xl font-bold'>336</div>
-          </div>,
-        )}
+      </div>
+      
+      <div className='w-64 bg-white rounded-lg shadow-md p-4'>
+        <h3 className='text-lg font-semibold mb-4 text-gray-800'>Métricas Clave</h3>
+        <div className='space-y-3'>
+          {renderComponent(
+            'duracion',
+            <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border-l-4 border-blue-500'>
+              <div>
+                <div className='text-2xl font-bold text-gray-900'>6.59</div>
+                <div className='text-sm text-gray-600'>Total convenios</div>
+              </div>
+            </div>,
+          )}
+          
+          {renderComponent(
+            'tasa',
+            <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border-l-4 border-green-500'>
+              <div>
+                <div className='text-2xl font-bold text-gray-900'>9</div>
+                <div className='text-sm text-gray-600'>Tasa eventos docente</div>
+              </div>
+            </div>,
+          )}
+          
+          {renderComponent(
+            'demanda',
+            <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border-l-4 border-yellow-500'>
+              <div>
+                <div className='text-2xl font-bold text-gray-900'>3.64</div>
+                <div className='text-sm text-gray-600'>Demanda Idiomas (%)</div>
+              </div>
+            </div>,
+          )}
+          
+          {renderComponent(
+            'docentes',
+            <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border-l-4 border-purple-500'>
+              <div>
+                <div className='text-2xl font-bold text-gray-900'>100</div>
+                <div className='text-sm text-gray-600'>Docentes Movilizados</div>
+              </div>
+            </div>,
+          )}
+          
+          {renderComponent(
+            'estudiantesMovilizados',
+            <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border-l-4 border-red-500'>
+              <div>
+                <div className='text-2xl font-bold text-gray-900'>165</div>
+                <div className='text-sm text-gray-600'>Estudiantes Movilizados</div>
+              </div>
+            </div>,
+          )}
+          
+          {renderComponent(
+            'total',
+            <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border-l-4 border-indigo-500'>
+              <div>
+                <div className='text-2xl font-bold text-gray-900'>336</div>
+                <div className='text-sm text-gray-600'>Total General</div>
+              </div>
+            </div>,
+          )}
+        </div>
       </div>
     </div>
-  )
+  </div>
+);
 }
 
-export default DashboardTablero
+export default DashboardTablero;

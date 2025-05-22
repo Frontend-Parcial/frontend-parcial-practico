@@ -15,12 +15,11 @@ const ConveniosPais = ({ isExpanded }) => {
     { pais: 'Argentina', lat: -34.6037, lng: -58.3816, count: 12 }
   ];
 
-  // Cargar Leaflet solo una vez
   useEffect(() => {
     const loadLeaflet = async () => {
       if (typeof window !== 'undefined' && !window.L) {
         try {
-          // Cargar CSS
+         
           if (!document.querySelector('link[href*="leaflet.css"]')) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
@@ -28,7 +27,6 @@ const ConveniosPais = ({ isExpanded }) => {
             document.head.appendChild(link);
           }
 
-          // Cargar JS
           if (!document.querySelector('script[src*="leaflet.js"]')) {
             return new Promise((resolve, reject) => {
               const script = document.createElement('script');
@@ -91,7 +89,6 @@ const ConveniosPais = ({ isExpanded }) => {
 
       mapInstanceRef.current = map;
 
-      // Ajustar tamaño después de un breve delay
       setTimeout(() => {
         if (mapInstanceRef.current) {
           mapInstanceRef.current.invalidateSize();
@@ -103,7 +100,6 @@ const ConveniosPais = ({ isExpanded }) => {
     }
   }, [isMapReady, isExpanded]);
 
-  // Cleanup al desmontar
   useEffect(() => {
     return () => {
       if (mapInstanceRef.current) {
@@ -124,7 +120,7 @@ const ConveniosPais = ({ isExpanded }) => {
         {!isMapReady ? (
           <div className="w-full h-full flex items-center justify-center">
             <div className="text-center">
-              <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+              <div className="w-8 h-8 border-4 border-claro border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
               <p className="text-sm text-gray-600">Cargando mapa...</p>
             </div>
           </div>
@@ -146,7 +142,7 @@ const ConveniosPais = ({ isExpanded }) => {
               {convenios.map((convenio, index) => (
                 <li key={index} className="flex justify-between items-center py-1">
                   <span className="text-gray-700">{convenio.pais}:</span>
-                  <span className="font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
+                  <span className="font-medium text-texto-oscuro bg-oscuro px-2 py-0.5 rounded">
                     {convenio.count}
                   </span>
                 </li>
