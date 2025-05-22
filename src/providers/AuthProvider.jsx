@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
     console.log(token)
     console.log(localStorage.getItem('site'))
     // localStorage.setItem('site', rol)
-    navigate('/reporte')
+    navigate('/dashboard')
   }
 
   const logOut = () => {
