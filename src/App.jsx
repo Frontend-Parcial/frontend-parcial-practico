@@ -15,6 +15,7 @@ import { ListadoDocentes } from './pages/docentes/listado-docentes'
 import { CrearDocente } from './pages/docentes/crear-docente'
 import { ObtenerDocentes } from './pages/docentes/obtener-docentes'
 import { ActualizarDocentes } from './pages/docentes/actualizar-docentes'
+import { Register } from './pages/register'
 // import { Asignaturas } from './pages/asignaturas'
 // import { Solicitudes } from './pages/solicitudes'
 // import { Convenios } from './pages/convenio'
@@ -26,6 +27,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path='/' element={<Login />} />
+          <Route path='/register' element={<Register />} />
           <Route element={<PrivateRoute />}>
             <Route path='/dashboard' element={<DashboardTablero />} />
             <Route path='/reporte' element={<Reporte />} />
