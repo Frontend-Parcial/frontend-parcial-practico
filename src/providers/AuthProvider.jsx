@@ -1,6 +1,6 @@
 import { useContext, createContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getUser } from '../lib/data'
+import { getUser,registerUser } from '../lib/data'
 
 const AuthContext = createContext()
 
@@ -42,7 +42,16 @@ export const AuthProvider = ({ children }) => {
     // localStorage.setItem('site', rol)
     navigate('/dashboard')
   }
-
+  const registerPost = async data => {
+  try {
+    const registerData = await registerUser(data)
+    if (registerData) {
+      loginAction(registerData)
+    }
+  } catch (error) {
+    console.error('Error al registrar:', error)
+  }
+}
   const logOut = () => {
     setUser(null)
     // setToken('')
@@ -51,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     navigate('/')
   }
 
-  return <AuthContext.Provider value={{ token, user, loginPost, logOut }}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ token, user, loginPost, registerPost, logOut }}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {
