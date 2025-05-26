@@ -38,6 +38,7 @@ const DashboardTablero = () => {
 
 return (
   <div className='p-4 bg-gray-100 min-h-screen'>
+    <Header/>
     <div className='flex gap-4'>
       <div className='flex-1 grid grid-cols-3 gap-4'>
         {renderComponent('evolucion', <EvolucionMovilidad isExpanded={expanded === 'evolucion'} />)}

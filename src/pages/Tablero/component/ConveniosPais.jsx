@@ -142,7 +142,7 @@ const ConveniosPais = ({ isExpanded }) => {
               {convenios.map((convenio, index) => (
                 <li key={index} className="flex justify-between items-center py-1">
                   <span className="text-gray-700">{convenio.pais}:</span>
-                  <span className="font-medium text-texto-oscuro bg-oscuro px-2 py-0.5 rounded">
+                  <span className="font-medium text-texto-claro bg-oscuro px-2 py-0.5 rounded">
                     {convenio.count}
                   </span>
                 </li>

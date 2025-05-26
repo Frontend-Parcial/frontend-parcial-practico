@@ -9,7 +9,7 @@ export async function getStudents(id) {
     const response = await fetch(`${apiUrl}/api/estudiantes/${id}`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json', 
         Authorization: `Bearer ${userToken}`,
       },
     })

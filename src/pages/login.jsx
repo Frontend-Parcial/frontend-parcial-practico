@@ -61,7 +61,7 @@ export function Login() {
         <div className='flex flex-row w-full h-full'>
           <div className='w-[50%] flex flex-col items-center justify-center bg-[#DBEBE3] rounded-l-2xl'>
             <div className='w-[90%] flex flex-col justify-center items-center'>
-              <h1 className='text-4xl font-bold mb-3'>SIDINAC-UPC</h1>
+              <h1 className='text-4xl font-bold mb-3'>SIDINAL-UPC</h1>
               <p>Sistemas de Division de Internacionalizacion</p>
               <p className='mb-6'>Universidad Popular del Cesar</p>
               <img src={logoUniversidad} alt='Logo' className='h-32 mb-6' />
