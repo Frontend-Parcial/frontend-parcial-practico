@@ -3,6 +3,7 @@ const userToken = localStorage.getItem('site')
 
 export async function listDocentes() {
   console.log(userToken)
+
   try {
     console.log('Token enviado:', userToken)
     const response = await fetch(`${apiUrl}/api/docentes/`, {
@@ -12,17 +13,19 @@ export async function listDocentes() {
         Authorization: `Bearer ${userToken}`,
       },
     })
+
     if (!response.ok) {
-      const errorData = await response.json()
-      throw new Error(errorData.message || 'Error al obtener los estudiantes')
+      const errorData = await response.json().catch(() => ({})) // por si la respuesta no es JSON válida
+      throw new Error(errorData.message || 'Error al obtener los docentes')
     }
 
     const data = await response.json()
 
-    console.log(data.data.docentes)
-    return data.data.docentes
+    // Asegúrate de que devuelve un array
+    return Array.isArray(data?.data?.docentes) ? data.data.docentes : []
   } catch (error) {
     console.error('Error al hacer la solicitud:', error)
+    return [] // retorna un array vacío si hay error
   }
 }
 

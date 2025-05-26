@@ -99,17 +99,19 @@ export async function listStudents() {
         Authorization: `Bearer ${userToken}`,
       },
     })
+
     if (!response.ok) {
-      const errorData = await response.json()
+      const errorData = await response.json().catch(() => ({})) // Maneja JSON inválido
       throw new Error(errorData.message || 'Error al obtener los estudiantes')
     }
 
     const data = await response.json()
 
-    console.log(data.estudiantes)
-    return data.estudiantes
+    // Asegura que se devuelve un array válido
+    return Array.isArray(data.estudiantes) ? data.estudiantes : []
   } catch (error) {
     console.error('Error al hacer la solicitud:', error)
+    return [] // <- Muy importante: siempre retorna un array vacío en caso de error
   }
 }
 
