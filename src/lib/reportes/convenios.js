@@ -65,7 +65,7 @@ export async function listConvenio() {
     console.log('Token enviado:', userToken);
     console.log('Solicitando datos de convenio...');
     
-    const response = await fetch(`${apiURL}/convenios`, {
+    const response = await fetch(`${apiURL}/convenios/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export async function listConvenio() {
     }
 
     const apiData = await response.json();
-    console.log('Datos recibidos de la API:', apiData);
+    console.log('Datos recibidos de la API para convenios:', apiData);
     
     // Verificar que tenemos convenios
     if (!apiData.convenios || !Array.isArray(apiData.convenios)) {
