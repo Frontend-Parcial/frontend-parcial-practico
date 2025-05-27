@@ -6,6 +6,7 @@ import { useUsersStore } from '../store/usersStore'
 import logo from '../assets/UNICESAR 2024.png'
 import logoUniversidad from '../assets/logo.png'
 import PageWrapper from '../components/PageWrapper'
+import { email, password } from '../utils/patterns'
 
 export function Login() {
   const [mensaje, setMensaje] = useState('')
@@ -48,6 +49,12 @@ export function Login() {
     if (clic) {
       setClic(false)
       setInicioMensaje('Cargando...')
+    }
+  }
+
+  const handleBeforeInput = (e, pattern) => {
+    if (pattern && !pattern.test(e.data)) {
+      e.preventDefault()
     }
   }
 
@@ -121,6 +128,7 @@ export function Login() {
                         id='user-name'
                         name='email'
                         onChange={handleInput}
+                        onBeforeInput={(e) => handleBeforeInput(e, email.format)}
                         aria-describedby='user-name'
                         aria-invalid='false'
                         required
@@ -138,6 +146,7 @@ export function Login() {
                         aria-describedby='user-password'
                         aria-invalid='false'
                         onChange={handleInput}
+                        onBeforeInput={(e) => handleBeforeInput(e, password.format)}
                         required
                         className='w-full text-black text-[1em] p-1 pl-2 border border-[var(--gris)] rounded-[10px]'
                       />

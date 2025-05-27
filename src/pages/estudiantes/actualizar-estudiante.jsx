@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getStudents, updateStudent } from '../../lib/estudiantes-data'
 import PageWrapper from '../../components/PageWrapper'
+import { address, decimalNumber, email, onlyEntireNumbers, onlyLetters } from '../../utils/patterns'
 
 export function ActualizarEstudiante() {
   const { id } = useParams()
@@ -47,6 +48,12 @@ export function ActualizarEstudiante() {
   const validarSoloTexto = valor => {
     const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/
     return regex.test(valor) || valor === ''
+  }
+
+  const handleBeforeInput = (e, pattern) => {
+    if (pattern && !pattern.test(e.data)) {
+      e.preventDefault()
+    }
   }
 
   const handleInput = e => {
@@ -123,6 +130,7 @@ export function ActualizarEstudiante() {
                     errores.nombre_completo ? 'border-red-500' : 'border-gray-300'
                   } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='nombre_completo'
                   defaultValue={datosOriginales.nombre_completo || ''}
                 />
@@ -152,6 +160,7 @@ export function ActualizarEstudiante() {
                   type='number'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='documento_identidad'
                   defaultValue={datosOriginales.documento_identidad || ''}
                 />
@@ -174,6 +183,7 @@ export function ActualizarEstudiante() {
                   type='email'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, email.format)}
                   name='email'
                   defaultValue={datosOriginales.email || ''}
                 />
@@ -185,6 +195,7 @@ export function ActualizarEstudiante() {
                   type='tel'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='telefono'
                   defaultValue={datosOriginales.telefono || ''}
                 />
@@ -198,6 +209,7 @@ export function ActualizarEstudiante() {
                 <input
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, address.format)}
                   name='direccion'
                   defaultValue={datosOriginales.direccion || ''}
                 />
@@ -210,6 +222,7 @@ export function ActualizarEstudiante() {
                     errores.programa_academico ? 'border-red-500' : 'border-gray-300'
                   } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='programa_academico'
                   defaultValue={datosOriginales.programa_academico || ''}
                 />
@@ -225,6 +238,7 @@ export function ActualizarEstudiante() {
                     errores.facultad ? 'border-red-500' : 'border-gray-300'
                   } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='facultad'
                   defaultValue={datosOriginales.facultad || ''}
                 />
@@ -239,6 +253,7 @@ export function ActualizarEstudiante() {
                   max='20'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='semestre'
                   defaultValue={datosOriginales.semestre || ''}
                 />
@@ -250,6 +265,7 @@ export function ActualizarEstudiante() {
                   type='number'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='creditos_cursados'
                   defaultValue={datosOriginales.creditos_cursados || ''}
                 />
@@ -264,6 +280,7 @@ export function ActualizarEstudiante() {
                   max='5'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, decimalNumber.format)}
                   name='promedio_academico'
                   defaultValue={datosOriginales.promedio_academico || ''}
                 />

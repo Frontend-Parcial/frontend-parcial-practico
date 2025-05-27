@@ -107,7 +107,7 @@ export function Register() {
                     <InputField
                       label='Nombre completo'
                       name='nombre'
-                      value={input.name}
+                      value={input.nombre}
                       type='text'
                       placeholder='Juan Rodriguez Mena'
                       onChange={handleInput}
@@ -117,7 +117,7 @@ export function Register() {
                     <InputField
                       label='Correo institucional'
                       name='email'
-                      value={input.name}
+                      value={input.email}
                       type='email'
                       placeholder='example@unicesar.edu.co'
                       onChange={handleInput}
@@ -127,7 +127,7 @@ export function Register() {
                     <InputField
                       label='Contraseña'
                       name='password'
-                      value={input.name}
+                      value={input.password}
                       type='password'
                       placeholder='********'
                       onChange={handleInput}
