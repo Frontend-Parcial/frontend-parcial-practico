@@ -3,6 +3,9 @@ import { getConvenios } from '../../lib/reportes/convenios';
 import { listStudents, listStudentsFilter } from '../../lib/estudiantes-data';
 import { createSolicitud } from '../../lib/solicitudes-data';
 import PageWrapper from '../../components/PageWrapper';
+import { useNavigate } from 'react-router-dom';
+import { Header } from '../../components/Header';
+import Footer from '../../components/Footer';
 
 
 const StudentAutocomplete = ({ onSelect, error }) => {
@@ -12,6 +15,7 @@ const StudentAutocomplete = ({ onSelect, error }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadStudents = async () => {
@@ -263,6 +267,7 @@ const SolicitudIntercambioForm = () => {
       setIsSubmitting(true);
       try {
         await createSolicitud(formData);
+        
         setSubmitSuccess(true);
         // Reset form after successful submission
         setTimeout(() => {
@@ -296,37 +301,7 @@ const SolicitudIntercambioForm = () => {
   return (
     <PageWrapper>
       <div className='min-h-screen flex flex-col'>
-        <header className='bg-claro p-4 flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='text-white mr-2'>
-              <img
-                src='../assets/logo.png'
-                alt='Universidad Popular del Cesar Logo'
-                className='w-full h-full object-contain'
-              />
-            </div>
-          </div>
-          <div className='w-30 h-30'>
-            <img
-              src='/src/assets/logo.png'
-              alt='Universidad Popular del Cesar Logo'
-              className='w-full h-full object-contain'
-            />
-          </div>
-        </header>
-        
-        <nav className='bg-gray-200 p-2'>
-          <div className='flex justify-between max-w-5xl mx-auto'>
-            {['Convenio', 'Solicitudes', 'Asignatura', 'Seguimiento', 'Reporte'].map(tab => (
-              <button
-                key={tab}
-                className={`px-4 py-2 rounded hover:bg-gray-100`}
-              >
-                {tab} ↓
-              </button>
-            ))}
-          </div>
-        </nav>
+        <Header />
         
         <main className='flex-grow bg-gray-100 p-4'>
           <div className='max-w-6xl mx-auto grid grid-cols-1 gap-4'>
@@ -593,6 +568,7 @@ const SolicitudIntercambioForm = () => {
           </div>
         </main>
       </div>
+      <Footer/>
     </PageWrapper>
   );
 };
