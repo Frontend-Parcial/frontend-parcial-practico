@@ -13,6 +13,8 @@ npm run dev
 - React-router-dom
 - Zustand
 - Tabler-icons
+- Framer-Motion 
+- react-chartjs-2 
 
 ### La carpeta "Tablero"
 Contiene el dashboard del panel de control y las 9 graficas que describen 
