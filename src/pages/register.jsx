@@ -6,6 +6,8 @@ import logo from '../assets/UNICESAR 2024.png'
 import logoUniversidad from '../assets/logo.png'
 import { useAuth } from '../providers/AuthProvider'
 import PageWrapper from '../components/PageWrapper'
+import { onlyLetters, email, password } from '../utils/patterns'
+
 
 export function Register() {
   const [mensaje, setMensaje] = useState('')
@@ -57,7 +59,8 @@ export function Register() {
       ...prev,
       [name]: value,
     }))
-  }
+
+  };
 
   const mensajeSesion = () => {
     if (clic) {
@@ -104,25 +107,31 @@ export function Register() {
                     <InputField
                       label='Nombre completo'
                       name='nombre'
+                      value={input.name}
                       type='text'
                       placeholder='Juan Rodriguez Mena'
                       onChange={handleInput}
+                      pattern={onlyLetters.format}
                     />
 
                     <InputField
                       label='Correo institucional'
                       name='email'
+                      value={input.name}
                       type='email'
                       placeholder='example@unicesar.edu.co'
                       onChange={handleInput}
+                      pattern={email.format}
                     />
 
                     <InputField
                       label='Contraseña'
                       name='password'
+                      value={input.name}
                       type='password'
                       placeholder='********'
                       onChange={handleInput}
+                      pattern={password.format}
                     />
 
                     <div className='my-[10px] w-full flex flex-col gap-1'>
@@ -169,7 +178,12 @@ export function Register() {
 }
 
 // Componente reutilizable para inputs
-function InputField({ label, name, type, placeholder, onChange }) {
+function InputField({ label, name, value, type, placeholder, onChange, pattern, error }) {
+  const handleBeforeInput = (e) => {
+    if (pattern && !pattern.test(e.data)) {
+      e.preventDefault()
+    }
+  }
   return (
     <div className='my-[10px] w-full flex flex-col gap-1'>
       <label htmlFor={name}>{label}</label>
@@ -179,10 +193,14 @@ function InputField({ label, name, type, placeholder, onChange }) {
         name={name}
         placeholder={placeholder}
         onChange={onChange}
+        onBeforeInput={handleBeforeInput}
+        value={value}
         required
         className='w-full text-black text-[1em] p-1 pl-2 border border-[var(--gris)] rounded-[10px]'
       />
+      {error && <span className='text-red-500 text-sm'>{error}</span>}
     </div>
+    
   )
 }
 

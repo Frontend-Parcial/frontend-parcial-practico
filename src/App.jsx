@@ -16,6 +16,7 @@ import { Register } from './pages/register'
 import { HealthCheck } from './pages/healthcheck'
 
 import { AnimatePresence } from 'framer-motion'
+import { CrearSolicitud } from './pages/solicitudes/crear-solicitudes'
 // import { Pruebas } from './pages/pruebas'
 
 function AnimatedRoutes() {
@@ -38,6 +39,7 @@ function AnimatedRoutes() {
           <Route path='/docentes/nuevo' element={<CrearDocente />} />
           <Route path='/docentes/:id' element={<ObtenerDocentes />} />
           <Route path='/docentes/actualizar/:id' element={<ActualizarDocentes />} />
+          <Route path='/solicitudes' element={<CrearSolicitud />} />
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
         </Route>
       </Routes>
