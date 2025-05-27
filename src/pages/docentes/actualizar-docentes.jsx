@@ -2,12 +2,20 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getDocentesXid, updateDocentes } from '../../lib/docentes-data'
 import PageWrapper from '../../components/PageWrapper'
+import { decimalNumber, email, onlyEntireNumbers, onlyLetters } from '../../utils/patterns'
 
 export function ActualizarDocentes() {
   const { id } = useParams()
   const [datosOriginales, setDatosOriginales] = useState({})
   const [cambios, setCambios] = useState({})
   const [cargando, setCargando] = useState(true)
+
+  const TEACHER_CATEGORIES = [
+    { value: 'Instructor', label: 'Instructor' },
+    { value: 'Asistente', label: 'Asistente' },
+    { value: 'Asociado', label: 'Asociado' },
+    { value: 'Titular', label: 'Titular' },
+  ]
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +38,12 @@ export function ActualizarDocentes() {
       ...prev,
       [name]: value,
     }))
+  }
+
+  const handleBeforeInput = (e, pattern) => {
+    if (pattern && !pattern.test(e.data)) {
+      e.preventDefault()
+    }
   }
 
   const handleNumberInput = e => {
@@ -75,6 +89,7 @@ export function ActualizarDocentes() {
                 <input
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='telefono'
                   defaultValue={datosOriginales.telefono || ''}
                 />
@@ -85,6 +100,7 @@ export function ActualizarDocentes() {
                 <input
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, email.format)}
                   name='email'
                   defaultValue={datosOriginales.email || ''}
                 />
@@ -95,6 +111,7 @@ export function ActualizarDocentes() {
                 <input
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='departamento'
                   defaultValue={datosOriginales.departamento || ''}
                 />
@@ -102,12 +119,17 @@ export function ActualizarDocentes() {
 
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Categoría Docente</label>
-                <input
+                <select
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleInput}
                   name='categoria_docente'
                   defaultValue={datosOriginales.categoria_docente || ''}
-                />
+                > 
+                  <option value='asistente'>Asistente</option>
+                  <option value='asociado'>Asociado</option>
+                  <option value='instructor'>Instructor</option>
+                  <option value='titular'>Titular</option>
+                </select>
               </div>
             </div>
 
@@ -122,6 +144,7 @@ export function ActualizarDocentes() {
                   max='5'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleNumberInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, decimalNumber.format)}
                   name='evaluacion_docente_promedio'
                   defaultValue={datosOriginales.evaluacion_docente_promedio || ''}
                 />
@@ -134,6 +157,7 @@ export function ActualizarDocentes() {
                   min='0'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleNumberInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='publicaciones'
                   defaultValue={datosOriginales.publicaciones || ''}
                 />
@@ -146,6 +170,7 @@ export function ActualizarDocentes() {
                   min='0'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
                   onChange={handleNumberInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='proyectos_investigacion'
                   defaultValue={datosOriginales.proyectos_investigacion || ''}
                 />
