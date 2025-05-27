@@ -304,10 +304,10 @@ const SolicitudIntercambioForm = () => {
         <Header />
         
         <main className='flex-grow bg-gray-100 p-4'>
-          <div className='max-w-6xl mx-auto grid grid-cols-1 gap-4'>
-            <div className='bg-claro rounded-lg overflow-hidden shadow-lg'>
+          <div className='max-w-6xl mx-auto grid grid-cols-1 gap-4 shadow-md'>
+            <div className='bg-white rounded-lg overflow-hidden shadow-md'>
               <h2 className='p-4 text-center text-oscuro text-xl font-bold'>Nueva Solicitud de Intercambio</h2>
-              <div className='bg-yellow-300 h-1'></div>
+              <div className='bg-claro h-1'></div>
               
               <form className='p-6 space-y-6' onSubmit={handleSubmit}>
                 {/* Sección de información del solicitante */}
