@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { createDocentes } from '../../lib/docentes-data'
 import PageWrapper from '../../components/PageWrapper'
+import { email, onlyEntireNumbers, onlyLetters, address, lenguageLevel, decimalNumber } from '../../utils/patterns'
 
 // Opciones para los select
 const DOCUMENT_TYPES = [
@@ -183,6 +184,12 @@ export function CrearDocente() {
     }
   }
 
+  const handleBeforeInput = (e, pattern) => {
+    if (pattern && !pattern.test(e.data)) {
+      e.preventDefault()
+    }
+  }
+
   return (
     <PageWrapper>
       <div className='max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md'>
@@ -199,6 +206,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: Juan Pérez'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='nombre_completo'
                   value={form.nombre_completo}
                   required
@@ -229,6 +237,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: 123456789'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='documento_identidad'
                   value={form.documento_identidad}
                   required
@@ -254,6 +263,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: docente@universidad.edu'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, email.format)}
                   name='email'
                   value={form.email}
                   required
@@ -267,6 +277,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: 3001234567'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='telefono'
                   value={form.telefono}
                   required
@@ -279,6 +290,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: Calle 123 #45-67'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, address.format)}
                   name='direccion'
                   value={form.direccion}
                   required
@@ -296,6 +308,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: Licenciado en Matemáticas'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='titulo_pregrado'
                   value={form.titulo_pregrado}
                 />
@@ -307,6 +320,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: Magíster en Educación'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='titulo_posgrado'
                   value={form.titulo_posgrado}
                 />
@@ -336,6 +350,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: Matemáticas'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='departamento'
                   value={form.departamento}
                   required
@@ -348,6 +363,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: Ciencias Exactas'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='facultad'
                   value={form.facultad}
                   required
@@ -401,9 +417,9 @@ export function CrearDocente() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Años de Experiencia*</label>
                 <input
                   type='number'
-                  min='0'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='anos_experiencia'
                   value={form.anos_experiencia}
                   required
@@ -417,6 +433,7 @@ export function CrearDocente() {
                   min='0'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='anos_experiencia_institucion'
                   value={form.anos_experiencia_institucion}
                   required
@@ -428,6 +445,7 @@ export function CrearDocente() {
                 <input
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='escalafon'
                   value={form.escalafon}
                 />
@@ -446,6 +464,7 @@ export function CrearDocente() {
                 onChange={e =>
                   setForm(prev => ({ ...prev, nuevo_idioma: { ...prev.nuevo_idioma, idioma: e.target.value } }))
                 }
+                onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
               />
               <input
@@ -454,6 +473,7 @@ export function CrearDocente() {
                 onChange={e =>
                   setForm(prev => ({ ...prev, nuevo_idioma: { ...prev.nuevo_idioma, nivel: e.target.value } }))
                 }
+                onBeforeInput={(e) => handleBeforeInput(e, lenguageLevel.format)}
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
               />
               <button
@@ -493,6 +513,7 @@ export function CrearDocente() {
               <input
                 value={form.nueva_area}
                 onChange={e => setForm(prev => ({ ...prev, nueva_area: e.target.value }))}
+                onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                 placeholder='Nueva área de conocimiento'
               />
@@ -535,6 +556,7 @@ export function CrearDocente() {
                   min='0'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='publicaciones'
                   value={form.publicaciones}
                 />
@@ -547,6 +569,7 @@ export function CrearDocente() {
                   min='0'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='proyectos_investigacion'
                   value={form.proyectos_investigacion}
                 />
@@ -559,6 +582,7 @@ export function CrearDocente() {
                 <input
                   value={form.nuevo_grupo}
                   onChange={e => setForm(prev => ({ ...prev, nuevo_grupo: e.target.value }))}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Nuevo grupo de investigación'
                 />
@@ -621,6 +645,7 @@ export function CrearDocente() {
                   max='5'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   onChange={handleChange}
+                  onBeforeInput={(e) => handleBeforeInput(e, decimalNumber.format)}
                   name='evaluacion_docente_promedio'
                   value={form.evaluacion_docente_promedio}
                 />
