@@ -30,7 +30,7 @@ export function Header() {
     <div>
       <header className=' flex justify-between items-center bg-prueba pl-8 pr-8'>
         <div className='flex items-center'>
-          <div className='text-white mr-2'>
+          <div className='text-white mr-2 cursor-pointer'>
             <div
               onClick={() => navigate('/dashboard')}
               className='text-4xl font-bold'
