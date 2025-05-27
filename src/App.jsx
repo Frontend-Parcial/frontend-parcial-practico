@@ -16,10 +16,10 @@ import { Register } from './pages/register'
 import { HealthCheck } from './pages/healthcheck'
 
 import { AnimatePresence } from 'framer-motion'
+
 import { SolicitudesAdd } from './pages/SolicitudesAdd'
 import SolicitudIntercambioForm from './pages/solicitudes/SolicitudesCreate'
 import ListaSolicitudes from './pages/solicitudes/ListaSolicitudes'
-// import { Pruebas } from './pages/pruebas'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -43,7 +43,7 @@ function AnimatedRoutes() {
           <Route path='/docentes/actualizar/:id' element={<ActualizarDocentes />} />
           <Route path='/solicitudes' element={<ListaSolicitudes />} />
           <Route path='/solicitudes/nuevo' element={<SolicitudIntercambioForm />} />
-          {/* <Route path='/prueba' element={<Pruebas />} /> */}
+ {/* <Route path='/prueba' element={<Pruebas />} /> */}
         </Route>
       </Routes>
     </AnimatePresence>
