@@ -102,6 +102,7 @@ export async function listStudents() {
     }
 
     const data = await response.json()
+    console.log(data.estudiantes)
 
     // Asegura que se devuelve un array válido
     return Array.isArray(data.estudiantes) ? data.estudiantes : []

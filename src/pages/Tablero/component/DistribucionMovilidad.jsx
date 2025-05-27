@@ -1,6 +1,11 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 const DistribucionMovilidad = ({ isExpanded }) => {
+
+
+  // Los estudiantes tienen que tener un programa <- programa_academico  
+  // El porcentaje lo sacamos de (total programas / total estudiantes por programa) * 100
+  //! EXPERIMENTAL: Voy a poner total estudiantes por programa / total programas
   const data = [
     { name: 'Enfermería', value: 8.63, color: '#f59e0b' },
     { name: 'Microbiología', value: 8.04, color: '#ef4444' },
@@ -12,7 +17,7 @@ const DistribucionMovilidad = ({ isExpanded }) => {
     { name: 'Licenciatura e...', value: 6.25, color: '#14b8a6' },
     { name: 'Administració...', value: 5.36, color: '#f97316' },
     { name: 'Comercio Int...', value: 5.36, color: '#84cc16' },
-    { name: 'Otros', value: 31.91, color: '#d1d5db' }
+    { name: 'Otros', value: 1.25, color: '#d1d5db' }
   ];
 
   return (

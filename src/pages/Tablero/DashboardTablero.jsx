@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import EvolucionMovilidad from './component/EvolucionMovilidad'
 import ConveniosPais from './component/ConveniosPais'
 import MovilidadDocente from './component/MovilidadDocente'
@@ -11,9 +11,11 @@ import EstudiantesTipoConvenio from './component/EstudiantesTipoConvenio'
 import DuracionMovilidadPais from './component/DuracionMovilidadPais'
 import { Header } from '../../components/Header'
 import PageWrapper from '../../components/PageWrapper'
+import { getMovilidadDocente } from '../../lib/reportes/MovilidadDocente'
 
 const DashboardTablero = () => {
   const [expanded, setExpanded] = useState(null)
+  const [datos, setDatos] = useState([])
 
   const handleExpand = componentId => {
     if (expanded === componentId) {
@@ -36,6 +38,15 @@ const DashboardTablero = () => {
       </div>
     )
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMovilidadDocente()
+      setDatos(data)
+    }
+
+    fetchData()
+  }, [])
 
   return (
     <PageWrapper>
@@ -95,7 +106,7 @@ const DashboardTablero = () => {
                   'docentes',
                   <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border-l-4 border-purple-500'>
                     <div>
-                      <div className='text-2xl font-bold text-gray-900'>100</div>
+                      <div className='text-2xl font-bold text-gray-900'>{datos.length}</div>
                       <div className='text-sm text-gray-600'>Docentes Movilizados</div>
                     </div>
                   </div>,
