@@ -83,7 +83,41 @@ export async function updateStudent(data, id) {
     throw new Error(error.message || 'Error al actualizar el estudiante')
   }
 }
+export async function listStudentsFilter(query = '', page = 1, perPage = 10) {
+  const userToken = localStorage.getItem('site');
+  try {
+    const url = new URL(`${apiUrl}/estudiantes/`);
+    url.searchParams.append('page', page);
+    url.searchParams.append('per_page', perPage);
+    if (query) {
+      url.searchParams.append('search', query);
+    }
 
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || 'Error al obtener los estudiantes');
+    }
+
+    const data = await response.json();
+    return {
+      estudiantes: Array.isArray(data.estudiantes) ? data.estudiantes : [],
+      total: data.total || 0,
+      page: data.page || 1,
+      pages: data.pages || 1
+    };
+  } catch (error) {
+    console.error('Error al hacer la solicitud:', error);
+    return { estudiantes: [], total: 0, page: 1, pages: 1 };
+  }
+}
 export async function listStudents() {
   const userToken = localStorage.getItem('site')
   try {
