@@ -49,7 +49,7 @@ export function Header() {
           {tabs.map(tab => (
             <button
               key={tab}
-              className='px-4 py-2 rounded transition-all duration-200 hover:bg-gray-100 hover:shadow hover:scale-95'
+              className='px-4 py-2 rounded transition-all duration-200 hover:bg-gray-100 hover:shadow hover:scale-95 cursor-pointer'
               style={{
                 backgroundColor: activeTab === tab ? theme.blanco : 'transparent',
                 color: activeTab === tab ? theme.colorOscuro : theme.colorTextoOscuro,
