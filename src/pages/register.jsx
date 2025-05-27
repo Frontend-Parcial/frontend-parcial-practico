@@ -150,7 +150,7 @@ export function Register() {
                       <p>
                         ¿Ya tienes una cuenta?{' '}
                         <span
-                          onClick={() => navigate('/login')}
+                          onClick={() => navigate('/')}
                           className='text-black font-semibold hover:underline cursor-pointer'
                         >
                           Inicia sesión
