@@ -3,9 +3,6 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 const DistribucionMovilidad = ({ isExpanded }) => {
 
 
-  // Los estudiantes tienen que tener un programa <- programa_academico  
-  // El porcentaje lo sacamos de (total programas / total estudiantes por programa) * 100
-  //! EXPERIMENTAL: Voy a poner total estudiantes por programa / total programas
   const data = [
     { name: 'Enfermería', value: 8.63, color: '#f59e0b' },
     { name: 'Microbiología', value: 8.04, color: '#ef4444' },
