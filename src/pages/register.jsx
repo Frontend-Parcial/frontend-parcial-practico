@@ -38,7 +38,7 @@ export function Register() {
       setClic(false)
 
       const newErrors = {
-        nombre: validateRegister('nombre', input.email),
+        nombre: validateRegister('nombre', input.nombre),
         email: validateRegister('email', input.email),
         password: validateRegister('password', input.password)
       }
