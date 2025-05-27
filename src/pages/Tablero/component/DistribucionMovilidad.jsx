@@ -1,48 +1,94 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { useEffect, useState } from 'react'
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts'
+import { getMovilidadEstudiante } from '../../../lib/reportes/MovilidadEstudiante'
 
 const DistribucionMovilidad = ({ isExpanded }) => {
+  //! ------------------------ CODIGO EXPERIMENTAL --------------------------
+  //! DE ACA PARA ABAJO TODO EL CODIGO ES EXPERIMENTAL!!
 
+  const [datos, setDatos] = useState([])
+  const [programasAgrupados, setProgramasAgrupados] = useState([])
+  const coloresHex = [
+    '#FF6384', // rosa
+    '#36A2EB', // azul
+    '#FFCE56', // amarillo
+    '#4BC0C0', // turquesa
+    '#9966FF', // púrpura
+    '#FF9F40', // naranja
+    '#C9CBCF', // gris claro
+    '#8B0000', // rojo oscuro
+    '#2E8B57', // verde
+    '#00CED1', // azul verdoso
+    '#DAA520', // dorado
+    '#800080', // morado
+    '#DC143C', // rojo cereza
+    '#20B2AA', // aguamarina
+    '#6495ED', // azul cornflower
+  ]
 
-  // Los estudiantes tienen que tener un programa <- programa_academico  
-  // El porcentaje lo sacamos de (total programas / total estudiantes por programa) * 100
-  //! EXPERIMENTAL: Voy a poner total estudiantes por programa / total programas
-  const data = [
-    { name: 'Enfermería', value: 8.63, color: '#f59e0b' },
-    { name: 'Microbiología', value: 8.04, color: '#ef4444' },
-    { name: 'Ingeniería Agr...', value: 7.4, color: '#10b981' },
-    { name: 'Ingeniería Am...', value: 7.1, color: '#3b82f6' },
-    { name: 'Ingeniería de...', value: 6.85, color: '#8b5cf6' },
-    { name: 'Instrumentac...', value: 6.85, color: '#ec4899' },
-    { name: 'Administració...', value: 6.25, color: '#6366f1' },
-    { name: 'Licenciatura e...', value: 6.25, color: '#14b8a6' },
-    { name: 'Administració...', value: 5.36, color: '#f97316' },
-    { name: 'Comercio Int...', value: 5.36, color: '#84cc16' },
-    { name: 'Otros', value: 1.25, color: '#d1d5db' }
-  ];
+  const agruparPorPrograma = estudiantes => {
+    const conteo = {}
+
+    estudiantes.forEach(estudiante => {
+      const programa = estudiante.programa_academico
+      if (programa) {
+        conteo[programa] = (conteo[programa] || 0) + 1
+      }
+    })
+
+    const total = estudiantes.length
+
+    console.log(total / Object.keys(conteo).length)
+    console.log()
+    return Object.entries(conteo).map(([programa, cantidad], index) => ({
+      name: programa,
+      value: Number((cantidad / total) * 100),
+      color: coloresHex[index % coloresHex.length],
+    }))
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMovilidadEstudiante()
+      setDatos(data)
+
+      const agrupado = agruparPorPrograma(data)
+      setProgramasAgrupados(agrupado)
+      console.log(programasAgrupados)
+    }
+
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    console.log('Programas agrupados actualizados:', programasAgrupados)
+  }, [programasAgrupados])
+
+  //! ------------------------ FIN DEL CODIGO EXPERIMENTAL --------------------------
 
   return (
-    <div className="h-full">
-      <h3 className="text-sm font-semibold mb-2">Distribución de movilidad por programa</h3>
-      <ResponsiveContainer width="100%" height={isExpanded ? 400 : 150}>
+    <div className='h-full'>
+      <h3 className='text-sm font-semibold mb-2'>Distribución de movilidad por programa</h3>
+      <ResponsiveContainer width='100%' height={isExpanded ? 400 : 150}>
         <PieChart>
           <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
+            data={programasAgrupados}
+            cx='50%'
+            cy='50%'
             labelLine={false}
             outerRadius={isExpanded ? 130 : 60}
-            dataKey="value"
+            dataKey='value'
           >
-            {data.map((entry, index) => (
+            {programasAgrupados.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
           </Pie>
-          {isExpanded && <Legend layout="vertical" align="right" verticalAlign="middle" />}
+          {isExpanded && <Legend layout='vertical' align='right' verticalAlign='middle' />}
           <Tooltip />
         </PieChart>
       </ResponsiveContainer>
     </div>
-  );
-};
+  )
+}
 
-export default DistribucionMovilidad;
+export default DistribucionMovilidad
