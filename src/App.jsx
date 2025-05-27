@@ -1,6 +1,4 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
-import { Home } from './pages/home'
-import { QuienesSomos } from './pages/quienes-somos'
 import { Login } from './pages/login'
 import { AuthProvider } from './providers/AuthProvider'
 import { Reporte } from './pages/reporte'
@@ -18,6 +16,7 @@ import { Register } from './pages/register'
 import { HealthCheck } from './pages/healthcheck'
 
 import { AnimatePresence } from 'framer-motion'
+// import { Pruebas } from './pages/pruebas'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -39,6 +38,7 @@ function AnimatedRoutes() {
           <Route path='/docentes/nuevo' element={<CrearDocente />} />
           <Route path='/docentes/:id' element={<ObtenerDocentes />} />
           <Route path='/docentes/actualizar/:id' element={<ActualizarDocentes />} />
+          {/* <Route path='/prueba' element={<Pruebas />} /> */}
         </Route>
       </Routes>
     </AnimatePresence>
