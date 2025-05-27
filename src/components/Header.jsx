@@ -20,7 +20,7 @@ export function Header() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const tabs = ['Estudiantes', 'Docentes', 'Convenio', 'Solicitudes', 'Asignaturas', 'Seguimiento', 'Reporte']
+  const tabs = ['Estudiantes', 'Docentes', 'Convenio', 'Solicitudes', 'Asignaturas', 'Seguimiento']
 
   // Detectar la pestaña activa desde la URL
   const currentPath = location.pathname.toLowerCase()
@@ -30,7 +30,7 @@ export function Header() {
     <div>
       <header className=' flex justify-between items-center bg-prueba pl-8 pr-8'>
         <div className='flex items-center'>
-          <div className='text-white mr-2'>
+          <div className='text-white mr-2 cursor-pointer'>
             <div
               onClick={() => navigate('/dashboard')}
               className='text-4xl font-bold'
@@ -68,7 +68,7 @@ export function Header() {
             className='px-5 py-3 min-w-[100px] m-[10px] mr-[40px] ml-[20px] cursor-pointer transition-colors duration-[400ms] rounded hover:bg-red-300'
             onClick={() => auth.logOut()}
           >
-            Logout
+            Cerrar Sesión
           </button>
         </div>
       </nav>

@@ -19,7 +19,6 @@ const MovilidadDocente = ({ isExpanded }) => {
           conteo[facultad] = 1
         }
       }
-      console.log(conteo)
     })
 
     return Object.entries(conteo).map(([facultad, cantidad]) => ({

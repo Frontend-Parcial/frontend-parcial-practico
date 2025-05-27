@@ -1,7 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Login } from './pages/login'
 import { AuthProvider } from './providers/AuthProvider'
-import { Reporte } from './pages/reporte'
 import PrivateRoute from './providers/PrivateRoute'
 import { CrearEstudiante } from './pages/estudiantes/crear-estudiante'
 import { ListadoEstudiantes } from './pages/estudiantes/listado-estudiantes'
@@ -32,7 +31,6 @@ function AnimatedRoutes() {
         <Route path='/healthcheck' element={<HealthCheck />} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<DashboardTablero />} />
-          <Route path='/reporte' element={<Reporte />} />
           <Route path='/estudiantes/nuevo' element={<CrearEstudiante />} />
           <Route path='/estudiantes' element={<ListadoEstudiantes />} />
           <Route path='/estudiantes/:id' element={<ObtenerEstudiante />} />

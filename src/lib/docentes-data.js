@@ -2,9 +2,7 @@ const apiUrl = import.meta.env.VITE_API_URL
 const userToken = localStorage.getItem('site')
 
 export async function listDocentes() {
-  console.log(userToken)
   try {
-    console.log('Token enviado:', userToken)
     const response = await fetch(`${apiUrl}/docentes/`, {
       method: 'GET',
       headers: {
@@ -42,11 +40,10 @@ export async function createDocentes(data) {
     const result = await response.json()
 
     if (response.ok) {
-      console.log('Docente registrado:', result)
-      alert('✅ Docente creado con éxito')
+      alert('Docente creado con éxito')
     } else {
       console.error('Error al crear docente:', result)
-      alert(result.message || '❌ Error al crear el docente')
+      alert(result.message || 'Error al crear el docente')
     }
 
     return result
@@ -108,7 +105,6 @@ export async function getDocentesXid(id) {
       throw new Error(errorData.message || 'Error al obtener los estudiantes')
     }
     const data = await response.json()
-    console.log(data.data)
     return data.data
   } catch (error) {
     console.error('Error al hacer la solicitud:', error)
