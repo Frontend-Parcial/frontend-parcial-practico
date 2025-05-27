@@ -3,7 +3,6 @@ const userToken = localStorage.getItem('site')
 
 export async function getMovilidadDocente() {
   try {
-    console.log('Token enviado:', userToken)
     const response = await fetch(`${apiUrl}/docentes/`, {
       method: 'GET',
       headers: {
@@ -18,9 +17,6 @@ export async function getMovilidadDocente() {
     }
 
     const data = await response.json()
-
-    console.log(data.data.docentes)
-    // Asegúrate de que devuelve un array
     return Array.isArray(data?.data?.docentes) ? data.data.docentes : []
   } catch (error) {
     console.error('Error al hacer la solicitud:', error)

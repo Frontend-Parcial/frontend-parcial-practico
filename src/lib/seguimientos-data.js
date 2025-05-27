@@ -15,7 +15,6 @@ export async function crearSeguimiento(data) {
     const result = await response.json()
 
     if (response.ok) {
-      console.log('Seguimiento registrado:', result)
       alert('✅ Seguimiento creado con éxito')
     } else {
       console.error('Error al crear seguimiento:', result)

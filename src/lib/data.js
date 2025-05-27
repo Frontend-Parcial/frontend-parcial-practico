@@ -14,7 +14,6 @@ export async function getUser(data) {
     }
 
     const responseData = await response.json()
-    console.log('Respuesta:', responseData)
     return responseData
   } catch (error) {
     console.error('Error al iniciar sesión:', error)
@@ -40,7 +39,6 @@ export async function registerUser(data) {
     }
 
     const responseData = await response.json()
-    console.log('Respuesta de registro:', responseData)
     return responseData
   } catch (error) {
     console.error('Error al registrar usuario:', error)
