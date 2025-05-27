@@ -13,6 +13,9 @@ import { ObtenerDocentes } from './pages/docentes/obtener-docentes'
 import { ActualizarDocentes } from './pages/docentes/actualizar-docentes'
 import { Register } from './pages/register'
 import { HealthCheck } from './pages/healthcheck'
+import CrearSolicitud from './pages/solicitudes/crear-solicitudes'
+
+import CrearSeguimiento from './pages/seguimiento/crear-seguimiento'
 
 import { AnimatePresence } from 'framer-motion'
 
