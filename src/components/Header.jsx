@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import logo from '../assets/UNICESAR 2024.png'
+import logo from '../assets/ESCUDO_UPC_PQ.png'
+import UPC from '../assets/LOGO-UPC-MOVIL.jpg'
 import { useAuth } from '../providers/AuthProvider'
 
 const theme = {
@@ -7,8 +8,9 @@ const theme = {
   sombra: 'rgba(0,0,0,0.2)',
   fontInstitucional: 'sans-serif',
   grisClaro: '#f0f0f0',
+  grisOscuro: '#d9d9d9',
   blanco: '#ffffff',
-  colorOscuro: '#000000',
+  colorOscuro: '#2fb44b',
   colorTextoOscuro: '#333333',
   colorClaro: '#cccccc',
 }
@@ -26,19 +28,19 @@ export function Header() {
 
   return (
     <div>
-      <header className=' flex justify-between items-center bg-claro pl-8 pr-8'>
+      <header className=' flex justify-between items-center bg-prueba pl-8 pr-8'>
         <div className='flex items-center'>
           <div className='text-white mr-2'>
-            <div className='text-4xl font-bold' style={{ fontFamily: theme.fontInstitucional }}>
-              UPC
-            </div>
-            <div>
-              <span className='text-2xl'>Universidad</span>
-              <div className='text-xl'>Popular del Cesar</div>
+            <div
+              onClick={() => navigate('/dashboard')}
+              className='text-4xl font-bold'
+              style={{ fontFamily: theme.fontInstitucional }}
+            >
+              <img src={UPC} alt='Universidad Popular del Cesar Logo' className='w-70 h-30 object-contain' />
             </div>
           </div>
         </div>
-        <div className='w-54 h-54'>
+        <div className='w-20 h-20'>
           <img src={logo} alt='Universidad Popular del Cesar Logo' className='w-full h-full object-contain' />
         </div>
       </header>
@@ -59,7 +61,7 @@ export function Header() {
               }}
               onClick={() => navigate(`/${tab.toLowerCase()}`)}
             >
-              {tab} ↓
+              {tab}
             </button>
           ))}
           <button

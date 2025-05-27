@@ -6,6 +6,7 @@
   --color-primario: #42a542;
   --color-oscuro: #107b42;
   --color-claro: #8cce6b;
+  --color-prueba: #75b726;
   --color-complementario: #faf800;
   --color-gradiente: linear-gradient(135deg, var(--color-oscuro), var(--color-primario));
   --blanco: #ffffff;
