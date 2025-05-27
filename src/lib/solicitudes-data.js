@@ -6,7 +6,7 @@ const userToken = localStorage.getItem('site');
  * @param {Object} data - Datos de la solicitud
  * @returns {Promise<Object>} - Respuesta del servidor
  */
-export async function createSolicitud(data) {
+export async function crearSolicitud(data) {
   try {
     console.log('Token enviado:', userToken);
     console.log('Datos enviados:', data);
@@ -161,6 +161,37 @@ export async function listSolicitudes() {
  * @param {string} estado - Nuevo estado (ej. "aprobado", "rechazado", "pendiente")
  * @returns {Promise<Object>} - Respuesta del servidor
  */
+
+/**
+ * Obtiene una solicitud por su ID (alias de getSolicitud)
+ * @param {string} id - ID de la solicitud
+ * @returns {Promise<Object>} - Datos de la solicitud
+ */
+export async function getSolicitudXid(id) {
+  try {
+    console.log('Token enviado:', userToken);
+    const response = await fetch(`${apiUrl}/solicitudes/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Error al obtener la solicitud por ID');
+    }
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error('Error al hacer la solicitud:', error);
+    throw new Error(error.message);
+  }
+}
+
 export async function cambiarEstadoSolicitud(id, estado) {
   try {
     console.log('Token enviado:', userToken);
