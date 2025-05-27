@@ -20,7 +20,7 @@ export function Header() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const tabs = ['Estudiantes', 'Docentes', 'Convenio', 'Solicitudes', 'Asignaturas', 'Seguimiento', 'Reporte']
+  const tabs = ['Estudiantes', 'Docentes', 'Convenio', 'Solicitudes', 'Asignaturas', 'Seguimiento']
 
   // Detectar la pestaña activa desde la URL
   const currentPath = location.pathname.toLowerCase()
@@ -68,7 +68,7 @@ export function Header() {
             className='px-5 py-3 min-w-[100px] m-[10px] mr-[40px] ml-[20px] cursor-pointer transition-colors duration-[400ms] rounded hover:bg-red-300'
             onClick={() => auth.logOut()}
           >
-            Logout
+            Cerrar Sesión
           </button>
         </div>
       </nav>
