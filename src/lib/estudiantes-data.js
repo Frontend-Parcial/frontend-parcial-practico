@@ -1,15 +1,13 @@
 const apiUrl = import.meta.env.VITE_API_URL
+const userToken = localStorage.getItem('site')
 
 export async function getStudents(id) {
-  const userToken = localStorage.getItem('site')
-  console.log(userToken)
   try {
     console.log('Token enviado:', userToken)
-    console.log('Datos enviados:')
-    const response = await fetch(`${apiUrl}/api/estudiantes/${id}`, {
+    const response = await fetch(`${apiUrl}/estudiantes/${id}`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json', 
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${userToken}`,
       },
     })
@@ -22,13 +20,11 @@ export async function getStudents(id) {
     return data
   } catch (error) {
     console.error('Error al hacer la solicitud:', error)
-    throw new Error('adfasdfasdfasdfasdf')
+    throw new Error(error.message)
   }
 }
 
 export async function updateStudent(data, id) {
-  const userToken = localStorage.getItem('site')
-
   try {
     console.log('Token enviado:', userToken)
     console.log('Datos enviados:', data)
@@ -65,7 +61,7 @@ export async function updateStudent(data, id) {
       }
     }
 
-    const response = await fetch(`${apiUrl}/api/estudiantes/${id}`, {
+    const response = await fetch(`${apiUrl}/estudiantes/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +88,7 @@ export async function listStudents() {
   const userToken = localStorage.getItem('site')
   try {
     console.log('Token enviado:', userToken)
-    const response = await fetch(`${apiUrl}/api/estudiantes/`, {
+    const response = await fetch(`${apiUrl}/estudiantes/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -119,7 +115,6 @@ export async function listStudents() {
 export async function verifyStudent() {}
 
 export async function createStudent(data) {
-  const userToken = localStorage.getItem('site')
   console.log(userToken)
   const datos = {
     nombre_completo: data.nombre_completo,
@@ -134,17 +129,17 @@ export async function createStudent(data) {
     semestre: Number(data.semestre),
     creditos_cursados: Number(data.creditos_cursados),
     promedio_academico: Number(data.promedio_academico),
-    // estado: data.estado,
-    // sanciones_academicas: data.sanciones_academicas,
-    // sanciones_disciplinarias: data.sanciones_disciplinarias,
-    estado: 'activo',
-    sanciones_academicas: false,
-    sanciones_disciplinarias: false,
+    estado: data.estado,
+    sanciones_academicas: data.sanciones_academicas,
+    sanciones_disciplinarias: data.sanciones_disciplinarias,
+    // estado: 'activo',
+    // sanciones_academicas: false,
+    // sanciones_disciplinarias: false,
   }
   try {
     console.log('Token enviado:', userToken)
     console.log('Datos enviados:', datos)
-    const response = await fetch(`${apiUrl}/api/estudiantes/`, {
+    const response = await fetch(`${apiUrl}/estudiantes/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -162,6 +157,6 @@ export async function createStudent(data) {
     console.log(data)
   } catch (error) {
     console.error('Error al hacer la solicitud:', error)
-    throw new Error('adfasdfasdfasdfasdf')
+    throw new Error(error.message)
   }
 }

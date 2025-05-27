@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { createStudent } from '../../lib/estudiantes-data'
+import PageWrapper from '../../components/PageWrapper'
 
 export function CrearEstudiante() {
   const [estudiante, setEstudiante] = useState({
@@ -15,9 +16,9 @@ export function CrearEstudiante() {
     semestre: '',
     creditos_cursados: '',
     promedio_academico: '',
-    estado: '',
-    sanciones_academicas: '',
-    sanciones_disciplinarias: '',
+    estado: 'activo', // Valor por defecto según el fetch
+    sanciones_academicas: false, // Valor por defecto según el fetch
+    sanciones_disciplinarias: false, // Valor por defecto según el fetch
   })
 
   const handleSubmitEvent = async e => {
@@ -34,13 +35,11 @@ export function CrearEstudiante() {
       estudiante.facultad !== '' &&
       estudiante.semestre !== '' &&
       estudiante.creditos_cursados !== '' &&
-      estudiante.promedio_academico !== '' &&
-      estudiante.estado !== '' &&
-      estudiante.sanciones_academicas !== '' &&
-      estudiante.sanciones_disciplinarias !== ''
+      estudiante.promedio_academico !== ''
     ) {
       try {
         await createStudent(estudiante)
+        alert('Estudiante creado exitosamente')
       } catch (error) {
         alert(error.message)
       }
@@ -50,90 +49,186 @@ export function CrearEstudiante() {
   }
 
   const handleInput = e => {
-    const { name, value } = e.target
+    const { name, value, type, checked } = e.target
     setEstudiante(prev => ({
       ...prev,
-      [name]: value,
+      [name]: type === 'checkbox' ? checked : value,
     }))
   }
 
+  const tiposDocumento = [
+    { value: 'CC', label: 'Cédula de Ciudadanía' },
+    { value: 'TI', label: 'Tarjeta de Identidad' },
+    { value: 'CE', label: 'Cédula de Extranjería' },
+    { value: 'PA', label: 'Pasaporte' },
+  ]
+
+  const estadosEstudiante = [
+    { value: 'activo', label: 'Activo' },
+    { value: 'inactivo', label: 'Inactivo' },
+    { value: 'graduado', label: 'Graduado' },
+    { value: 'retirado', label: 'Retirado' },
+  ]
+
   return (
-    <div className='max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md'>
-      <h1 className='text-2xl font-bold text-gray-800 mb-6'>Crear Estudiante</h1>
-      <form className='space-y-4' onSubmit={handleSubmitEvent}>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-          <div className='space-y-4'>
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Nombre Completo</label>
-              <input
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                placeholder='Ej: Juan Pérez'
-                onChange={handleInput}
-                name='nombre_completo'
-              />
+    <PageWrapper>
+      <div className='max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md'>
+        <h1 className='text-2xl font-bold text-gray-800 mb-6'>Crear Estudiante</h1>
+        <form className='space-y-4' onSubmit={handleSubmitEvent}>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='space-y-4'>
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Nombre Completo*</label>
+                <input
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  placeholder='Ej: Juan Pérez'
+                  onChange={handleInput}
+                  name='nombre_completo'
+                  value={estudiante.nombre_completo}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Tipo de Documento*</label>
+                <select
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  onChange={handleInput}
+                  name='tipo_documento'
+                  value={estudiante.tipo_documento}
+                  required
+                >
+                  <option value=''>Seleccione...</option>
+                  {tiposDocumento.map(tipo => (
+                    <option key={tipo.value} value={tipo.value}>
+                      {tipo.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Documento de Identidad*</label>
+                <input
+                  type='number'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  placeholder='Ej: 123456789'
+                  onChange={handleInput}
+                  name='documento_identidad'
+                  value={estudiante.documento_identidad}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Fecha Nacimiento*</label>
+                <input
+                  type='date'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  onChange={handleInput}
+                  name='fecha_nacimiento'
+                  value={estudiante.fecha_nacimiento}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Email*</label>
+                <input
+                  type='email'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  placeholder='Ej: estudiante@universidad.edu'
+                  onChange={handleInput}
+                  name='email'
+                  value={estudiante.email}
+                  required
+                />
+              </div>
             </div>
 
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Tipo de Documento</label>
-              <select
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                onChange={handleInput}
-                name='tipo_documento'
-              >
-                <option value=''>Seleccione...</option>
-                <option value='CC'>Cédula de Ciudadanía</option>
-                <option value='TI'>Tarjeta de Identidad</option>
-                <option value='CE'>Cédula de Extranjería</option>
-                <option value='PA'>Pasaporte</option>
-              </select>
-            </div>
+            <div className='space-y-4'>
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Teléfono*</label>
+                <input
+                  type='tel'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  placeholder='Ej: 3001234567'
+                  onChange={handleInput}
+                  name='telefono'
+                  value={estudiante.telefono}
+                  required
+                />
+              </div>
 
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Fecha Nacimiento</label>
-              <input
-                type='date'
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                onChange={handleInput}
-                name='fecha_nacimiento'
-              />
-            </div>
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Dirección*</label>
+                <input
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  placeholder='Ej: Calle 123 #45-67'
+                  onChange={handleInput}
+                  name='direccion'
+                  value={estudiante.direccion}
+                  required
+                />
+              </div>
 
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Teléfono</label>
-              <input
-                type='tel'
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                placeholder='Ej: 3001234567'
-                onChange={handleInput}
-                name='telefono'
-              />
-            </div>
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Programa Académico*</label>
+                <input
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  placeholder='Ej: Ingeniería de Sistemas'
+                  onChange={handleInput}
+                  name='programa_academico'
+                  value={estudiante.programa_academico}
+                  required
+                />
+              </div>
 
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Programa Académico</label>
-              <input
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                placeholder='Ej: Ingeniería de Sistemas'
-                onChange={handleInput}
-                name='programa_academico'
-              />
-            </div>
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Facultad*</label>
+                <input
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  placeholder='Ej: Ingeniería'
+                  onChange={handleInput}
+                  name='facultad'
+                  value={estudiante.facultad}
+                  required
+                />
+              </div>
 
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Semestre*</label>
+                <input
+                  type='number'
+                  min='1'
+                  max='20'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  placeholder='Ej: 5'
+                  onChange={handleInput}
+                  name='semestre'
+                  value={estudiante.semestre}
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
             <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Semestre</label>
+              <label className='block text-sm font-medium text-gray-700 mb-1'>Créditos Cursados*</label>
               <input
                 type='number'
-                min='1'
-                max='20'
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                placeholder='Ej: 5'
+                placeholder='Ej: 45'
                 onChange={handleInput}
-                name='semestre'
+                name='creditos_cursados'
+                value={estudiante.creditos_cursados}
+                required
               />
             </div>
 
             <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Promedio Académico</label>
+              <label className='block text-sm font-medium text-gray-700 mb-1'>Promedio Académico*</label>
               <input
                 type='number'
                 step='0.01'
@@ -143,114 +238,70 @@ export function CrearEstudiante() {
                 placeholder='Ej: 4.2'
                 onChange={handleInput}
                 name='promedio_academico'
-              />
-            </div>
-          </div>
-
-          <div className='space-y-4'>
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Documento</label>
-              <input
-                type='number'
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                placeholder='Ej: 123456789'
-                onChange={handleInput}
-                name='documento_identidad'
+                value={estudiante.promedio_academico}
+                required
               />
             </div>
 
             <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Email</label>
-              <input
-                type='email'
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                placeholder='Ej: estudiante@universidad.edu'
-                onChange={handleInput}
-                name='email'
-              />
-            </div>
-
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Dirección</label>
-              <input
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                placeholder='Ej: Calle 123 #45-67'
-                onChange={handleInput}
-                name='direccion'
-              />
-            </div>
-
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Facultad</label>
-              <input
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                placeholder='Ej: Ingeniería'
-                onChange={handleInput}
-                name='facultad'
-              />
-            </div>
-
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Créditos Cursados</label>
-              <input
-                type='number'
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                placeholder='Ej: 45'
-                onChange={handleInput}
-                name='creditos_cursados'
-              />
-            </div>
-
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-1'>Estado</label>
+              <label className='block text-sm font-medium text-gray-700 mb-1'>Estado*</label>
               <select
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                 onChange={handleInput}
                 name='estado'
+                value={estudiante.estado}
+                required
               >
-                <option value=''>Seleccione...</option>
-                <option value='Activo'>Activo</option>
-                <option value='Inactivo'>Inactivo</option>
-                <option value='Graduado'>Graduado</option>
-                <option value='Retirado'>Retirado</option>
+                {estadosEstudiante.map(estado => (
+                  <option key={estado.value} value={estado.value}>
+                    {estado.label}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
-        </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-          <div>
-            <label className='block text-sm font-medium text-gray-700 mb-1'>Sanciones Académicas</label>
-            <textarea
-              className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-              rows='2'
-              placeholder='Describa las sanciones académicas si aplican'
-              onChange={handleInput}
-              name='sanciones_academicas'
-            ></textarea>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='flex items-center'>
+              <input
+                type='checkbox'
+                id='sanciones_academicas'
+                name='sanciones_academicas'
+                checked={estudiante.sanciones_academicas}
+                onChange={handleInput}
+                className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
+              />
+              <label htmlFor='sanciones_academicas' className='ml-2 block text-sm text-gray-700'>
+                ¿Tiene sanciones académicas?
+              </label>
+            </div>
+
+            <div className='flex items-center'>
+              <input
+                type='checkbox'
+                id='sanciones_disciplinarias'
+                name='sanciones_disciplinarias'
+                checked={estudiante.sanciones_disciplinarias}
+                onChange={handleInput}
+                className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
+              />
+              <label htmlFor='sanciones_disciplinarias' className='ml-2 block text-sm text-gray-700'>
+                ¿Tiene sanciones disciplinarias?
+              </label>
+            </div>
           </div>
 
-          <div>
-            <label className='block text-sm font-medium text-gray-700 mb-1'>Sanciones Disciplinarias</label>
-            <textarea
-              className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-              rows='2'
-              placeholder='Describa las sanciones disciplinarias si aplican'
-              onChange={handleInput}
-              name='sanciones_disciplinarias'
-            ></textarea>
+          <div className='pt-4'>
+            <button
+              type='submit'
+              className='w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors'
+            >
+              Registrar Estudiante
+            </button>
           </div>
-        </div>
-
-        <div className='pt-4'>
-          <button
-            type='submit'
-            className='w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors'
-          >
-            Registrar Estudiante
-          </button>
-        </div>
-      </form>
-    </div>
+          <p className='text-xs text-gray-500 mt-2'>* Campos obligatorios</p>
+        </form>
+      </div>
+    </PageWrapper>
   )
 }
