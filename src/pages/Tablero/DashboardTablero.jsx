@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import EvolucionMovilidad from './component/EvolucionMovilidad'
 import ConveniosPais from './component/ConveniosPais'
 import MovilidadDocente from './component/MovilidadDocente'
@@ -12,13 +12,15 @@ import DuracionMovilidadPais from './component/DuracionMovilidadPais'
 import { Header } from '../../components/Header'
 import PageWrapper from '../../components/PageWrapper'
 import { getConvenios } from '../../lib/reportes/convenios'
+import { getMovilidadDocente } from '../../lib/reportes/MovilidadDocente'
 
 const DashboardTablero = () => {
   const [expanded, setExpanded] = useState(null)
-  const [isMapExpanded, setIsMapExpanded] = useState(false);
-  const [totalConvenios, setTotalConvenios] = useState(0);
-  const [loadingConvenios, setLoadingConvenios] = useState(true);
-  
+  const [isMapExpanded, setIsMapExpanded] = useState(false)
+  const [totalConvenios, setTotalConvenios] = useState(0)
+  const [loadingConvenios, setLoadingConvenios] = useState(true)
+  const [datos, setDatos] = useState([])
+
   const handleExpand = componentId => {
     if (expanded === componentId) {
       setExpanded(null)
@@ -31,20 +33,20 @@ const DashboardTablero = () => {
   useEffect(() => {
     const cargarTotalConvenios = async () => {
       try {
-        setLoadingConvenios(true);
-        const data = await getConvenios();
-        const total = data?.convenios?.length || 0;
-        setTotalConvenios(total);
+        setLoadingConvenios(true)
+        const data = await getConvenios()
+        const total = data?.convenios?.length || 0
+        setTotalConvenios(total)
       } catch (error) {
-        console.error('Error al cargar total de convenios:', error);
-        setTotalConvenios(0); // Valor por defecto en caso de error
+        console.error('Error al cargar total de convenios:', error)
+        setTotalConvenios(0) // Valor por defecto en caso de error
       } finally {
-        setLoadingConvenios(false);
+        setLoadingConvenios(false)
       }
-    };
+    }
 
-    cargarTotalConvenios();
-  }, []);
+    cargarTotalConvenios()
+  }, [])
 
   const renderComponent = (id, component, className = '') => {
     const isExpanded = expanded === id
@@ -60,6 +62,15 @@ const DashboardTablero = () => {
     )
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getMovilidadDocente()
+      setDatos(data)
+    }
+
+    fetchData()
+  }, [])
+
   return (
     <PageWrapper>
       <>
@@ -69,7 +80,10 @@ const DashboardTablero = () => {
           <div className='flex gap-4'>
             <div className='flex-1 grid grid-cols-3 gap-4'>
               {renderComponent('evolucion', <EvolucionMovilidad isExpanded={expanded === 'evolucion'} />)}
-              {renderComponent('convenios', <ConveniosPais isExpanded={expanded === 'convenios'} onToggleExpand={setIsMapExpanded} />)}
+              {renderComponent(
+                'convenios',
+                <ConveniosPais isExpanded={expanded === 'convenios'} onToggleExpand={setIsMapExpanded} />,
+              )}
               {renderComponent('docente', <MovilidadDocente isExpanded={expanded === 'docente'} />)}
 
               {renderComponent('estudiantes', <EstudiantesCursos isExpanded={expanded === 'estudiantes'} />)}
@@ -90,7 +104,7 @@ const DashboardTablero = () => {
                     <div>
                       <div className='text-2xl font-bold text-gray-900'>
                         {loadingConvenios ? (
-                          <div className="w-8 h-6 bg-gray-300 animate-pulse rounded"></div>
+                          <div className='w-8 h-6 bg-gray-300 animate-pulse rounded'></div>
                         ) : (
                           totalConvenios
                         )}
@@ -124,7 +138,7 @@ const DashboardTablero = () => {
                   'docentes',
                   <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border-l-4 border-purple-500'>
                     <div>
-                      <div className='text-2xl font-bold text-gray-900'>100</div>
+                      <div className='text-2xl font-bold text-gray-900'>{datos.length}</div>
                       <div className='text-sm text-gray-600'>Docentes Movilizados</div>
                     </div>
                   </div>,
