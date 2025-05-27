@@ -1,15 +1,22 @@
-export function validateField(field, input, rules) {
+import { registerValidationRules } from './registerRules'
 
-  const fieldRules = rules[field];
+export function validateRegister(fieldName, value) {
+  const rules = registerValidationRules[fieldName]
+  
 
-  for (const rule of fieldRules) {
-    const {  format, message } = rule;
+  if (!rules) return ''
 
-
-    if (format && !format.test(input)) {
-      return message;
+  for (const rule of rules) {
+    const pattern = rule.regExp
+    
+    if (pattern instanceof RegExp) {
+      if (!pattern.test(value)) {
+        return rule.message;
+      }
+    } else {
+      console.warn(`El campo ${fieldName} tiene una expresión inválida`, pattern);
     }
   }
 
-  return null;
+  return ''
 }

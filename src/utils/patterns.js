@@ -1,6 +1,7 @@
 
 export const onlyLetters = {
         format: /^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]+$/,
+        validation: /^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]{3,}$/,
         message: "Solo se permiten letras"
     }
 export const email = {

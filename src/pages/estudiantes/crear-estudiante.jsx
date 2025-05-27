@@ -246,7 +246,7 @@ export function CrearEstudiante() {
               <label className='block text-sm font-medium text-gray-700 mb-1'>Promedio Académico*</label>
               <input
                 type='number'
-                step='0.01'
+                step='0.1'
                 min='0'
                 max='5'
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'

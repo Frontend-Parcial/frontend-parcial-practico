@@ -706,6 +706,7 @@ export function CrearDocente() {
                 <input
                   value={form.nueva_red}
                   onChange={e => setForm(prev => ({ ...prev, nueva_red: e.target.value }))}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Nueva red internacional'
                 />
