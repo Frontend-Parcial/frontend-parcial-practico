@@ -13,6 +13,7 @@ import { Header } from '../../components/Header'
 import PageWrapper from '../../components/PageWrapper'
 import { getConvenios } from '../../lib/reportes/convenios'
 import { getMovilidadDocente } from '../../lib/reportes/MovilidadDocente'
+import Footer from '../../components/Footer'
 
 const DashboardTablero = () => {
   const [expanded, setExpanded] = useState(null)
@@ -167,6 +168,7 @@ const DashboardTablero = () => {
             </div>
           </div>
         </div>
+        <Footer/>
       </>
     </PageWrapper>
   )
