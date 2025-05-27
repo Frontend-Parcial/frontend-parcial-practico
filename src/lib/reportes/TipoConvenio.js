@@ -63,7 +63,7 @@ export async function getTipoConvenio(año = null) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${userToken}`,
+        'authorization': `Bearer ${userToken}`,
       },
     });
 
