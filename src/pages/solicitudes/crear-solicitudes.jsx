@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { crearSolicitud } from '../../lib/solicitudes-data.js';
-
 import equivalencias from './asignaturas-prueba'
 import PageWrapper from '../../components/PageWrapper'
 import { getStudents } from '../../lib/estudiantes-data'

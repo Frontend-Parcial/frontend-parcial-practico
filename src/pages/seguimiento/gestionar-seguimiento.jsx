@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import PageWrapper from '../../components/PageWrapper'
 import { getSolicitudXid } from '../../lib/solicitudes-data'
-import { crearSeguimiento } from '../../lib/seguimientos-data'
+import { gestionarSeguimiento } from '../../lib/seguimientos-data'
 
 export function CrearSeguimiento() {
   const [form, setForm] = useState({
@@ -26,6 +26,13 @@ export function CrearSeguimiento() {
 
   // Validación en tiempo real del ID de solicitud
   useEffect(() => {
+
+    const idGuardado = localStorage.getItem('id_solicitud_seleccionada');
+      if (idGuardado) {
+        setForm(prev => ({ ...prev, id_solicitud: idGuardado }));
+        localStorage.removeItem('id_solicitud_seleccionada');
+      }
+
     const validar = async () => {
       if (form.id_solicitud.length >= 6) {
         try {
@@ -64,7 +71,7 @@ export function CrearSeguimiento() {
     }
 
     try {
-      const result = await crearSeguimiento(seguimiento)
+      const result = await gestionarSeguimiento(seguimiento)
       if (result?._id) {
         alert(`✅ Seguimiento creado correctamente.\nID: ${result._id}`)
       }

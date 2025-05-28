@@ -1,7 +1,7 @@
 const apiUrl = import.meta.env.VITE_API_URL
 const userToken = localStorage.getItem('site')
 
-export async function crearSeguimiento(data) {
+export async function gestionarSeguimiento(data) {
   try {
     const response = await fetch(`${apiUrl}/seguimiento/`, {
       method: 'POST',

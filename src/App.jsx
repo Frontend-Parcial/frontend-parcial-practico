@@ -13,6 +13,8 @@ import { ObtenerDocentes } from './pages/docentes/obtener-docentes'
 import { ActualizarDocentes } from './pages/docentes/actualizar-docentes'
 import { Register } from './pages/register'
 import { HealthCheck } from './pages/healthcheck'
+import ListaSolicitudes from './pages/solicitudes/ListaSolicitudes'
+import CrearSeguimiento from './pages/seguimiento/gestionar-seguimiento'
 
 import { AnimatePresence } from 'framer-motion'
 
@@ -35,6 +37,12 @@ function AnimatedRoutes() {
           <Route path='/docentes/nuevo' element={<CrearDocente />} />
           <Route path='/docentes/:id' element={<ObtenerDocentes />} />
           <Route path='/docentes/actualizar/:id' element={<ActualizarDocentes />} />
+          <Route path='/solicitudes' element={<ListaSolicitudes />} />
+          <Route path='/seguimiento' element={<CrearSeguimiento/>} />
+
+
+
+          {/* <Route path='/prueba' element={<Pruebas />} /> */}
           {/* <Route path='/solicitudes' element={<ListaSolicitudes />} /> */}
           {/* <Route path='/solicitudes/nuevo' element={<SolicitudIntercambioForm />} /> */}
  {/* <Route path='/prueba' element={<Pruebas />} /> */}
