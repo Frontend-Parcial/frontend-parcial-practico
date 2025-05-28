@@ -9,11 +9,9 @@ import DistribucionMovilidad from './component/DistribucionMovilidad'
 import TasaMovilidad from './component/TasaMovilidad'
 import EstudiantesTipoConvenio from './component/EstudiantesTipoConvenio'
 import DuracionMovilidadPais from './component/DuracionMovilidadPais'
-import { Header } from '../../components/Header'
 import PageWrapper from '../../components/PageWrapper'
 import { getConvenios } from '../../lib/reportes/convenios'
 import { getMovilidadDocente } from '../../lib/reportes/MovilidadDocente'
-import Footer from '../../components/Footer'
 
 const DashboardTablero = () => {
   const [expanded, setExpanded] = useState(null)
@@ -75,8 +73,6 @@ const DashboardTablero = () => {
   return (
     <PageWrapper>
       <>
-        <Header />
-
         <div className='p-4 bg-gray-100 min-h-screen'>
           <div className='flex gap-4'>
             <div className='flex-1 grid grid-cols-3 gap-4'>
@@ -168,7 +164,6 @@ const DashboardTablero = () => {
             </div>
           </div>
         </div>
-        <Footer/>
       </>
     </PageWrapper>
   )

@@ -58,7 +58,7 @@ export function ListadoEstudiantes() {
               </svg>
               <p className='mt-4 text-gray-500'>No hay estudiantes registrados</p>
               <button
-                className='mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-all'
+                className='mt-4 bg-oscuro hover:bg-primario text-white px-6 py-2 rounded-lg transition-all'
                 onClick={() => navigate('/estudiantes/nuevo')}
               >
                 Registrar Primer Estudiante
@@ -73,10 +73,10 @@ export function ListadoEstudiantes() {
                   onClick={() => navigate(`/estudiantes/${estudiante._id}`)}
                 >
                   <div className='p-5'>
-                    <div className='flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-blue-100 rounded-full'>
+                    <div className='flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-claro rounded-full'>
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
-                        className='h-6 w-6 text-blue-600'
+                        className='h-6 w-6 text-primario'
                         fill='none'
                         viewBox='0 0 24 24'
                         stroke='currentColor'
@@ -93,7 +93,7 @@ export function ListadoEstudiantes() {
                     <p className='text-sm text-center text-gray-500'>ID: {estudiante.documento_identidad}</p>
                   </div>
                   <div className='bg-gray-50 px-4 py-3 text-right'>
-                    <span className='text-xs font-medium text-blue-600 hover:text-blue-800 transition-colors'>
+                    <span className='text-xs font-medium text-primario hover:text-claro transition-colors'>
                       Ver detalles →
                     </span>
                   </div>

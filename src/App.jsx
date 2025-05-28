@@ -14,9 +14,9 @@ import { ActualizarDocentes } from './pages/docentes/actualizar-docentes'
 import { Register } from './pages/register'
 import { HealthCheck } from './pages/healthcheck'
 import ListaSolicitudes from './pages/solicitudes/ListaSolicitudes'
-import CrearSeguimiento from './pages/seguimiento/gestionar-seguimiento'
-
+import { CrearSeguimiento } from './pages/seguimiento/gestionar-seguimiento'
 import { AnimatePresence } from 'framer-motion'
+import Layout from './components/Layout'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -28,24 +28,24 @@ function AnimatedRoutes() {
         <Route path='/register' element={<Register />} />
         <Route path='/healthcheck' element={<HealthCheck />} />
         <Route element={<PrivateRoute />}>
-          <Route path='/dashboard' element={<DashboardTablero />} />
-          <Route path='/estudiantes/nuevo' element={<CrearEstudiante />} />
-          <Route path='/estudiantes' element={<ListadoEstudiantes />} />
-          <Route path='/estudiantes/:id' element={<ObtenerEstudiante />} />
-          <Route path='/estudiantes/actualizar/:id' element={<ActualizarEstudiante />} />
-          <Route path='/docentes' element={<ListadoDocentes />} />
-          <Route path='/docentes/nuevo' element={<CrearDocente />} />
-          <Route path='/docentes/:id' element={<ObtenerDocentes />} />
-          <Route path='/docentes/actualizar/:id' element={<ActualizarDocentes />} />
-          <Route path='/solicitudes' element={<ListaSolicitudes />} />
-          <Route path='/seguimiento' element={<CrearSeguimiento/>} />
+          <Route path='/dashboard' element={<Layout><DashboardTablero /></Layout>} />
+          <Route path='/estudiantes/nuevo' element={<Layout><CrearEstudiante /></Layout>} />
+          <Route path='/estudiantes' element={<Layout><ListadoEstudiantes /></Layout>} />
+          <Route path='/estudiantes/:id' element={<Layout><ObtenerEstudiante /></Layout>} />
+          <Route path='/estudiantes/actualizar/:id' element={<Layout><ActualizarEstudiante /></Layout>} />
+          <Route path='/docentes' element={<Layout><ListadoDocentes /></Layout>} />
+          <Route path='/docentes/nuevo' element={<Layout><CrearDocente /></Layout>} />
+          <Route path='/docentes/:id' element={<Layout><ObtenerDocentes /></Layout>} />
+          <Route path='/docentes/actualizar/:id' element={<Layout><ActualizarDocentes /></Layout>} />
+          <Route path='/solicitudes' element={<Layout><ListaSolicitudes /></Layout>} />
+          <Route path='/seguimiento' element={<Layout><CrearSeguimiento /></Layout>} />
 
 
 
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
           {/* <Route path='/solicitudes' element={<ListaSolicitudes />} /> */}
           {/* <Route path='/solicitudes/nuevo' element={<SolicitudIntercambioForm />} /> */}
- {/* <Route path='/prueba' element={<Pruebas />} /> */}
+          {/* <Route path='/prueba' element={<Pruebas />} /> */}
         </Route>
       </Routes>
     </AnimatePresence>

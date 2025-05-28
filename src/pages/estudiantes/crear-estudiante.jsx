@@ -87,7 +87,7 @@ export function CrearEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Nombre Completo*</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: Juan Pérez'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
@@ -100,7 +100,7 @@ export function CrearEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Tipo de Documento*</label>
                 <select
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   onChange={handleInput}
                   name='tipo_documento'
                   value={estudiante.tipo_documento}
@@ -119,7 +119,7 @@ export function CrearEstudiante() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Documento de Identidad*</label>
                 <input
                   type='number'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: 123456789'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
@@ -133,7 +133,7 @@ export function CrearEstudiante() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Fecha Nacimiento*</label>
                 <input
                   type='date'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   onChange={handleInput}
                   name='fecha_nacimiento'
                   value={estudiante.fecha_nacimiento}
@@ -145,7 +145,7 @@ export function CrearEstudiante() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Email*</label>
                 <input
                   type='email'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: estudiante@universidad.edu'
                   onChange={handleInput}
                   name='email'
@@ -160,7 +160,7 @@ export function CrearEstudiante() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Teléfono*</label>
                 <input
                   type='tel'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: 3001234567'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
@@ -173,7 +173,7 @@ export function CrearEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Dirección*</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: Calle 123 #45-67'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, address.format)}
@@ -186,7 +186,7 @@ export function CrearEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Programa Académico*</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: Ingeniería de Sistemas'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
@@ -199,7 +199,7 @@ export function CrearEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Facultad*</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: Ingeniería'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
@@ -215,7 +215,7 @@ export function CrearEstudiante() {
                   type='number'
                   min='1'
                   max='20'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: 5'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
@@ -232,7 +232,7 @@ export function CrearEstudiante() {
               <label className='block text-sm font-medium text-gray-700 mb-1'>Créditos Cursados*</label>
               <input
                 type='number'
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                 placeholder='Ej: 45'
                 onChange={handleInput}
                 name='creditos_cursados'
@@ -249,7 +249,7 @@ export function CrearEstudiante() {
                 step='0.1'
                 min='0'
                 max='5'
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                 placeholder='Ej: 4.2'
                 onChange={handleInput}
                 onBeforeInput={(e) => handleBeforeInput(e, decimalNumber.format)}
@@ -262,7 +262,7 @@ export function CrearEstudiante() {
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-1'>Estado*</label>
               <select
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                 onChange={handleInput}
                 name='estado'
                 value={estudiante.estado}
@@ -285,7 +285,7 @@ export function CrearEstudiante() {
                 name='sanciones_academicas'
                 checked={estudiante.sanciones_academicas}
                 onChange={handleInput}
-                className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
+                className='h-4 w-4 text-indigo-600 focus:ring-claro border-gray-300 rounded'
               />
               <label htmlFor='sanciones_academicas' className='ml-2 block text-sm text-gray-700'>
                 ¿Tiene sanciones académicas?
@@ -299,7 +299,7 @@ export function CrearEstudiante() {
                 name='sanciones_disciplinarias'
                 checked={estudiante.sanciones_disciplinarias}
                 onChange={handleInput}
-                className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
+                className='h-4 w-4 text-primario focus:ring-oscuro border-gray-300 rounded'
               />
               <label htmlFor='sanciones_disciplinarias' className='ml-2 block text-sm text-gray-700'>
                 ¿Tiene sanciones disciplinarias?
@@ -310,7 +310,7 @@ export function CrearEstudiante() {
           <div className='pt-4'>
             <button
               type='submit'
-              className='w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors'
+              className='w-full bg-primario text-white py-2 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-claro transition-colors'
             >
               Registrar Estudiante
             </button>

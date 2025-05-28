@@ -128,7 +128,7 @@ export function ActualizarEstudiante() {
                 <input
                   className={`w-full px-3 py-2 border ${
                     errores.nombre_completo ? 'border-red-500' : 'border-gray-300'
-                  } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                  } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario`}
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='nombre_completo'
@@ -140,7 +140,7 @@ export function ActualizarEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Tipo de Documento</label>
                 <select
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   name='tipo_documento'
                   defaultValue={datosOriginales.tipo_documento || ''}
@@ -158,7 +158,7 @@ export function ActualizarEstudiante() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Documento</label>
                 <input
                   type='number'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='documento_identidad'
@@ -170,7 +170,7 @@ export function ActualizarEstudiante() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Fecha Nacimiento</label>
                 <input
                   type='date'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   name='fecha_nacimiento'
                   defaultValue={datosOriginales.fecha_nacimiento || ''}
@@ -181,7 +181,7 @@ export function ActualizarEstudiante() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Email</label>
                 <input
                   type='email'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, email.format)}
                   name='email'
@@ -193,7 +193,7 @@ export function ActualizarEstudiante() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Teléfono</label>
                 <input
                   type='tel'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='telefono'
@@ -207,7 +207,7 @@ export function ActualizarEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Dirección</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, address.format)}
                   name='direccion'
@@ -220,7 +220,7 @@ export function ActualizarEstudiante() {
                 <input
                   className={`w-full px-3 py-2 border ${
                     errores.programa_academico ? 'border-red-500' : 'border-gray-300'
-                  } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                  } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario`}
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='programa_academico'
@@ -236,7 +236,7 @@ export function ActualizarEstudiante() {
                 <input
                   className={`w-full px-3 py-2 border ${
                     errores.facultad ? 'border-red-500' : 'border-gray-300'
-                  } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                  } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario`}
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='facultad'
@@ -251,7 +251,7 @@ export function ActualizarEstudiante() {
                   type='number'
                   min='1'
                   max='20'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='semestre'
@@ -263,7 +263,7 @@ export function ActualizarEstudiante() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Créditos Cursados</label>
                 <input
                   type='number'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='creditos_cursados'
@@ -278,7 +278,7 @@ export function ActualizarEstudiante() {
                   step='0.01'
                   min='0'
                   max='5'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, decimalNumber.format)}
                   name='promedio_academico'
@@ -289,7 +289,7 @@ export function ActualizarEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Estado</label>
                 <select
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   name='estado'
                   defaultValue={datosOriginales.estado || 'activo'}
@@ -312,7 +312,7 @@ export function ActualizarEstudiante() {
                 name='sanciones_academicas'
                 onChange={handleInput}
                 defaultChecked={datosOriginales.sanciones_academicas || false}
-                className='h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded'
+                className='h-4 w-4 text-claro focus:ring-primario border-gray-300 rounded'
               />
               <label htmlFor='sanciones_academicas' className='ml-2 block text-sm text-gray-700'>
                 ¿Tiene sanciones académicas?
@@ -326,7 +326,7 @@ export function ActualizarEstudiante() {
                 name='sanciones_disciplinarias'
                 onChange={handleInput}
                 defaultChecked={datosOriginales.sanciones_disciplinarias || false}
-                className='h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded'
+                className='h-4 w-4 text-claro focus:ring-primario border-gray-300 rounded'
               />
               <label htmlFor='sanciones_disciplinarias' className='ml-2 block text-sm text-gray-700'>
                 ¿Tiene sanciones disciplinarias?
@@ -337,7 +337,7 @@ export function ActualizarEstudiante() {
           <div className='pt-6'>
             <button
               type='submit'
-              className='w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors font-medium'
+              className='w-full bg-primario text-white py-3 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primario transition-colors font-medium'
             >
               Actualizar Datos del Estudiante
             </button>
