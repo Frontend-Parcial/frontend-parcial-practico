@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getConvenios } from '../../lib/reportes/convenios';
 import { listStudents, listStudentsFilter } from '../../lib/estudiantes-data';
-import { createSolicitud } from '../../lib/solicitudes-data';
+import { crearSolicitud } from '../../lib/solicitudes-data';
 import PageWrapper from '../../components/PageWrapper';
 import { useNavigate } from 'react-router-dom';
 import { Header } from '../../components/Header';
@@ -56,7 +56,7 @@ const StudentAutocomplete = ({ onSelect, error }) => {
     setSelectedStudent(student);
     setQuery(`${student.nombre_completo} (${student.documento_identidad})`);
     setShowDropdown(false);
-    onSelect(student._id);
+    onSelect(student);
   };
 
   const handleInputChange = (e) => {
@@ -153,6 +153,8 @@ const SolicitudIntercambioForm = () => {
   const [loadingConvenios, setLoadingConvenios] = useState(true);
   const [formData, setFormData] = useState({
     id_solicitante: '',
+    estudiante_completo: null,
+    fecha_creacion_estudiante: '',
     id_convenio: '',
     periodo_academico: '2025-2',
     modalidad: 'presencial',
@@ -266,13 +268,19 @@ const SolicitudIntercambioForm = () => {
     if (Object.keys(newErrors).length === 0) {
       setIsSubmitting(true);
       try {
-        await createSolicitud(formData);
-        
+        const solicitud = {
+          ...formData,
+          fecha_solicitud: new Date().toISOString()
+        };
+
+        await crearSolicitud(solicitud);
+
         setSubmitSuccess(true);
-        // Reset form after successful submission
         setTimeout(() => {
           setFormData({
             id_solicitante: '',
+            estudiante_completo: null,
+            fecha_creacion_estudiante: '',
             id_convenio: '',
             periodo_academico: '2025-2',
             modalidad: 'presencial',
@@ -298,6 +306,7 @@ const SolicitudIntercambioForm = () => {
     }
   };
 
+
   return (
     <PageWrapper>
       <div className='min-h-screen flex flex-col'>
@@ -315,10 +324,26 @@ const SolicitudIntercambioForm = () => {
                   <h3 className='text-oscuro font-semibold text-lg border-b pb-2'>Información del Solicitante</h3>
                   
                   <StudentAutocomplete 
-                    onSelect={(id) => setFormData(prev => ({ ...prev, id_solicitante: id }))}
+                    onSelect={(student) => {
+                      if (student) {
+                        setFormData(prev => ({
+                          ...prev,
+                          id_solicitante: student._id,
+                          estudiante_completo: student,
+                          fecha_creacion_estudiante: student.fecha_creacion || new Date().toISOString()
+                        }));
+                      } else {
+                        setFormData(prev => ({
+                          ...prev,
+                          id_solicitante: '',
+                          estudiante_completo: null,
+                          fecha_creacion_estudiante: ''
+                        }));
+                      }
+                    }}
                     error={errors.id_solicitante}
                   />
-                  
+
                   <div>
                     <label className='block mb-1 font-medium'>Convenio</label>
                     <select
