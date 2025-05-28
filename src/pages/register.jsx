@@ -7,6 +7,7 @@ import logoUniversidad from '../assets/logo.png'
 import { useAuth } from '../providers/AuthProvider'
 import PageWrapper from '../components/PageWrapper'
 import { onlyLetters, email, password } from '../utils/patterns'
+import { validateRegister } from '../utils/validators'
 
 
 export function Register() {
@@ -24,11 +25,29 @@ export function Register() {
     rol: 'admin',
   })
 
+  const [errors, setErrors] = useState({
+    nombre: '',
+    email: '',
+    password: ''
+  })
+
   const handleSubmitEvent = async e => {
     e.preventDefault()
     if (input.nombre && input.email && input.password && input.rol) {
       setInicioMensaje('Registrando...')
       setClic(false)
+
+      const newErrors = {
+        nombre: validateRegister('nombre', input.nombre),
+        email: validateRegister('email', input.email),
+        password: validateRegister('password', input.password)
+      }
+      setErrors(newErrors)
+      const hasErrors = Object.values(newErrors).some(errorMsg => errorMsg !== '')
+      if (hasErrors || !input.email || !input.password) {
+        alert('Por favor, corrige los errores antes de enviar.')
+        return
+      }
 
       try {
         getEmailStore(input.email)
@@ -60,6 +79,11 @@ export function Register() {
       [name]: value,
     }))
 
+    const errorMessage = validateRegister(name, value)
+        setErrors(prev => ({
+          ...prev,
+          [name]: errorMessage
+        }))
   };
 
   const mensajeSesion = () => {
@@ -107,32 +131,35 @@ export function Register() {
                     <InputField
                       label='Nombre completo'
                       name='nombre'
-                      value={input.name}
+                      value={input.nombre}
                       type='text'
                       placeholder='Juan Rodriguez Mena'
                       onChange={handleInput}
                       pattern={onlyLetters.format}
                     />
+                    {errors.nombre && <p className="text-red-500 text-sm">{errors.nombre}</p>}
 
                     <InputField
                       label='Correo institucional'
                       name='email'
-                      value={input.name}
+                      value={input.email}
                       type='email'
                       placeholder='example@unicesar.edu.co'
                       onChange={handleInput}
                       pattern={email.format}
                     />
+                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
 
                     <InputField
                       label='Contraseña'
                       name='password'
-                      value={input.name}
+                      value={input.password}
                       type='password'
                       placeholder='********'
                       onChange={handleInput}
                       pattern={password.format}
                     />
+                    {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
 
                     <div className='my-[10px] w-full flex flex-col gap-1'>
                       <label htmlFor='rol'>Rol</label>

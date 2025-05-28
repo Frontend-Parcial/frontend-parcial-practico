@@ -1,7 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { Login } from './pages/login'
 import { AuthProvider } from './providers/AuthProvider'
-import { Reporte } from './pages/reporte'
 import PrivateRoute from './providers/PrivateRoute'
 import { CrearEstudiante } from './pages/estudiantes/crear-estudiante'
 import { ListadoEstudiantes } from './pages/estudiantes/listado-estudiantes'
@@ -16,10 +15,8 @@ import { Register } from './pages/register'
 import { HealthCheck } from './pages/healthcheck'
 import ListaSolicitudes from './pages/solicitudes/ListaSolicitudes'
 import CrearSeguimiento from './pages/seguimiento/gestionar-seguimiento'
+
 import { AnimatePresence } from 'framer-motion'
-
-
-// import { Pruebas } from './pages/pruebas'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -32,7 +29,6 @@ function AnimatedRoutes() {
         <Route path='/healthcheck' element={<HealthCheck />} />
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<DashboardTablero />} />
-          <Route path='/reporte' element={<Reporte />} />
           <Route path='/estudiantes/nuevo' element={<CrearEstudiante />} />
           <Route path='/estudiantes' element={<ListadoEstudiantes />} />
           <Route path='/estudiantes/:id' element={<ObtenerEstudiante />} />
@@ -47,6 +43,9 @@ function AnimatedRoutes() {
 
 
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
+          {/* <Route path='/solicitudes' element={<ListaSolicitudes />} /> */}
+          {/* <Route path='/solicitudes/nuevo' element={<SolicitudIntercambioForm />} /> */}
+ {/* <Route path='/prueba' element={<Pruebas />} /> */}
         </Route>
       </Routes>
     </AnimatePresence>

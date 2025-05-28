@@ -3,7 +3,7 @@ import PageWrapper from '../../components/PageWrapper'
 import { getSolicitudXid } from '../../lib/solicitudes-data'
 import { gestionarSeguimiento } from '../../lib/seguimientos-data'
 
-export default function CrearSeguimiento() {
+export function CrearSeguimiento() {
   const [form, setForm] = useState({
     id_solicitud: '',
     estado_actual: '',
@@ -76,7 +76,7 @@ export default function CrearSeguimiento() {
         alert(`✅ Seguimiento creado correctamente.\nID: ${result._id}`)
       }
     } catch (error) {
-      alert('❌ Error al crear el seguimiento')
+      alert(error, '❌ Error al crear el seguimiento')
     }
   }
 

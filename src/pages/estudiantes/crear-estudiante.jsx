@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { createStudent } from '../../lib/estudiantes-data'
 import PageWrapper from '../../components/PageWrapper'
+import { address, onlyLetters, onlyEntireNumbers, decimalNumber } from '../../utils/patterns'
 
 export function CrearEstudiante() {
   const [estudiante, setEstudiante] = useState({
@@ -20,6 +21,12 @@ export function CrearEstudiante() {
     sanciones_academicas: false, // Valor por defecto según el fetch
     sanciones_disciplinarias: false, // Valor por defecto según el fetch
   })
+
+  const handleBeforeInput = (e, pattern) => {
+    if (pattern && !pattern.test(e.data)) {
+      e.preventDefault()
+    }
+  }
 
   const handleSubmitEvent = async e => {
     e.preventDefault()
@@ -83,6 +90,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: Juan Pérez'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='nombre_completo'
                   value={estudiante.nombre_completo}
                   required
@@ -114,6 +122,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: 123456789'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='documento_identidad'
                   value={estudiante.documento_identidad}
                   required
@@ -154,6 +163,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: 3001234567'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='telefono'
                   value={estudiante.telefono}
                   required
@@ -166,6 +176,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: Calle 123 #45-67'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, address.format)}
                   name='direccion'
                   value={estudiante.direccion}
                   required
@@ -178,6 +189,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: Ingeniería de Sistemas'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='programa_academico'
                   value={estudiante.programa_academico}
                   required
@@ -190,6 +202,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: Ingeniería'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='facultad'
                   value={estudiante.facultad}
                   required
@@ -205,6 +218,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                   placeholder='Ej: 5'
                   onChange={handleInput}
+                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='semestre'
                   value={estudiante.semestre}
                   required
@@ -222,6 +236,7 @@ export function CrearEstudiante() {
                 placeholder='Ej: 45'
                 onChange={handleInput}
                 name='creditos_cursados'
+                onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                 value={estudiante.creditos_cursados}
                 required
               />
@@ -231,12 +246,13 @@ export function CrearEstudiante() {
               <label className='block text-sm font-medium text-gray-700 mb-1'>Promedio Académico*</label>
               <input
                 type='number'
-                step='0.01'
+                step='0.1'
                 min='0'
                 max='5'
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
                 placeholder='Ej: 4.2'
                 onChange={handleInput}
+                onBeforeInput={(e) => handleBeforeInput(e, decimalNumber.format)}
                 name='promedio_academico'
                 value={estudiante.promedio_academico}
                 required

@@ -3,9 +3,6 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 import { getMovilidadEstudiante } from '../../../lib/reportes/MovilidadEstudiante'
 
 const DistribucionMovilidad = ({ isExpanded }) => {
-  //! ------------------------ CODIGO EXPERIMENTAL --------------------------
-  //! DE ACA PARA ABAJO TODO EL CODIGO ES EXPERIMENTAL!!
-
   const [datos, setDatos] = useState([])
   const [programasAgrupados, setProgramasAgrupados] = useState([])
   const coloresHex = [
@@ -38,8 +35,6 @@ const DistribucionMovilidad = ({ isExpanded }) => {
 
     const total = estudiantes.length
 
-    console.log(total / Object.keys(conteo).length)
-    console.log()
     return Object.entries(conteo).map(([programa, cantidad], index) => ({
       name: programa,
       value: Number((cantidad / total) * 100),
@@ -54,17 +49,10 @@ const DistribucionMovilidad = ({ isExpanded }) => {
 
       const agrupado = agruparPorPrograma(data)
       setProgramasAgrupados(agrupado)
-      console.log(programasAgrupados)
     }
 
     fetchData()
   }, [])
-
-  useEffect(() => {
-    console.log('Programas agrupados actualizados:', programasAgrupados)
-  }, [programasAgrupados])
-
-  //! ------------------------ FIN DEL CODIGO EXPERIMENTAL --------------------------
 
   return (
     <div className='h-full'>

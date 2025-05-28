@@ -1,6 +1,6 @@
 import { useContext, createContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getUser,registerUser } from '../lib/data'
+import { getUser, registerUser } from '../lib/data'
 
 const AuthContext = createContext()
 
@@ -13,8 +13,6 @@ export const AuthProvider = ({ children }) => {
   // const { getProfilePicStore, getUserNameStore, getUserToken, getUserSecondNameStore } = useInfoUsersStore()
 
   const loginPost = async data => {
-    console.log('dentro del login post')
-
     const validacion = {
       email: data.email,
       password: data.password,
@@ -33,25 +31,22 @@ export const AuthProvider = ({ children }) => {
 
   function loginAction(payload) {
     const { rol, user_id, nombre, token } = payload
-    console.log(payload.rol) //! solo para pruebas
     setUser(user_id)
     setToken(token)
     localStorage.setItem('site', token)
-    console.log(token)
-    console.log(localStorage.getItem('site'))
     // localStorage.setItem('site', rol)
     navigate('/dashboard')
   }
   const registerPost = async data => {
-  try {
-    const registerData = await registerUser(data)
-    if (registerData) {
-      loginAction(registerData)
+    try {
+      const registerData = await registerUser(data)
+      if (registerData) {
+        loginAction(registerData)
+      }
+    } catch (error) {
+      console.error('Error al registrar:', error)
     }
-  } catch (error) {
-    console.error('Error al registrar:', error)
   }
-}
   const logOut = () => {
     setUser(null)
     // setToken('')
@@ -60,7 +55,9 @@ export const AuthProvider = ({ children }) => {
     navigate('/')
   }
 
-  return <AuthContext.Provider value={{ token, user, loginPost, registerPost, logOut }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ token, user, loginPost, registerPost, logOut }}>{children}</AuthContext.Provider>
+  )
 }
 
 export const useAuth = () => {
