@@ -16,7 +16,6 @@ import { Register } from './pages/register'
 import { HealthCheck } from './pages/healthcheck'
 import ListaSolicitudes from './pages/solicitudes/ListaSolicitudes'
 import CrearSeguimiento from './pages/seguimiento/gestionar-seguimiento'
-
 import { AnimatePresence } from 'framer-motion'
 
 
