@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageWrapper from '../../components/PageWrapper';
-import { Header } from '../../components/Header';
-import Footer from '../../components/Footer';
 const apiUrl = import.meta.env.VITE_API_URL;
 const userToken = localStorage.getItem('site');
 
@@ -100,7 +98,6 @@ const ListaSolicitudes = () => {
   return (
     <PageWrapper>
       <div className='min-h-screen flex flex-col'>
-        <Header />
         
         <main className='flex-grow bg-gray-100 p-4'>
           <div className='max-w-6xl mx-auto'>
@@ -240,7 +237,6 @@ const ListaSolicitudes = () => {
           </div>
         </main>
       </div>
-      <Footer/>
     </PageWrapper>
   );
 };

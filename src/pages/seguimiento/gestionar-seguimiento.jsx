@@ -188,7 +188,7 @@ const CrearSeguimiento = () => {
           {/* Contacto */}
           <ContactoFijo />
 
-          <button type="submit" className="w-full mt-4 bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700">
+          <button type="submit" className="w-full mt-4 bg-primario text-white py-2 rounded hover:bg-oscuro">
             Registrar Seguimiento
           </button>
         </form>

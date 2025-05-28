@@ -4,8 +4,6 @@ import { listStudents, listStudentsFilter } from '../../lib/estudiantes-data';
 import { crearSolicitud } from '../../lib/solicitudes-data';
 import PageWrapper from '../../components/PageWrapper';
 import { useNavigate } from 'react-router-dom';
-import { Header } from '../../components/Header';
-import Footer from '../../components/Footer';
 
 
 const StudentAutocomplete = ({ onSelect, error }) => {
@@ -310,8 +308,6 @@ const SolicitudIntercambioForm = () => {
   return (
     <PageWrapper>
       <div className='min-h-screen flex flex-col'>
-        <Header />
-        
         <main className='flex-grow bg-gray-100 p-4'>
           <div className='max-w-6xl mx-auto grid grid-cols-1 gap-4 shadow-md'>
             <div className='bg-white rounded-lg overflow-hidden shadow-md'>
@@ -593,7 +589,6 @@ const SolicitudIntercambioForm = () => {
           </div>
         </main>
       </div>
-      <Footer/>
     </PageWrapper>
   );
 };

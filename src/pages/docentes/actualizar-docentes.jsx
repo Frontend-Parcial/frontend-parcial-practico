@@ -87,7 +87,7 @@ export function ActualizarDocentes() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Teléfono</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='telefono'
@@ -98,7 +98,7 @@ export function ActualizarDocentes() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Email</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, email.format)}
                   name='email'
@@ -109,7 +109,7 @@ export function ActualizarDocentes() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Departamento</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
                   name='departamento'
@@ -120,7 +120,7 @@ export function ActualizarDocentes() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Categoría Docente</label>
                 <select
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   name='categoria_docente'
                   defaultValue={datosOriginales.categoria_docente || ''}
@@ -142,7 +142,7 @@ export function ActualizarDocentes() {
                   step='0.1'
                   min='0'
                   max='5'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleNumberInput}
                   onBeforeInput={(e) => handleBeforeInput(e, decimalNumber.format)}
                   name='evaluacion_docente_promedio'
@@ -155,7 +155,7 @@ export function ActualizarDocentes() {
                 <input
                   type='number'
                   min='0'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleNumberInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='publicaciones'
@@ -168,7 +168,7 @@ export function ActualizarDocentes() {
                 <input
                   type='number'
                   min='0'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleNumberInput}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='proyectos_investigacion'
@@ -179,7 +179,7 @@ export function ActualizarDocentes() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Estado</label>
                 <select
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   name='estado'
                   defaultValue={datosOriginales.estado || 'activo'}
@@ -196,7 +196,7 @@ export function ActualizarDocentes() {
           <div className='pt-6'>
             <button
               type='submit'
-              className='w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors font-medium'
+              className='w-full bg-primario text-white py-3 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primario transition-colors font-medium'
             >
               Actualizar Datos del Docente
             </button>
