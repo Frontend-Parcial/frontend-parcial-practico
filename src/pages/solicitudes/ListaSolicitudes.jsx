@@ -58,15 +58,27 @@ const ListaSolicitudes = () => {
   };
 
   const formatFecha = (fechaString) => {
-    const fecha = new Date(fechaString);
-    return fecha.toLocaleDateString('es-CO', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+    const fechaReal = fechaString?.$date ? fechaString.$date : fechaString;
+    const fecha = new Date(fechaReal);
+    if (isNaN(fecha)) return 'Fecha inválida';
+
+    return (
+      <div>
+        <div>{fecha.toLocaleDateString('es-CO', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+        })}</div>
+        <div className="text-xs text-gray-600">{fecha.toLocaleTimeString('es-CO', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        })}</div>
+      </div>
+    );
   };
+
+
 
   const getEstadoColor = (estado) => {
     switch (estado.toLowerCase()) {
