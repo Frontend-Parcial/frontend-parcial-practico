@@ -15,6 +15,7 @@ import { Register } from './pages/register'
 import { HealthCheck } from './pages/healthcheck'
 import ListaSolicitudes from './pages/solicitudes/ListaSolicitudes'
 import CrearSeguimiento from './pages/seguimiento/gestionar-seguimiento'
+import SolicitudIntercambioForm from './pages/solicitudes/SolicitudesCreate'
 
 import { AnimatePresence } from 'framer-motion'
 
@@ -39,6 +40,7 @@ function AnimatedRoutes() {
           <Route path='/docentes/actualizar/:id' element={<ActualizarDocentes />} />
           <Route path='/solicitudes' element={<ListaSolicitudes />} />
           <Route path='/seguimiento' element={<CrearSeguimiento/>} />
+          <Route path='/solicitudes/nuevo' element={<SolicitudIntercambioForm />} />
 
 
 

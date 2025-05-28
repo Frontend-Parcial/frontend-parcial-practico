@@ -46,3 +46,45 @@ export async function getSolicitudXid(id) {
     return null
   }
 }
+export async function getSeguimientoXsolicitud(id_solicitud) {
+  try {
+    const response = await fetch(`${apiUrl}/seguimiento/solicitud/${id_solicitud}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`
+      }
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      console.error('Error al obtener seguimiento:', error.message);
+      return null;
+    }
+
+    const data = await response.json();
+    return data.data; // ajusta según lo que devuelve tu backend
+  } catch (error) {
+    console.error('Error en la consulta de seguimiento:', error);
+    return null;
+  }
+}
+
+
+export async function updateSeguimiento(id, data) {
+  try {
+    const response = await fetch(`${apiUrl}/seguimiento/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error('Error al actualizar seguimiento:', error);
+    throw error;
+  }
+}
+
