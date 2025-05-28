@@ -48,9 +48,10 @@ const ListaSolicitudes = () => {
     cargarSolicitudes();
   }, [pagination.page]);
 
-  const handleVerSeguimiento = (id) => {
-    navigate(`/seguimientos/${id}`);
-  };
+    const handleVerSeguimiento = (id) => {
+      localStorage.setItem('id_solicitud_seleccionada', id);
+      window.location.href = '/seguimiento';
+    };
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= pagination.pages) {
