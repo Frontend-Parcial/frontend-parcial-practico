@@ -179,7 +179,7 @@ export function ListadoAsignaturas() {
                     <h3 className='text-lg font-medium text-center text-gray-800 mb-1'>
                       {asignatura.nombre_asignatura_origen}
                     </h3>
-                    <p className='text-sm text-center text-gray-500'>ID solicitante: {asignatura.id_solicitud?.$oid}</p>
+
                     <p className='text-sm text-center text-gray-500'>Código: {asignatura.codigo_asignatura_origen}</p>
                     <p className='text-sm text-center text-gray-500'>
                       Equivale a: {asignatura.nombre_asignatura_destino}

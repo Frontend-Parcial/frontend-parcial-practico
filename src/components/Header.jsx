@@ -3,6 +3,10 @@ import logo from '../assets/ESCUDO_UPC_PQ.png'
 import UPC from '../assets/LOGO-UPC.png'
 import { useAuth } from '../providers/AuthProvider'
 
+// Íconos
+import { FiHome, FiUsers, FiUserCheck, FiFileText, FiLogOut } from 'react-icons/fi'
+import { MdHandshake } from 'react-icons/md'
+
 const theme = {
   colorGradiente: 'linear-gradient(to right, #2fb44b, #4dd269)',
   sombra: 'rgba(0,0,0,0.2)',
@@ -20,54 +24,60 @@ export function Header() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const tabs = ['Inicio', 'Estudiantes', 'Docentes', 'Convenios', 'Solicitudes']
+  const tabs = [
+    { name: 'Inicio', icon: <FiHome className='mr-2' /> },
+    { name: 'Estudiantes', icon: <FiUsers className='mr-2' /> },
+    { name: 'Docentes', icon: <FiUserCheck className='mr-2' /> },
+    { name: 'Convenios', icon: <MdHandshake className='mr-2' /> },
+    { name: 'Solicitudes', icon: <FiFileText className='mr-2' /> },
+  ]
 
-  // Detectar la pestaña activa desde la URL
   const currentPath = location.pathname.toLowerCase()
-  const activeTab = tabs.find(tab => `/${tab.toLowerCase()}` === currentPath)
+  const activeTab = tabs.find(tab => currentPath.startsWith(`/${tab.name.toLowerCase()}`))
 
   return (
-    <div>
-      <header className=' flex justify-between items-center bg-primario pl-8 pr-8'>
-        <div className='flex items-center'>
-          <div className='text-white mr-2 cursor-pointer'>
-            <div
-              onClick={() => navigate('/Inicio')}
-              className='text-4xl font-bold'
-              style={{ fontFamily: theme.fontInstitucional }}
-            >
-              <img src={UPC} alt='Universidad Popular del Cesar Logo' className='w-70 h-30 object-contain' />
-            </div>
-          </div>
+    <div className='shadow-md'>
+      <header className='flex justify-between items-center bg-primario px-6 py-3'>
+        <div className='flex items-center gap-4'>
+          <img
+            src={UPC}
+            alt='Universidad Popular del Cesar Logo'
+            className='h-14 object-contain cursor-pointer'
+            onClick={() => navigate('/Inicio')}
+          />
         </div>
-        <div className='w-20 h-20'>
-          <img src={logo} alt='Universidad Popular del Cesar Logo' className='w-full h-full object-contain' />
+        <div>
+          <img src={logo} alt='Escudo Universidad Popular del Cesar' className='h-16 object-contain' />
         </div>
       </header>
 
       {/* Navigation */}
-      <nav style={{ backgroundColor: theme.grisClaro }} className='p-2 shadow-md'>
-        <div className='flex justify-between max-w-5xl mx-auto'>
-          {tabs.map(tab => (
-            <button
-              key={tab}
-              className='px-4 py-2 rounded transition-all duration-200 hover:bg-gray-100 hover:shadow hover:scale-95 cursor-pointer'
-              style={{
-                backgroundColor: activeTab === tab ? theme.blanco : 'transparent',
-                color: activeTab === tab ? theme.colorOscuro : theme.colorTextoOscuro,
-                boxShadow: activeTab === tab ? `0 2px 4px ${theme.sombra}` : 'none',
-                fontWeight: activeTab === tab ? 'bold' : 'normal',
-                border: activeTab === tab ? `1px solid ${theme.colorClaro}` : 'none',
-              }}
-              onClick={() => navigate(`/${tab.toLowerCase()}`)}
-            >
-              {tab}
-            </button>
-          ))}
+      <nav style={{ backgroundColor: theme.grisClaro }} className='py-3'>
+        <div className='max-w-7xl mx-auto flex justify-between items-center px-4'>
+          <div className='flex gap-3'>
+            {tabs.map(tab => (
+              <button
+                key={tab.name}
+                className='flex items-center px-4 py-2 rounded-md transition-all duration-200 hover:bg-gray-200 hover:shadow-md text-sm'
+                style={{
+                  backgroundColor: activeTab?.name === tab.name ? theme.blanco : 'transparent',
+                  color: activeTab?.name === tab.name ? theme.colorOscuro : theme.colorTextoOscuro,
+                  boxShadow: activeTab?.name === tab.name ? `0 2px 6px ${theme.sombra}` : 'none',
+                  fontWeight: activeTab?.name === tab.name ? '600' : 'normal',
+                  border: activeTab?.name === tab.name ? `1px solid ${theme.colorClaro}` : 'none',
+                }}
+                onClick={() => navigate(`/${tab.name.toLowerCase()}`)}
+              >
+                {tab.icon}
+                {tab.name}
+              </button>
+            ))}
+          </div>
           <button
-            className='px-5 py-3 min-w-[100px] m-[10px] mr-[40px] ml-[20px] cursor-pointer transition-colors duration-[400ms] rounded hover:bg-logout'
+            className='flex items-center gap-2 px-5 py-2 rounded-md text-sm font-medium bg-white text-red-600 border border-red-200 hover:bg-logout hover:text-white transition duration-300'
             onClick={() => auth.logOut()}
           >
+            <FiLogOut />
             Cerrar Sesión
           </button>
         </div>

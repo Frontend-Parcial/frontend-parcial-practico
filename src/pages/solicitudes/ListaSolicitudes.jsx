@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageWrapper from '../../components/PageWrapper'
+import { FiEye } from 'react-icons/fi'
+import { HiOutlineBookOpen } from 'react-icons/hi'
 
 const userToken = localStorage.getItem('site')
 
@@ -203,18 +205,20 @@ const ListaSolicitudes = () => {
                               </span>
                             </td>
                             <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
-                              <div className='flex flex-col space-y-4'>
+                              <div className='flex space-x-4'>
                                 <button
                                   onClick={() => handleVerSeguimiento(solicitud._id)}
-                                  className='text-primario hover:text-oscuro mr-3'
+                                  title='Ver Seguimiento'
+                                  className='text-primario hover:text-oscuro transition-colors duration-200'
                                 >
-                                  Ver Seguimiento
+                                  <FiEye size={20} />
                                 </button>
                                 <button
                                   onClick={() => handleVerAsignaturas(solicitud._id)}
-                                  className='text-claro hover:text-primario mr-3'
+                                  title='Ver Asignaturas'
+                                  className='text-claro hover:text-primario transition-colors duration-200'
                                 >
-                                  Ver Asignaturas
+                                  <HiOutlineBookOpen size={20} />
                                 </button>
                               </div>
                             </td>

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageWrapper from '../../components/PageWrapper'
+import { FiEye } from 'react-icons/fi'
+import { HiOutlineBookOpen } from 'react-icons/hi'
 
 const apiUrl = import.meta.env.VITE_API_URL
 const userToken = localStorage.getItem('site')
@@ -189,9 +191,10 @@ const ListaConvenios = () => {
                             <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
                               <button
                                 onClick={() => handleVerConvenio(convenio._id)}
-                                className='text-primario hover:text-oscuro mr-3'
+                                title='Ver detalle'
+                                className='text-primario hover:text-oscuro transition-colors duration-200'
                               >
-                                Ver detalle
+                                <FiEye size={20} />
                               </button>
                             </td>
                           </tr>
