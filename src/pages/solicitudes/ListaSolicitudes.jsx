@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageWrapper from '../../components/PageWrapper'
-const apiUrl = import.meta.env.VITE_API_URL
 const userToken = localStorage.getItem('site')
 
 const ListaSolicitudes = () => {
