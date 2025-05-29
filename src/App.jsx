@@ -19,6 +19,7 @@ import SolicitudIntercambioForm from './pages/solicitudes/SolicitudesCreate'
 import ListaConvenios from './pages/convenios/ListarConvenios'
 import CrearConvenio from './pages/convenios/component/CrearNuevoConvenio'
 import { DetalleConvenio } from './pages/convenios/DetalleConvenio'
+import { ListadoAsignaturas } from './pages/asignaturas/listado-asignaturas'
 
 import { AnimatePresence } from 'framer-motion'
 import Layout from './components/Layout'
@@ -158,6 +159,14 @@ function AnimatedRoutes() {
             element={
               <Layout>
                 <DetalleConvenio />
+              </Layout>
+            }
+          />
+          <Route
+            path='/asignaturas'
+            element={
+              <Layout>
+                <ListadoAsignaturas />
               </Layout>
             }
           />
