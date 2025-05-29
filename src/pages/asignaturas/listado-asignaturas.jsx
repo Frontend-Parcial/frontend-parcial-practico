@@ -56,6 +56,21 @@ export function ListadoAsignaturas() {
         console.error('Error al cargar asignaturas:', error)
         setError(error.message || 'No se pudieron cargar las asignaturas')
         setDatos([])
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+          setError('Error de conexión. Verifique su conexión a internet.')
+        } else if (error.message.includes('401') || error.message.includes('Unauthorized')) {
+          setError('Token de autenticación expirado')
+          localStorage.removeItem('site')
+          navigate('/login')
+          return
+        } else {
+          if (error.message.includes('404')) {
+            setError('No hay equivalencia')
+          } else {
+            setError(error.message || 'No se pudieron cargar las asignaturas')
+          }
+        }
+        setDatos([])
       } finally {
         setLoading(false)
       }
@@ -92,12 +107,6 @@ export function ListadoAsignaturas() {
               </svg>
               <span className='text-red-800'>{error}</span>
             </div>
-            <button
-              onClick={() => window.location.reload()}
-              className='mt-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm'
-            >
-              Reintentar
-            </button>
           </div>
         </div>
       </PageWrapper>
