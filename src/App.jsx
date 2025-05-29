@@ -130,32 +130,32 @@ function AnimatedRoutes() {
               </Layout>
             }
           />
-          <Route
-            path='/solicitudes/nuevo'
+          <Route 
+            path='/solicitudes/nuevo' 
             element={
               <Layout>
                 <SolicitudIntercambioForm />
-              </Layout>
-            }
+            </Layout>
+            } 
           />
-          <Route
-            path='/convenios'
+          <Route 
+            path='/convenios' 
             element={
               <Layout>
                 <ListaConvenios />
               </Layout>
-            }
+            } 
           />
-          <Route
-            path='/convenios/nuevo'
+          <Route 
+            path='/convenios/nuevo' 
             element={
               <Layout>
-                <CrearConvenio />
+                  <CrearConvenio />
               </Layout>
-            }
+            } 
           />
-          <Route
-            path='/convenios/:id'
+          <Route 
+            path='/convenios/:id' 
             element={
               <Layout>
                 <DetalleConvenio />
