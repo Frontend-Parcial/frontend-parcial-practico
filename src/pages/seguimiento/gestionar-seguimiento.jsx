@@ -17,10 +17,8 @@ const CrearSeguimiento = () => {
   });
 
   const [validSolicitud, setValidSolicitud] = useState(null);
-  const [solicitudInfo, setSolicitudInfo] = useState(null);
   const [seguimientoExistente, setSeguimientoExistente] = useState(false);
 
-  // Cargar ID desde localStorage una sola vez
   useEffect(() => {
     const idGuardado = localStorage.getItem('id_solicitud_seleccionada');
     if (idGuardado) {
@@ -29,14 +27,12 @@ const CrearSeguimiento = () => {
     }
   }, []);
 
-  // Validar solicitud y cargar seguimiento si existe
   useEffect(() => {
     const cargarDatos = async () => {
       if (form.id_solicitud.length >= 6) {
         try {
           const solicitud = await getSolicitudXid(form.id_solicitud);
           setValidSolicitud(!!solicitud);
-          setSolicitudInfo(solicitud || null);
 
           if (solicitud) {
             const seguimiento = await getSeguimientoXsolicitud(form.id_solicitud);
@@ -44,14 +40,12 @@ const CrearSeguimiento = () => {
             if (seguimiento) {
               setForm({
                 ...seguimiento,
-                id_solicitud: form.id_solicitud // asegurarse
+                id_solicitud: form.id_solicitud
               });
               setSeguimientoExistente(true);
             } else {
-              setForm(prev => ({
-                ...prev,
-                fecha_inicio: solicitud.fecha_creacion?.$date || solicitud.fecha_creacion || new Date().toISOString()
-              }));
+              const fechaInicio = solicitud.fecha_creacion?.$date || solicitud.fecha_creacion || new Date().toISOString();
+              setForm(prev => ({ ...prev, fecha_inicio: fechaInicio }));
               setSeguimientoExistente(false);
             }
           }
@@ -81,7 +75,6 @@ const CrearSeguimiento = () => {
     const fechaActual = new Date().toISOString();
 
     try {
-      // Validar si ya hay seguimiento para esta solicitud antes de guardar
       const seguimientoPrevio = await getSeguimientoXsolicitud(form.id_solicitud);
 
       const seguimiento = {
@@ -98,7 +91,7 @@ const CrearSeguimiento = () => {
 
       let result;
       if (seguimientoPrevio && seguimientoPrevio._id) {
-        let avance = { "contenido": form.observaciones }
+        let avance = { "contenido": form.observaciones };
         result = await updateSeguimiento(seguimientoPrevio._id, avance);
         alert(`✅ Seguimiento actualizado correctamente.\nID: ${result.seguimiento._id}`);
       } else {
@@ -113,76 +106,70 @@ const CrearSeguimiento = () => {
   };
 
   const renderRegistroForm = () => (
-  <>
-    {/* Fechas */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <FechaCampo label="Fecha de Inicio" value={form.fecha_inicio} />
-      <FechaCampo label="Fecha de Actualización" value={form.fecha_actualizacion} />
-    </div>
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FechaCampo label="Fecha de Inicio" value={form.fecha_inicio} />
+        <FechaCampo label="Fecha de Actualización" value={form.fecha_actualizacion} />
+      </div>
 
-    {/* Estado */}
-    <div>
-      <label className="block text-sm font-medium text-gray-700">Estado Actual</label>
-      <select
-        name="estado_actual"
-        value={form.estado_actual}
-        onChange={handleChange}
-        required
-        className="w-full border px-3 py-2 rounded"
-      >
-        <option value="pendiente">Pendiente</option>
-        <option value="en proceso">En proceso</option>
-        <option value="culminado">Culminado</option>
-      </select>
-    </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Estado Actual</label>
+        <select
+          name="estado_actual"
+          value={form.estado_actual}
+          onChange={handleChange}
+          required
+          className="w-full border px-3 py-2 rounded"
+        >
+          <option value="pendiente">Pendiente</option>
+          <option value="en proceso">En proceso</option>
+          <option value="culminado">Culminado</option>
+        </select>
+      </div>
 
-    {/* Documentos y Observaciones */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <FileUploader label="Evaluaciones Recibidas" files={form.evaluaciones_recibidas} onChange={(e) => handleFileChange(e, 'eval')} icon="📄" />
-      <FileUploader label="Documentos Soporte" files={form.documentos_soporte} onChange={(e) => handleFileChange(e, 'doc')} icon="📎" />
-    </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FileUploader label="Evaluaciones Recibidas" files={form.evaluaciones_recibidas} onChange={(e) => handleFileChange(e, 'eval')} icon="📄" />
+        <FileUploader label="Documentos Soporte" files={form.documentos_soporte} onChange={(e) => handleFileChange(e, 'doc')} icon="📎" />
+      </div>
 
-    <div>
-      <label className="block text-sm font-medium text-gray-700">Observaciones</label>
-      <textarea name="observaciones" value={form.observaciones} onChange={handleChange} className="w-full border px-3 py-2 rounded" rows={3} />
-    </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Observaciones</label>
+        <textarea name="observaciones" value={form.observaciones} onChange={handleChange} className="w-full border px-3 py-2 rounded" rows={3} />
+      </div>
 
-    <ContactoFijo />
-  </>
-);
+      <ContactoFijo />
+    </>
+  );
 
-const renderActualizarForm = () => (
-  <>
-    <FechaCampo label="Fecha de Última Actualización" value={form.fecha_actualizacion} />
+  const renderActualizarForm = () => (
+    <>
+      <FechaCampo label="Fecha de Última Actualización" value={form.fecha_actualizacion} />
 
-    {/* Estado */}
-    <div>
-      <label className="block text-sm font-medium text-gray-700">Actualizar Estado</label>
-      <select
-        name="estado_actual"
-        value={form.estado_actual}
-        onChange={handleChange}
-        className="w-full border px-3 py-2 rounded"
-      >
-        <option value="pendiente">Pendiente</option>
-        <option value="en proceso">En proceso</option>
-        <option value="culminado">Culminado</option>
-      </select>
-    </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Actualizar Estado</label>
+        <select
+          name="estado_actual"
+          value={form.estado_actual}
+          onChange={handleChange}
+          className="w-full border px-3 py-2 rounded"
+        >
+          <option value="pendiente">Pendiente</option>
+          <option value="en proceso">En proceso</option>
+          <option value="culminado">Culminado</option>
+        </select>
+      </div>
 
-    {/* Agregar documentos o evaluaciones */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <FileUploader label="Agregar Evaluaciones" files={form.evaluaciones_recibidas} onChange={(e) => handleFileChange(e, 'eval')} icon="📄" />
-      <FileUploader label="Agregar Documentos" files={form.documentos_soporte} onChange={(e) => handleFileChange(e, 'doc')} icon="📎" />
-    </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FileUploader label="Agregar Evaluaciones" files={form.evaluaciones_recibidas} onChange={(e) => handleFileChange(e, 'eval')} icon="📄" />
+        <FileUploader label="Agregar Documentos" files={form.documentos_soporte} onChange={(e) => handleFileChange(e, 'doc')} icon="📎" />
+      </div>
 
-    {/* Observaciones adicionales */}
-    <div>
-      <label className="block text-sm font-medium text-gray-700">Nuevas Observaciones</label>
-      <textarea name="observaciones" value={form.observaciones} onChange={handleChange} className="w-full border px-3 py-2 rounded" rows={3} />
-    </div>
-  </>
-);
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Nuevas Observaciones</label>
+        <textarea name="observaciones" value={form.observaciones} onChange={handleChange} className="w-full border px-3 py-2 rounded" rows={3} />
+      </div>
+    </>
+  );
 
   return (
     <PageWrapper>
@@ -207,7 +194,6 @@ const renderActualizarForm = () => (
             {validSolicitud === false && <p className="text-red-600 text-sm">❌ Solicitud no encontrada</p>}
           </div>
 
-          {/* Mostrar una u otra interfaz */}
           {seguimientoExistente ? renderActualizarForm() : renderRegistroForm()}
 
           <button type="submit" className="w-full mt-4 bg-primario text-white py-2 rounded hover:bg-oscuro">
@@ -220,7 +206,7 @@ const renderActualizarForm = () => (
 };
 
 const FechaCampo = ({ label, value }) => {
-  const fechaValida = value?.$date ? value.$date : value;
+  const fechaValida = value?.$date || value;
   return (
     <div>
       <label className="block text-sm text-gray-600">{label}</label>
