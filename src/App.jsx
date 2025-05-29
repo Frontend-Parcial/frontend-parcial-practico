@@ -19,6 +19,9 @@ import SolicitudIntercambioForm from './pages/solicitudes/SolicitudesCreate'
 
 import { AnimatePresence } from 'framer-motion'
 import Layout from './components/Layout'
+import ListaConvenios from './pages/convenios/ListarConvenios'
+import CrearConvenio from './pages/convenios/component/CrearNuevoConvenio'
+import { DetalleConvenio } from './pages/convenios/DetalleConvenio'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -30,21 +33,109 @@ function AnimatedRoutes() {
         <Route path='/register' element={<Register />} />
         <Route path='/healthcheck' element={<HealthCheck />} />
         <Route element={<PrivateRoute />}>
-          <Route path='/dashboard' element={<Layout><DashboardTablero /></Layout>} />
-          <Route path='/estudiantes/nuevo' element={<Layout><CrearEstudiante /></Layout>} />
-          <Route path='/estudiantes' element={<Layout><ListadoEstudiantes /></Layout>} />
-          <Route path='/estudiantes/:id' element={<Layout><ObtenerEstudiante /></Layout>} />
-          <Route path='/estudiantes/actualizar/:id' element={<Layout><ActualizarEstudiante /></Layout>} />
-          <Route path='/docentes' element={<Layout><ListadoDocentes /></Layout>} />
-          <Route path='/docentes/nuevo' element={<Layout><CrearDocente /></Layout>} />
-          <Route path='/docentes/:id' element={<Layout><ObtenerDocentes /></Layout>} />
-          <Route path='/docentes/actualizar/:id' element={<Layout><ActualizarDocentes /></Layout>} />
-          <Route path='/solicitudes' element={<Layout><ListaSolicitudes /></Layout>} />
-          <Route path='/seguimiento' element={<Layout><CrearSeguimiento /></Layout>} />
-          <Route path='/seguimiento/crear' element={<Layout><SolicitudIntercambioForm /></Layout>} />
+          <Route
+            path='/dashboard'
+            element={
+              <Layout>
+                <DashboardTablero />
+              </Layout>
+            }
+          />
+          <Route
+            path='/estudiantes/nuevo'
+            element={
+              <Layout>
+                <CrearEstudiante />
+              </Layout>
+            }
+          />
+          <Route
+            path='/estudiantes'
+            element={
+              <Layout>
+                <ListadoEstudiantes />
+              </Layout>
+            }
+          />
+          <Route
+            path='/estudiantes/:id'
+            element={
+              <Layout>
+                <ObtenerEstudiante />
+              </Layout>
+            }
+          />
+          <Route
+            path='/estudiantes/actualizar/:id'
+            element={
+              <Layout>
+                <ActualizarEstudiante />
+              </Layout>
+            }
+          />
+          <Route
+            path='/docentes'
+            element={
+              <Layout>
+                <ListadoDocentes />
+              </Layout>
+            }
+          />
+          <Route
+            path='/docentes/nuevo'
+            element={
+              <Layout>
+                <CrearDocente />
+              </Layout>
+            }
+          />
+          <Route
+            path='/docentes/:id'
+            element={
+              <Layout>
+                <ObtenerDocentes />
+              </Layout>
+            }
+          />
+          <Route
+            path='/docentes/actualizar/:id'
+            element={
+              <Layout>
+                <ActualizarDocentes />
+              </Layout>
+            }
+          />
+          <Route
+            path='/solicitudes'
+            element={
+              <Layout>
+                <ListaSolicitudes />
+              </Layout>
+            }
+          />
+          <Route
+            path='/seguimiento'
+            element={
+              <Layout>
+                <CrearSeguimiento />
+              </Layout>
+            }
+          />
+          <Route
+            path='/seguimiento/crear'
+            element={
+              <Layout>
+                <SolicitudIntercambioForm />
+              </Layout>
+            }
+          />
+          <Route path='/solicitudes/nuevo' element={<Layout><SolicitudIntercambioForm /></Layout>} />
+          <Route path='/convenios' element={<Layout><ListaConvenios /></Layout>} />
+          <Route path='/convenios/nuevo' element={<Layout><CrearConvenio /></Layout>} />
+          <Route path='/convenios/:id' element={<Layout><DetalleConvenio /></Layout>} />
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
           {/* <Route path='/solicitudes' element={<ListaSolicitudes />} /> */}
-          {/* <Route path='/solicitudes/nuevo' element={<SolicitudIntercambioForm />} /> */}
+           
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
         </Route>
       </Routes>
