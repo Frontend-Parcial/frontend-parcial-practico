@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import { createStudent } from '../../lib/estudiantes-data'
+import { useNavigate } from 'react-router-dom'
 import PageWrapper from '../../components/PageWrapper'
 import { address, onlyLetters, onlyEntireNumbers, decimalNumber } from '../../utils/patterns'
 
+
 export function CrearEstudiante() {
+  const navigate = useNavigate();
   const [estudiante, setEstudiante] = useState({
     nombre_completo: '',
     documento_identidad: '',
@@ -307,7 +310,15 @@ export function CrearEstudiante() {
             </div>
           </div>
 
-          <div className='pt-4'>
+          {/* Botones */}
+          <div className="pt-6 flex justify-between gap-4">
+            <button
+              type="button"
+              onClick={() => navigate('/estudiantes')}
+              className="bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all"
+            >
+              Cancelar
+            </button>
             <button
               type='submit'
               className='w-full bg-primario text-white py-2 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-claro transition-colors'
