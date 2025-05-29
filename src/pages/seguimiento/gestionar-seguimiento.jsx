@@ -114,7 +114,7 @@ const CrearSeguimiento = () => {
 
   return (
     <PageWrapper>
-      <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow">
+      <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow mt-4">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">Seguimiento</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
