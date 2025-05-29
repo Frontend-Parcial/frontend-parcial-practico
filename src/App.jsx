@@ -16,6 +16,7 @@ import { HealthCheck } from './pages/healthcheck'
 import ListaSolicitudes from './pages/solicitudes/ListaSolicitudes'
 import CrearSeguimiento from './pages/seguimiento/gestionar-seguimiento'
 import SolicitudIntercambioForm from './pages/solicitudes/SolicitudesCreate'
+import { ListadoAsignaturas } from './pages/asignaturas/listado-asignaturas'
 
 import { AnimatePresence } from 'framer-motion'
 import Layout from './components/Layout'
@@ -123,6 +124,14 @@ function AnimatedRoutes() {
             element={
               <Layout>
                 <SolicitudIntercambioForm />
+              </Layout>
+            }
+          />
+          <Route
+            path='/asignaturas'
+            element={
+              <Layout>
+                <ListadoAsignaturas />
               </Layout>
             }
           />
