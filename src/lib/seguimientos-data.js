@@ -52,25 +52,23 @@ export async function getSeguimientoXsolicitud(id_solicitud) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userToken}`
-      }
-    });
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
 
     if (!response.ok) {
-      const error = await response.json();
-      console.error('Error al obtener seguimiento:', error.message);
-      return null;
+      const error = await response.json()
+      console.error('Error al obtener seguimiento:', error.message)
+      return null
     }
 
-    const data = await response.json();
-    return data["seguimiento"];
-
+    const data = await response.json()
+    return data['seguimiento']
   } catch (error) {
-    console.error('Error en la consulta de seguimiento:', error);
-    return null;
+    console.error('Error en la consulta de seguimiento:', error)
+    return null
   }
 }
-
 
 export async function updateSeguimiento(id, data) {
   try {
@@ -81,11 +79,10 @@ export async function updateSeguimiento(id, data) {
         Authorization: `Bearer ${userToken}`,
       },
       body: JSON.stringify(data),
-    });
-    return await response.json();
+    })
+    return await response.json()
   } catch (error) {
-    console.error('Error al actualizar seguimiento:', error);
-    throw error;
+    console.error('Error al actualizar seguimiento:', error)
+    throw error
   }
 }
-

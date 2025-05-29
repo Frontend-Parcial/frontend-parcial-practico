@@ -18,19 +18,19 @@ export function ListadoAsignaturas() {
     responsable_seguimiento: 'María Castro - Coordinadora ORPI',
     reporte_avance: [],
     fecha_inicio: '',
-    fecha_actualizacion: ''
-  });
-
-   useEffect(() => {
-    const idGuardado = localStorage.getItem('id_solicitud_seleccionada');
-    if (idGuardado) {
-      setForm(prev => ({ ...prev, id_solicitud: idGuardado }));
-      localStorage.removeItem('id_solicitud_seleccionada');
-    }
-  }, []);
+    fecha_actualizacion: '',
+  })
 
   useEffect(() => {
-    if (!form.id_solicitud) return;
+    const idGuardado = localStorage.getItem('id_solicitud_seleccionada')
+    if (idGuardado) {
+      setForm(prev => ({ ...prev, id_solicitud: idGuardado }))
+      localStorage.removeItem('id_solicitud_seleccionada')
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!form.id_solicitud) return
     const cargarAsignaturas = async () => {
       try {
         setLoading(true)

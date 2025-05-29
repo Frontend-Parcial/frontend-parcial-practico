@@ -10,8 +10,6 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('site') || '')
   const navigate = useNavigate()
 
-  // const { getProfilePicStore, getUserNameStore, getUserToken, getUserSecondNameStore } = useInfoUsersStore()
-
   const loginPost = async data => {
     const validacion = {
       email: data.email,

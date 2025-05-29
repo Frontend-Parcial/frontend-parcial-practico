@@ -11,7 +11,7 @@ export function ActualizarEstudiante() {
   const [cambios, setCambios] = useState({})
   const [cargando, setCargando] = useState(true)
   const [errores, setErrores] = useState({})
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const tiposDocumento = [
     { value: 'CC', label: 'Cédula de Ciudadanía' },
@@ -132,7 +132,7 @@ export function ActualizarEstudiante() {
                     errores.nombre_completo ? 'border-red-500' : 'border-gray-300'
                   } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario`}
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='nombre_completo'
                   defaultValue={datosOriginales.nombre_completo || ''}
                 />
@@ -162,7 +162,7 @@ export function ActualizarEstudiante() {
                   type='number'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='documento_identidad'
                   defaultValue={datosOriginales.documento_identidad || ''}
                 />
@@ -185,7 +185,7 @@ export function ActualizarEstudiante() {
                   type='email'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, email.format)}
+                  onBeforeInput={e => handleBeforeInput(e, email.format)}
                   name='email'
                   defaultValue={datosOriginales.email || ''}
                 />
@@ -197,7 +197,7 @@ export function ActualizarEstudiante() {
                   type='tel'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='telefono'
                   defaultValue={datosOriginales.telefono || ''}
                 />
@@ -211,7 +211,7 @@ export function ActualizarEstudiante() {
                 <input
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, address.format)}
+                  onBeforeInput={e => handleBeforeInput(e, address.format)}
                   name='direccion'
                   defaultValue={datosOriginales.direccion || ''}
                 />
@@ -224,7 +224,7 @@ export function ActualizarEstudiante() {
                     errores.programa_academico ? 'border-red-500' : 'border-gray-300'
                   } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario`}
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='programa_academico'
                   defaultValue={datosOriginales.programa_academico || ''}
                 />
@@ -240,7 +240,7 @@ export function ActualizarEstudiante() {
                     errores.facultad ? 'border-red-500' : 'border-gray-300'
                   } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario`}
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='facultad'
                   defaultValue={datosOriginales.facultad || ''}
                 />
@@ -255,7 +255,7 @@ export function ActualizarEstudiante() {
                   max='20'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='semestre'
                   defaultValue={datosOriginales.semestre || ''}
                 />
@@ -267,7 +267,7 @@ export function ActualizarEstudiante() {
                   type='number'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='creditos_cursados'
                   defaultValue={datosOriginales.creditos_cursados || ''}
                 />
@@ -282,7 +282,7 @@ export function ActualizarEstudiante() {
                   max='5'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, decimalNumber.format)}
+                  onBeforeInput={e => handleBeforeInput(e, decimalNumber.format)}
                   name='promedio_academico'
                   defaultValue={datosOriginales.promedio_academico || ''}
                 />
@@ -336,11 +336,11 @@ export function ActualizarEstudiante() {
             </div>
           </div>
           {/* Botones */}
-          <div className="pt-6 flex justify-between gap-4">
+          <div className='pt-6 flex justify-between gap-4'>
             <button
-              type="button"
+              type='button'
               onClick={() => navigate('/estudiantes')}
-              className="bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all"
+              className='bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
             >
               Cancelar
             </button>

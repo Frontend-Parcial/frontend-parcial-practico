@@ -50,7 +50,7 @@ const ListaSolicitudes = () => {
     localStorage.setItem('id_solicitud_seleccionada', id)
     window.location.href = '/seguimiento'
   }
-  
+
   const handleVerAsignaturas = id => {
     localStorage.setItem('id_solicitud_seleccionada', id)
     window.location.href = '/asignaturas'
@@ -183,17 +183,17 @@ const ListaSolicitudes = () => {
                             <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
                               <div className='flex flex-col space-y-4'>
                                 <button
-                                onClick={() => handleVerSeguimiento(solicitud._id)}
-                                className='text-primario hover:text-oscuro mr-3'
-                              >
-                                Ver Seguimiento
-                              </button>
-                              <button
-                                onClick={() => handleVerAsignaturas(solicitud._id)}
-                                className='text-claro hover:text-primario mr-3'
-                              >
-                                Ver Asignaturas
-                              </button>
+                                  onClick={() => handleVerSeguimiento(solicitud._id)}
+                                  className='text-primario hover:text-oscuro mr-3'
+                                >
+                                  Ver Seguimiento
+                                </button>
+                                <button
+                                  onClick={() => handleVerAsignaturas(solicitud._id)}
+                                  className='text-claro hover:text-primario mr-3'
+                                >
+                                  Ver Asignaturas
+                                </button>
                               </div>
                             </td>
                           </tr>
