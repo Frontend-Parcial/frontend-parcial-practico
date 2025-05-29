@@ -204,7 +204,7 @@ export function ObtenerDocentes() {
               <button
                 type='button'
                 className='text-gray-700 hover:text-gray-900 font-medium'
-                onClick={() => navigate(-1)}
+                onClick={() => navigate('/docentes')}
               >
                 Volver al listado
               </button>

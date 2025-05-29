@@ -9,11 +9,10 @@ import PageWrapper from '../components/PageWrapper'
 import { onlyLetters, email, password } from '../utils/patterns'
 import { validateRegister } from '../utils/validators'
 
-
 export function Register() {
   const [mensaje, setMensaje] = useState('')
   const [clic, setClic] = useState(true)
-  const [inicioMensaje, setInicioMensaje] = useState('Registrando...')
+  const [inicioMensaje, setInicioMensaje] = useState('Registrarse')
   const auth = useAuth()
   const { getEmailStore } = useUsersStore()
   const navigate = useNavigate()
@@ -28,7 +27,7 @@ export function Register() {
   const [errors, setErrors] = useState({
     nombre: '',
     email: '',
-    password: ''
+    password: '',
   })
 
   const handleSubmitEvent = async e => {
@@ -40,7 +39,7 @@ export function Register() {
       const newErrors = {
         nombre: validateRegister('nombre', input.nombre),
         email: validateRegister('email', input.email),
-        password: validateRegister('password', input.password)
+        password: validateRegister('password', input.password),
       }
       setErrors(newErrors)
       const hasErrors = Object.values(newErrors).some(errorMsg => errorMsg !== '')
@@ -80,11 +79,11 @@ export function Register() {
     }))
 
     const errorMessage = validateRegister(name, value)
-        setErrors(prev => ({
-          ...prev,
-          [name]: errorMessage
-        }))
-  };
+    setErrors(prev => ({
+      ...prev,
+      [name]: errorMessage,
+    }))
+  }
 
   const mensajeSesion = () => {
     if (clic) {
@@ -137,7 +136,7 @@ export function Register() {
                       onChange={handleInput}
                       pattern={onlyLetters.format}
                     />
-                    {errors.nombre && <p className="text-red-500 text-sm">{errors.nombre}</p>}
+                    {errors.nombre && <p className='text-red-500 text-sm'>{errors.nombre}</p>}
 
                     <InputField
                       label='Correo institucional'
@@ -148,7 +147,7 @@ export function Register() {
                       onChange={handleInput}
                       pattern={email.format}
                     />
-                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                    {errors.email && <p className='text-red-500 text-sm'>{errors.email}</p>}
 
                     <InputField
                       label='Contraseña'
@@ -159,7 +158,7 @@ export function Register() {
                       onChange={handleInput}
                       pattern={password.format}
                     />
-                    {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+                    {errors.password && <p className='text-red-500 text-sm'>{errors.password}</p>}
 
                     <div className='my-[10px] w-full flex flex-col gap-1'>
                       <label htmlFor='rol'>Rol</label>
@@ -206,7 +205,7 @@ export function Register() {
 
 // Componente reutilizable para inputs
 function InputField({ label, name, value, type, placeholder, onChange, pattern, error }) {
-  const handleBeforeInput = (e) => {
+  const handleBeforeInput = e => {
     if (pattern && !pattern.test(e.data)) {
       e.preventDefault()
     }
@@ -227,7 +226,6 @@ function InputField({ label, name, value, type, placeholder, onChange, pattern, 
       />
       {error && <span className='text-red-500 text-sm'>{error}</span>}
     </div>
-    
   )
 }
 
@@ -235,7 +233,10 @@ function InputField({ label, name, value, type, placeholder, onChange, pattern, 
 function InfoCard({ title, subtitle }) {
   return (
     <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 hover:scale-105'>
-      <div className='bg-primario rounded-full w-[40px] h-[40px] flex justify-center items-center'>    <span className='text-white font-bold text-lg'>✓</span>  </div>
+      <div className='bg-primario rounded-full w-[40px] h-[40px] flex justify-center items-center'>
+        {' '}
+        <span className='text-white font-bold text-lg'>✓</span>{' '}
+      </div>
       <div className='flex flex-col'>
         <p className='font-bold'>{title}</p>
         <p className='text-sm text-gray-700'>{subtitle}</p>

@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { createStudent } from '../../lib/estudiantes-data'
+import { useNavigate } from 'react-router-dom'
 import PageWrapper from '../../components/PageWrapper'
 import { address, onlyLetters, onlyEntireNumbers, decimalNumber } from '../../utils/patterns'
 
 export function CrearEstudiante() {
+  const navigate = useNavigate()
   const [estudiante, setEstudiante] = useState({
     nombre_completo: '',
     documento_identidad: '',
@@ -90,7 +92,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: Juan Pérez'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='nombre_completo'
                   value={estudiante.nombre_completo}
                   required
@@ -122,7 +124,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: 123456789'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='documento_identidad'
                   value={estudiante.documento_identidad}
                   required
@@ -163,7 +165,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: 3001234567'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='telefono'
                   value={estudiante.telefono}
                   required
@@ -176,7 +178,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: Calle 123 #45-67'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, address.format)}
+                  onBeforeInput={e => handleBeforeInput(e, address.format)}
                   name='direccion'
                   value={estudiante.direccion}
                   required
@@ -189,7 +191,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: Ingeniería de Sistemas'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='programa_academico'
                   value={estudiante.programa_academico}
                   required
@@ -202,7 +204,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: Ingeniería'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='facultad'
                   value={estudiante.facultad}
                   required
@@ -218,7 +220,7 @@ export function CrearEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: 5'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='semestre'
                   value={estudiante.semestre}
                   required
@@ -236,7 +238,7 @@ export function CrearEstudiante() {
                 placeholder='Ej: 45'
                 onChange={handleInput}
                 name='creditos_cursados'
-                onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                 value={estudiante.creditos_cursados}
                 required
               />
@@ -252,7 +254,7 @@ export function CrearEstudiante() {
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                 placeholder='Ej: 4.2'
                 onChange={handleInput}
-                onBeforeInput={(e) => handleBeforeInput(e, decimalNumber.format)}
+                onBeforeInput={e => handleBeforeInput(e, decimalNumber.format)}
                 name='promedio_academico'
                 value={estudiante.promedio_academico}
                 required
@@ -307,7 +309,15 @@ export function CrearEstudiante() {
             </div>
           </div>
 
-          <div className='pt-4'>
+          {/* Botones */}
+          <div className='pt-6 flex justify-between gap-4'>
+            <button
+              type='button'
+              onClick={() => navigate('/estudiantes')}
+              className='bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
+            >
+              Cancelar
+            </button>
             <button
               type='submit'
               className='w-full bg-primario text-white py-2 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-claro transition-colors'

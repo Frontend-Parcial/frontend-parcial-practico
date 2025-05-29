@@ -1,5 +1,5 @@
-const apiUrl = import.meta.env.VITE_API_URL;
-const userToken = localStorage.getItem('site');
+const apiUrl = import.meta.env.VITE_API_URL
+const userToken = localStorage.getItem('site')
 
 /**
  * Crea una nueva solicitud de intercambio
@@ -8,9 +8,9 @@ const userToken = localStorage.getItem('site');
  */
 export async function crearSolicitud(data) {
   try {
-    console.log('Token enviado:', userToken);
-    console.log('Datos enviados:', data);
-    
+    console.log('Token enviado:', userToken)
+    console.log('Datos enviados:', data)
+
     // Preparar los datos para enviar
     const datosAEnviar = {
       id_solicitante: data.id_solicitante,
@@ -25,9 +25,9 @@ export async function crearSolicitud(data) {
         creditos_asignatura_origen: Number(asig.creditos_asignatura_origen),
         codigo_asignatura_destino: asig.codigo_asignatura_destino,
         nombre_asignatura_destino: asig.nombre_asignatura_destino,
-        creditos_asignatura_destino: Number(asig.creditos_asignatura_destino)
-      }))
-    };
+        creditos_asignatura_destino: Number(asig.creditos_asignatura_destino),
+      })),
+    }
     console.log(JSON.stringify(datosAEnviar))
     const response = await fetch(`${apiUrl}/solicitudes/`, {
       method: 'POST',
@@ -36,19 +36,19 @@ export async function crearSolicitud(data) {
         Authorization: `Bearer ${userToken}`,
       },
       body: JSON.stringify(datosAEnviar),
-    });
+    })
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Error al crear la solicitud');
+      const errorData = await response.json()
+      throw new Error(errorData.message || 'Error al crear la solicitud')
     }
 
-    const responseData = await response.json();
-    console.log(responseData);
-    return responseData;
+    const responseData = await response.json()
+    console.log(responseData)
+    return responseData
   } catch (error) {
-    console.error('Error al hacer la solicitud:', error);
-    throw new Error(error.message || 'Error al crear la solicitud');
+    console.error('Error al hacer la solicitud:', error)
+    throw new Error(error.message || 'Error al crear la solicitud')
   }
 }
 
@@ -59,26 +59,26 @@ export async function crearSolicitud(data) {
  */
 export async function getSolicitud(id) {
   try {
-    console.log('Token enviado:', userToken);
+    console.log('Token enviado:', userToken)
     const response = await fetch(`${apiUrl}/solicitudes/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userToken}`,
       },
-    });
+    })
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Error al obtener la solicitud');
+      const errorData = await response.json()
+      throw new Error(errorData.message || 'Error al obtener la solicitud')
     }
 
-    const data = await response.json();
-    console.log(data);
-    return data;
+    const data = await response.json()
+    console.log(data)
+    return data
   } catch (error) {
-    console.error('Error al hacer la solicitud:', error);
-    throw new Error(error.message);
+    console.error('Error al hacer la solicitud:', error)
+    throw new Error(error.message)
   }
 }
 
@@ -90,18 +90,18 @@ export async function getSolicitud(id) {
  */
 export async function updateSolicitud(data, id) {
   try {
-    console.log('Token enviado:', userToken);
-    console.log('Datos enviados:', data);
-    
+    console.log('Token enviado:', userToken)
+    console.log('Datos enviados:', data)
+
     const datosAEnviar = {
       ...data,
       duracion: Number(data.duracion),
       asignaturas: data.asignaturas.map(asig => ({
         ...asig,
         creditos_asignatura_origen: Number(asig.creditos_asignatura_origen),
-        creditos_asignatura_destino: Number(asig.creditos_asignatura_destino)
-      }))
-    };
+        creditos_asignatura_destino: Number(asig.creditos_asignatura_destino),
+      })),
+    }
 
     const response = await fetch(`${apiUrl}/solicitudes/${id}`, {
       method: 'PUT',
@@ -110,19 +110,19 @@ export async function updateSolicitud(data, id) {
         Authorization: `Bearer ${userToken}`,
       },
       body: JSON.stringify(datosAEnviar),
-    });
+    })
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Error al actualizar la solicitud');
+      const errorData = await response.json()
+      throw new Error(errorData.message || 'Error al actualizar la solicitud')
     }
 
-    const responseData = await response.json();
-    console.log(responseData);
-    return responseData;
+    const responseData = await response.json()
+    console.log(responseData)
+    return responseData
   } catch (error) {
-    console.error('Error al hacer la solicitud:', error);
-    throw new Error(error.message || 'Error al actualizar la solicitud');
+    console.error('Error al hacer la solicitud:', error)
+    throw new Error(error.message || 'Error al actualizar la solicitud')
   }
 }
 
@@ -132,26 +132,26 @@ export async function updateSolicitud(data, id) {
  */
 export async function listSolicitudes() {
   try {
-    console.log('Token enviado:', userToken);
+    console.log('Token enviado:', userToken)
     const response = await fetch(`${apiUrl}/solicitudes/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userToken}`,
       },
-    });
+    })
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || 'Error al obtener las solicitudes');
+      const errorData = await response.json().catch(() => ({}))
+      throw new Error(errorData.message || 'Error al obtener las solicitudes')
     }
 
-    const data = await response.json();
-    console.log(data.solicitudes);
-    return Array.isArray(data.solicitudes) ? data.solicitudes : [];
+    const data = await response.json()
+    console.log(data.solicitudes)
+    return Array.isArray(data.solicitudes) ? data.solicitudes : []
   } catch (error) {
-    console.error('Error al hacer la solicitud:', error);
-    return [];
+    console.error('Error al hacer la solicitud:', error)
+    return []
   }
 }
 
@@ -175,24 +175,24 @@ export async function getSolicitudXid(id) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userToken}`,
       },
-    });
+    })
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Error al obtener la solicitud por ID');
+      const errorData = await response.json()
+      throw new Error(errorData.message || 'Error al obtener la solicitud por ID')
     }
 
-    const data = await response.json();
-    return data;
+    const data = await response.json()
+    return data
   } catch (error) {
-    console.error('Error al hacer la solicitud:', error);
-    throw new Error(error.message);
+    console.error('Error al hacer la solicitud:', error)
+    throw new Error(error.message)
   }
 }
 
 export async function cambiarEstadoSolicitud(id, estado) {
   try {
-    console.log('Token enviado:', userToken);
+    console.log('Token enviado:', userToken)
     const response = await fetch(`${apiUrl}/solicitudes/${id}/estado`, {
       method: 'PATCH',
       headers: {
@@ -200,18 +200,18 @@ export async function cambiarEstadoSolicitud(id, estado) {
         Authorization: `Bearer ${userToken}`,
       },
       body: JSON.stringify({ estado }),
-    });
+    })
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Error al cambiar el estado de la solicitud');
+      const errorData = await response.json()
+      throw new Error(errorData.message || 'Error al cambiar el estado de la solicitud')
     }
 
-    const responseData = await response.json();
-    console.log(responseData);
-    return responseData;
+    const responseData = await response.json()
+    console.log(responseData)
+    return responseData
   } catch (error) {
-    console.error('Error al hacer la solicitud:', error);
-    throw new Error(error.message || 'Error al cambiar el estado de la solicitud');
+    console.error('Error al hacer la solicitud:', error)
+    throw new Error(error.message || 'Error al cambiar el estado de la solicitud')
   }
 }

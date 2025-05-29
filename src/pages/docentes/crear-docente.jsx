@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { createDocentes } from '../../lib/docentes-data'
+import { useNavigate } from 'react-router-dom'
 import PageWrapper from '../../components/PageWrapper'
 import { email, onlyEntireNumbers, onlyLetters, address, lenguageLevel, decimalNumber } from '../../utils/patterns'
 
@@ -41,6 +42,7 @@ const STATUS_OPTIONS = [
 ]
 
 export function CrearDocente() {
+  const navigate = useNavigate()
   const [form, setForm] = useState({
     nombre_completo: '',
     documento_identidad: '',
@@ -206,7 +208,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: Juan Pérez'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='nombre_completo'
                   value={form.nombre_completo}
                   required
@@ -237,7 +239,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: 123456789'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='documento_identidad'
                   value={form.documento_identidad}
                   required
@@ -263,7 +265,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: docente@universidad.edu'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, email.format)}
+                  onBeforeInput={e => handleBeforeInput(e, email.format)}
                   name='email'
                   value={form.email}
                   required
@@ -277,7 +279,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: 3001234567'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='telefono'
                   value={form.telefono}
                   required
@@ -290,7 +292,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: Calle 123 #45-67'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, address.format)}
+                  onBeforeInput={e => handleBeforeInput(e, address.format)}
                   name='direccion'
                   value={form.direccion}
                   required
@@ -308,7 +310,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: Licenciado en Matemáticas'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='titulo_pregrado'
                   value={form.titulo_pregrado}
                 />
@@ -320,7 +322,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: Magíster en Educación'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='titulo_posgrado'
                   value={form.titulo_posgrado}
                 />
@@ -350,7 +352,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: Matemáticas'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='departamento'
                   value={form.departamento}
                   required
@@ -363,7 +365,7 @@ export function CrearDocente() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: Ciencias Exactas'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='facultad'
                   value={form.facultad}
                   required
@@ -419,7 +421,7 @@ export function CrearDocente() {
                   type='number'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='anos_experiencia'
                   value={form.anos_experiencia}
                   required
@@ -433,7 +435,7 @@ export function CrearDocente() {
                   min='0'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='anos_experiencia_institucion'
                   value={form.anos_experiencia_institucion}
                   required
@@ -445,7 +447,7 @@ export function CrearDocente() {
                 <input
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='escalafon'
                   value={form.escalafon}
                 />
@@ -464,7 +466,7 @@ export function CrearDocente() {
                 onChange={e =>
                   setForm(prev => ({ ...prev, nuevo_idioma: { ...prev.nuevo_idioma, idioma: e.target.value } }))
                 }
-                onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
               />
               <input
@@ -473,7 +475,7 @@ export function CrearDocente() {
                 onChange={e =>
                   setForm(prev => ({ ...prev, nuevo_idioma: { ...prev.nuevo_idioma, nivel: e.target.value } }))
                 }
-                onBeforeInput={(e) => handleBeforeInput(e, lenguageLevel.format)}
+                onBeforeInput={e => handleBeforeInput(e, lenguageLevel.format)}
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
               />
               <button
@@ -513,7 +515,7 @@ export function CrearDocente() {
               <input
                 value={form.nueva_area}
                 onChange={e => setForm(prev => ({ ...prev, nueva_area: e.target.value }))}
-                onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                 placeholder='Nueva área de conocimiento'
               />
@@ -556,7 +558,7 @@ export function CrearDocente() {
                   min='0'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='publicaciones'
                   value={form.publicaciones}
                 />
@@ -569,7 +571,7 @@ export function CrearDocente() {
                   min='0'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='proyectos_investigacion'
                   value={form.proyectos_investigacion}
                 />
@@ -582,7 +584,7 @@ export function CrearDocente() {
                 <input
                   value={form.nuevo_grupo}
                   onChange={e => setForm(prev => ({ ...prev, nuevo_grupo: e.target.value }))}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Nuevo grupo de investigación'
                 />
@@ -645,7 +647,7 @@ export function CrearDocente() {
                   max='5'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
-                  onBeforeInput={(e) => handleBeforeInput(e, decimalNumber.format)}
+                  onBeforeInput={e => handleBeforeInput(e, decimalNumber.format)}
                   name='evaluacion_docente_promedio'
                   value={form.evaluacion_docente_promedio}
                 />
@@ -706,7 +708,7 @@ export function CrearDocente() {
                 <input
                   value={form.nueva_red}
                   onChange={e => setForm(prev => ({ ...prev, nueva_red: e.target.value }))}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Nueva red internacional'
                 />
@@ -738,7 +740,15 @@ export function CrearDocente() {
             </div>
           )}
 
-          <div className='pt-4'>
+          {/* Botones */}
+          <div className='pt-6 flex justify-between gap-4'>
+            <button
+              type='button'
+              onClick={() => navigate(`/docentes`)}
+              className='bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
+            >
+              Cancelar
+            </button>
             <button
               type='submit'
               className='w-full bg-primario text-white py-2 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primario transition-colors'
