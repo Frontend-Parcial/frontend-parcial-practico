@@ -15,7 +15,7 @@ export const obtenerAsignaturas = async (id) => {
       headers['Authorization'] = `Bearer ${userToken}`
     }
 
-    const response = await fetch(`${apiUrl}/asignaturas/solicitud/${id}`, {
+    const response = await fetch(`${apiUrl}/asignaturas/solicitud/682c0455718d182ff751bd3c`, {
       method: 'GET',
       headers,
     })
