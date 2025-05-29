@@ -25,31 +25,31 @@ export function Login() {
 
   const [errors, setErrors] = useState({
     email: '',
-    password: ''
+    password: '',
   })
 
   const handleSubmitEvent = async e => {
     e.preventDefault()
 
-      const newErrors = {
+    const newErrors = {
       email: validateRegister('email', input.email),
-      password: validateRegister('password', input.password)
-      }
-      setErrors(newErrors)
-      const hasErrors = Object.values(newErrors).some(errorMsg => errorMsg !== '')
-      const isEmpty = !input.email || !input.password
-      if (hasErrors || isEmpty) {
-        alert('Por favor, corrige los errores antes de enviar.')
-        return
-      }
-      try {
-        //! Aca estoy guardando el email para otras validaciones
-        getEmailStore(input.email)
-        await auth.loginPost(input)
-      } catch (error) {
-        setMensaje(error.message)
-      }
+      password: validateRegister('password', input.password),
+    }
+    setErrors(newErrors)
+    const hasErrors = Object.values(newErrors).some(errorMsg => errorMsg !== '')
+    const isEmpty = !input.email || !input.password
+    if (hasErrors || isEmpty) {
+      alert('Por favor, corrige los errores antes de enviar.')
       return
+    }
+    try {
+      //! Aca estoy guardando el email para otras validaciones
+      getEmailStore(input.email)
+      await auth.loginPost(input)
+    } catch (error) {
+      setMensaje(error.message)
+    }
+    return
   }
 
   const handleInput = e => {
@@ -58,11 +58,11 @@ export function Login() {
       ...prev,
       [name]: value,
     }))
-    
+
     const errorMessage = validateRegister(name, value)
     setErrors(prev => ({
       ...prev,
-      [name]: errorMessage
+      [name]: errorMessage,
     }))
   }
 
@@ -98,10 +98,7 @@ export function Login() {
               </div>
               <div className=' w-[80%] gap-2.5 flex flex-col'>
                 <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 hover:scale-105'>
-                  <div className='bg-[#DBEBE3] rounded-full w-[40px] h-[40px] flex justify-center items-center'>
-                    {' '}
-                    -{' '}
-                  </div>
+                  <div className='bg-oscuro rounded-full w-[40px] h-[40px] flex justify-center items-center'> </div>
                   <div className='flex flex-col'>
                     <p className='font-bold'>Movilidad Internacional</p>
                     <p className='text-sm text-gray-700'>Accede a oportunidades academicas globales</p>
@@ -109,10 +106,7 @@ export function Login() {
                 </div>
 
                 <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 hover:scale-105'>
-                  <div className='bg-[#DBEBE3] rounded-full w-[40px] h-[40px] flex justify-center items-center'>
-                    {' '}
-                    -{' '}
-                  </div>
+                  <div className='bg-oscuro rounded-full w-[40px] h-[40px] flex justify-center items-center'> </div>
                   <div className='flex flex-col'>
                     <p className='font-bold'>Seguimiento Academico</p>
                     <p className='text-sm text-gray-700'>Administra tus procesos de intercambio</p>
@@ -120,10 +114,7 @@ export function Login() {
                 </div>
 
                 <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 hover:scale-105'>
-                  <div className='bg-[#DBEBE3] rounded-full w-[40px] h-[40px] flex justify-center items-center'>
-                    {' '}
-                    -{' '}
-                  </div>
+                  <div className='bg-oscuro rounded-full w-[40px] h-[40px] flex justify-center items-center'> </div>
                   <div className='flex flex-col'>
                     <p className='font-bold'>Gestion Documental</p>
                     <p className='text-sm text-gray-700'>Centraliza toda tu documentacion</p>
@@ -144,24 +135,22 @@ export function Login() {
                     <div className=' my-[30px] w-full flex flex-col gap-1'>
                       <label htmlFor='email'>Email</label>
                       <input
-                        placeholder='example@unicesar.edu.co'
+                        placeholder='usuario@unicesar.edu.co'
                         type='email'
                         id='user-name'
                         name='email'
                         value={input.email}
                         onChange={handleInput}
-                        onBeforeInput={(e) => handleBeforeInput(e, email.format)}
+                        onBeforeInput={e => handleBeforeInput(e, email.format)}
                         aria-describedby='user-name'
                         aria-invalid='false'
                         required
                         className='w-full text-black text-[1em] p-1 pl-2 border border-[var(--gris)] rounded-[10px]'
                       />
-                      {errors.email && (
-                        <p className="text-red-600 text-sm mt-1">{errors.email}</p>
-                      )}
+                      {errors.email && <p className='text-red-600 text-sm mt-1 mb-[-25px]'>{errors.email}</p>}
                     </div>
 
-                    <div className='my-[30px] w-full flex flex-col gap-1'>
+                    <div className='my-[30px] w-full flex flex-col gap-1 h-auto'>
                       <label htmlFor='password'>Contraseña</label>
                       <input
                         placeholder='********'
@@ -172,14 +161,12 @@ export function Login() {
                         aria-invalid='false'
                         value={input.password}
                         onChange={handleInput}
-                        onBeforeInput={(e) => handleBeforeInput(e, password.format)}
+                        onBeforeInput={e => handleBeforeInput(e, password.format)}
                         required
                         className='w-full text-black text-[1em] p-1 pl-2 border border-[var(--gris)] rounded-[10px]'
                       />
-                      {errors.password && (
-                        <p className="text-red-600 text-sm mt-1">{errors.password}</p>
-                      )}
-                      
+                      {/* Este es */}
+                      {errors.password && <p className='text-red-600 text-sm mt-1 max-w-[350px]'>{errors.password}</p>}
                     </div>
 
                     <div className='flex flex-row gap-2 mb-4 mt-[-15px]'>

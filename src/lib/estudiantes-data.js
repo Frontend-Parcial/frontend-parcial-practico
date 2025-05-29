@@ -2,6 +2,7 @@ const apiUrl = import.meta.env.VITE_API_URL
 const userToken = localStorage.getItem('site')
 
 export async function getStudents(id) {
+  const userToken = localStorage.getItem('site')
   try {
     const response = await fetch(`${apiUrl}/estudiantes/${id}`, {
       method: 'GET',
@@ -22,6 +23,7 @@ export async function getStudents(id) {
 }
 
 export async function updateStudent(data, id) {
+  const userToken = localStorage.getItem('site')
   try {
     const datosAEnviar = { ...data }
     if (datosAEnviar.semestre !== undefined) {
@@ -135,10 +137,8 @@ export async function listStudents() {
   }
 }
 
-//! Verificar Estudiante
-export async function verifyStudent() {}
-
 export async function createStudent(data) {
+  const userToken = localStorage.getItem('site')
   const datos = {
     nombre_completo: data.nombre_completo,
     documento_identidad: data.documento_identidad,

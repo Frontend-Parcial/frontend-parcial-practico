@@ -2,6 +2,7 @@ const apiURL = import.meta.env.VITE_API_URL
 const userToken = localStorage.getItem('site')
 
 export async function getConvenios() {
+  const userToken = localStorage.getItem('site')
   if (!userToken) {
     throw new Error('Token de autenticación no encontrado. Por favor, inicie sesión.')
   }
@@ -46,6 +47,7 @@ export async function getConvenios() {
 }
 
 export async function listConvenio() {
+  const userToken = localStorage.getItem('site')
   if (!userToken) {
     throw new Error('Token de autenticación no encontrado. Por favor, inicie sesión.')
   }

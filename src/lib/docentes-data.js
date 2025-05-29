@@ -1,7 +1,8 @@
 const apiUrl = import.meta.env.VITE_API_URL
-const userToken = localStorage.getItem('site')
+const userToken = localStorage.getItem('site') // lo dejo por si las moscas
 
 export async function listDocentes() {
+  const userToken = localStorage.getItem('site')
   try {
     const response = await fetch(`${apiUrl}/docentes/`, {
       method: 'GET',
@@ -27,6 +28,7 @@ export async function listDocentes() {
 }
 
 export async function createDocentes(data) {
+  const userToken = localStorage.getItem('site')
   try {
     const response = await fetch(`${apiUrl}/docentes/`, {
       method: 'POST',
@@ -55,6 +57,7 @@ export async function createDocentes(data) {
 }
 
 export async function updateDocentes(data, id) {
+  const userToken = localStorage.getItem('site')
   try {
     // Preparar datos excluyendo cualquier campo de ID
     const payload = {
@@ -95,6 +98,7 @@ export async function updateDocentes(data, id) {
 }
 
 export async function getDocentesXid(id) {
+  const userToken = localStorage.getItem('site')
   try {
     const response = await fetch(`${apiUrl}/docentes/${id}`, {
       method: 'GET',
