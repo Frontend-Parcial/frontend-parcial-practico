@@ -193,11 +193,20 @@ const CrearSeguimiento = () => {
             {validSolicitud === false && <p className="text-red-600 text-sm">❌ Solicitud no encontrada</p>}
           </div>
 
-          {seguimientoExistente ? renderActualizarForm() : renderRegistroForm()}
-
-          <button type="submit" className="w-full mt-4 bg-primario text-white py-2 rounded hover:bg-oscuro">
-            {seguimientoExistente ? 'Guardar Cambios' : 'Registrar Seguimiento'}
+          <div className='pt-6 flex justify-between gap-4'>
+            <button
+              type='button'
+              onClick={() => navigate(`/docentes`)}
+              className='bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
+            >
+              Cancelar
           </button>
+            {seguimientoExistente ? renderActualizarForm() : renderRegistroForm()}
+            <button type="submit" 
+              className="w-full mt-4 bg-primario text-white py-2 rounded hover:bg-oscuro">
+              {seguimientoExistente ? 'Guardar Cambios' : 'Registrar Seguimiento'}
+            </button>
+          </div>
         </form>
       </div>
     </PageWrapper>

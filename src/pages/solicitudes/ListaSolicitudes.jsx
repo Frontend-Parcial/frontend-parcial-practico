@@ -110,12 +110,22 @@ const ListaSolicitudes = () => {
             <div className='bg-white rounded-lg shadow-md overflow-hidden'>
               <div className='p-4 border-b border-gray-200 flex items-center justify-between'>
                 <h2 className='text-xl font-semibold text-gray-800'>Listado de Solicitudes</h2>
-                <a
-                  href='/solicitudes/nuevo'
-                  className='bg-primario text-white px-4 py-2 rounded hover:bg-primario/90 transition'
-                >
-                  Crear Solicitud
-                </a>
+                <div className="flex items-center gap-4">
+                  <button
+                    type='button'
+                    onClick={() => navigate(-1)}
+                    className='bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-base shadow-md hover:shadow-lg transition-all'
+                  >
+                    Atrás
+                  </button>
+
+                  <a
+                    href='/solicitudes/nuevo'
+                    className='bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
+                  >
+                    Crear Solicitud
+                  </a>
+                </div>
               </div>
 
               {loading ? (
