@@ -9,18 +9,33 @@ export function ListadoAsignaturas() {
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
+  const [form, setForm] = useState({
+    id_solicitud: '',
+    estado_actual: '',
+    evaluaciones_recibidas: [],
+    documentos_soporte: [],
+    observaciones: 'El estudiante iniciará el intercambio en la fecha programada',
+    responsable_seguimiento: 'María Castro - Coordinadora ORPI',
+    reporte_avance: [],
+    fecha_inicio: '',
+    fecha_actualizacion: ''
+  });
+
+   useEffect(() => {
+    const idGuardado = localStorage.getItem('id_solicitud_seleccionada');
+    if (idGuardado) {
+      setForm(prev => ({ ...prev, id_solicitud: idGuardado }));
+      localStorage.removeItem('id_solicitud_seleccionada');
+    }
+  }, []);
+
   useEffect(() => {
     const cargarAsignaturas = async () => {
       try {
         setLoading(true)
         setError(null)
 
-        const token = localStorage.getItem('site')
-        if (!token) {
-          throw new Error('No hay token de autenticación')
-        }
-
-        const asignaturas = await obtenerAsignaturas(token)
+        const asignaturas = await obtenerAsignaturas(form.id_solicitud)
 
         // Si la respuesta es un array directo
         if (Array.isArray(asignaturas)) {

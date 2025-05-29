@@ -50,6 +50,11 @@ const ListaSolicitudes = () => {
     localStorage.setItem('id_solicitud_seleccionada', id)
     window.location.href = '/seguimiento'
   }
+  
+  const handleVerAsignaturas = id => {
+    localStorage.setItem('id_solicitud_seleccionada', id)
+    window.location.href = '/asignaturas'
+  }
 
   const handlePageChange = newPage => {
     if (newPage >= 1 && newPage <= pagination.pages) {
@@ -181,6 +186,14 @@ const ListaSolicitudes = () => {
                                 className='text-primario hover:text-oscuro mr-3'
                               >
                                 Ver Seguimiento
+                              </button>
+                            </td>
+                            <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
+                              <button
+                                onClick={() => handleVerAsignaturas(solicitud._id)}
+                                className='text-primario hover:text-oscuro mr-3'
+                              >
+                                Ver Asignaturas
                               </button>
                             </td>
                           </tr>

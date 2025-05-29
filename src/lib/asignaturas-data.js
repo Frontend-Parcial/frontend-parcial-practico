@@ -3,18 +3,19 @@
 const apiUrl = import.meta.env.VITE_API_URL
 
 // Función para obtener todas las asignaturas
-export const obtenerAsignaturas = async (token = null) => {
+export const obtenerAsignaturas = async (id) => {
+  const userToken = localStorage.getItem('site')
   try {
     const headers = {
       'Content-Type': 'application/json',
     }
 
     // Solo agregar Authorization si hay token
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`
+    if (userToken) {
+      headers['Authorization'] = `Bearer ${userToken}`
     }
 
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/asignaturas`, {
+    const response = await fetch(`${apiUrl}/asignaturas/solicitud/${id}`, {
       method: 'GET',
       headers,
     })
