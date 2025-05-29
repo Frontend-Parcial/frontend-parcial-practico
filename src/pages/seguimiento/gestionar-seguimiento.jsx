@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import PageWrapper from '../../components/PageWrapper';
 import { getSolicitudXid } from '../../lib/solicitudes-data';
+import { useNavigate } from 'react-router-dom';
 import { gestionarSeguimiento, getSeguimientoXsolicitud, updateSeguimiento } from '../../lib/seguimientos-data';
 
 const CrearSeguimiento = () => {
@@ -19,6 +20,8 @@ const CrearSeguimiento = () => {
   const [validSolicitud, setValidSolicitud] = useState(null);
   const [solicitudInfo, setSolicitudInfo] = useState(null);
   const [seguimientoExistente, setSeguimientoExistente] = useState(false);
+  const navigate = useNavigate();
+
 
   // Cargar ID desde localStorage una sola vez
   useEffect(() => {
@@ -188,9 +191,23 @@ const CrearSeguimiento = () => {
           {/* Contacto */}
           <ContactoFijo />
 
-          <button type="submit" className="w-full mt-4 bg-primario text-white py-2 rounded hover:bg-oscuro">
-            Registrar Seguimiento
-          </button>
+          {/* Botones */}
+          <div className="pt-6 flex justify-between gap-4">
+            <button
+              type="button"
+              onClick={() => navigate('/solicitudes')}
+              className="bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="submit"
+              className="bg-primario text-white py-3 px-6 rounded-lg hover:bg-oscuro font-medium text-lg shadow-md hover:shadow-lg transition-all"
+            >
+              Registrar Seguimiento
+            </button>
+          </div>
         </form>
       </div>
     </PageWrapper>

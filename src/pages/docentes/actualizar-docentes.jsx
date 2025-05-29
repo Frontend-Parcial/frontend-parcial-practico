@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { getDocentesXid, updateDocentes } from '../../lib/docentes-data'
 import PageWrapper from '../../components/PageWrapper'
 import { decimalNumber, email, onlyEntireNumbers, onlyLetters } from '../../utils/patterns'
@@ -9,6 +10,7 @@ export function ActualizarDocentes() {
   const [datosOriginales, setDatosOriginales] = useState({})
   const [cambios, setCambios] = useState({})
   const [cargando, setCargando] = useState(true)
+  const navigate = useNavigate();
 
   const TEACHER_CATEGORIES = [
     { value: 'Instructor', label: 'Instructor' },
@@ -193,7 +195,15 @@ export function ActualizarDocentes() {
             </div>
           </div>
 
-          <div className='pt-6'>
+          {/* Botones */}
+          <div className="pt-6 flex justify-between gap-4">
+            <button
+              type="button"
+              onClick={() => navigate(`/docentes/${id}`)}
+              className="bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all"
+            >
+              Cancelar
+            </button>
             <button
               type='submit'
               className='w-full bg-primario text-white py-3 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primario transition-colors font-medium'

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { getStudents, updateStudent } from '../../lib/estudiantes-data'
 import PageWrapper from '../../components/PageWrapper'
 import { address, decimalNumber, email, onlyEntireNumbers, onlyLetters } from '../../utils/patterns'
@@ -10,6 +11,7 @@ export function ActualizarEstudiante() {
   const [cambios, setCambios] = useState({})
   const [cargando, setCargando] = useState(true)
   const [errores, setErrores] = useState({})
+  const navigate = useNavigate();
 
   const tiposDocumento = [
     { value: 'CC', label: 'Cédula de Ciudadanía' },
@@ -333,8 +335,15 @@ export function ActualizarEstudiante() {
               </label>
             </div>
           </div>
-
-          <div className='pt-6'>
+          {/* Botones */}
+          <div className="pt-6 flex justify-between gap-4">
+            <button
+              type="button"
+              onClick={() => navigate('/estudiantes')}
+              className="bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all"
+            >
+              Cancelar
+            </button>
             <button
               type='submit'
               className='w-full bg-primario text-white py-3 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primario transition-colors font-medium'

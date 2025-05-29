@@ -149,6 +149,7 @@ const StudentAutocomplete = ({ onSelect, error }) => {
 const SolicitudIntercambioForm = () => {
   const [convenios, setConvenios] = useState([]);
   const [loadingConvenios, setLoadingConvenios] = useState(true);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     id_solicitante: '',
     estudiante_completo: null,
@@ -567,7 +568,15 @@ const SolicitudIntercambioForm = () => {
                   </div>
                 )}
 
-                <div className='pt-6 flex justify-center'>
+                <div className="pt-6 flex justify-between gap-4">
+                {/* Botones */}
+                  <button
+                    type="button"
+                    onClick={() => navigate('/solicitudes')}
+                    className="bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all"
+                  >
+                    Cancelar
+                  </button>
                   <button
                     type='submit'
                     className='bg-primario text-complementario py-3 px-8 rounded-lg hover:bg-oscuro font-medium text-lg shadow-md hover:shadow-lg transition-all disabled:opacity-50'
