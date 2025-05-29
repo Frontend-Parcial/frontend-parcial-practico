@@ -61,7 +61,7 @@ export function ListadoAsignaturas() {
     }
 
     cargarAsignaturas()
-  }, [])
+  }, [form.id_solicitud])
 
   if (loading) {
     return (

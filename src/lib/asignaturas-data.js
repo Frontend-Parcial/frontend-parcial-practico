@@ -24,8 +24,13 @@ export const obtenerAsignaturas = async (id) => {
       throw new Error(`Error: ${response.status} - ${response.statusText}`)
     }
 
+    if (response.status === 404) {
+      return []
+    }
+
     const data = await response.json()
     return data
+
   } catch (error) {
     console.error('Error al obtener asignaturas:', error)
     throw error
