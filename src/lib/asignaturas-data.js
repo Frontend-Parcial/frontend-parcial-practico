@@ -1,27 +1,71 @@
-const apiUrl = import.meta.env.VITE_API_URL
-const userToken = localStorage.getItem('site')
+// lib/asignaturas-data.js
 
-export async function listAsignaturas() {
+const apiUrl = import.meta.env.VITE_API_URL
+
+// Función para obtener todas las asignaturas
+export const obtenerAsignaturas = async (token = null) => {
   try {
-    const response = await fetch(`${apiUrl}/asignaturas/`, {
+    const headers = {
+      'Content-Type': 'application/json',
+    }
+
+    // Solo agregar Authorization si hay token
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`
+    }
+
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/asignaturas`, {
+      method: 'GET',
+      headers,
+    })
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} - ${response.statusText}`)
+    }
+
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error al obtener asignaturas:', error)
+    throw error
+  }
+}
+
+// Función para obtener una asignatura específica por ID
+export const obtenerAsignaturaPorId = async (id, token) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/asignaturas/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userToken}`,
+        Authorization: `Bearer ${token}`,
       },
     })
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}))
-      throw new Error(errorData.message || 'Error al obtener las asignaturas')
+      throw new Error(`Error: ${response.status} - ${response.statusText}`)
     }
 
     const data = await response.json()
-
-    // Asegúrate de que devuelve un array
-    return Array.isArray(data?.asignaturas) ? data.asignaturas : []
+    return data
   } catch (error) {
-    console.error('Error al hacer la solicitud:', error)
-    return [] // retorna un array vacío si hay error
+    console.error('Error al obtener asignatura:', error)
+    throw error
   }
+}
+
+export async function listAsignaturas({ _id, id_solicitud }) {
+  const apiUrl = import.meta.env.VITE_API_URL
+  const token = localStorage.getItem('userToken')
+
+  const response = await fetch(`${apiUrl}/asignaturas?_id=${_id}&id_solicitud=${id_solicitud}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const data = await response.json()
+  if (!response.ok) throw new Error(data.message || 'Error al cargar asignaturas')
+
+  return data.asignaturas || []
 }
