@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import PageWrapper from '../../components/PageWrapper'
 import { getSolicitudXid } from '../../lib/solicitudes-data'
-import { useNavigate } from 'react-router-dom'
 import { gestionarSeguimiento, getSeguimientoXsolicitud, updateSeguimiento } from '../../lib/seguimientos-data'
 
 const CrearSeguimiento = () => {
@@ -17,12 +16,9 @@ const CrearSeguimiento = () => {
     fecha_actualizacion: '',
   })
 
-  const [validSolicitud, setValidSolicitud] = useState(null)
-  const [solicitudInfo, setSolicitudInfo] = useState(null)
-  const [seguimientoExistente, setSeguimientoExistente] = useState(false)
-  const navigate = useNavigate()
+  const [validSolicitud, setValidSolicitud] = useState(null);
+  const [seguimientoExistente, setSeguimientoExistente] = useState(false);
 
-  // Cargar ID desde localStorage una sola vez
   useEffect(() => {
     const idGuardado = localStorage.getItem('id_solicitud_seleccionada')
     if (idGuardado) {
@@ -31,14 +27,12 @@ const CrearSeguimiento = () => {
     }
   }, [])
 
-  // Validar solicitud y cargar seguimiento si existe
   useEffect(() => {
     const cargarDatos = async () => {
       if (form.id_solicitud.length >= 6) {
         try {
-          const solicitud = await getSolicitudXid(form.id_solicitud)
-          setValidSolicitud(!!solicitud)
-          setSolicitudInfo(solicitud || null)
+          const solicitud = await getSolicitudXid(form.id_solicitud);
+          setValidSolicitud(!!solicitud);
 
           if (solicitud) {
             const seguimiento = await getSeguimientoXsolicitud(form.id_solicitud)
@@ -46,15 +40,13 @@ const CrearSeguimiento = () => {
             if (seguimiento) {
               setForm({
                 ...seguimiento,
-                id_solicitud: form.id_solicitud, // asegurarse
-              })
-              setSeguimientoExistente(true)
+                id_solicitud: form.id_solicitud
+              });
+              setSeguimientoExistente(true);
             } else {
-              setForm(prev => ({
-                ...prev,
-                fecha_inicio: solicitud.fecha_creacion?.$date || solicitud.fecha_creacion || new Date().toISOString(),
-              }))
-              setSeguimientoExistente(false)
+              const fechaInicio = solicitud.fecha_creacion?.$date || solicitud.fecha_creacion || new Date().toISOString();
+              setForm(prev => ({ ...prev, fecha_inicio: fechaInicio }));
+              setSeguimientoExistente(false);
             }
           }
         } catch (err) {
@@ -83,8 +75,7 @@ const CrearSeguimiento = () => {
     const fechaActual = new Date().toISOString()
 
     try {
-      // Validar si ya hay seguimiento para esta solicitud antes de guardar
-      const seguimientoPrevio = await getSeguimientoXsolicitud(form.id_solicitud)
+      const seguimientoPrevio = await getSeguimientoXsolicitud(form.id_solicitud);
 
       const seguimiento = {
         ...form,
@@ -100,9 +91,9 @@ const CrearSeguimiento = () => {
 
       let result
       if (seguimientoPrevio && seguimientoPrevio._id) {
-        let avance = { contenido: form.observaciones }
-        result = await updateSeguimiento(seguimientoPrevio._id, avance)
-        alert(`✅ Seguimiento actualizado correctamente.\nID: ${result.seguimiento._id}`)
+        let avance = { "contenido": form.observaciones };
+        result = await updateSeguimiento(seguimientoPrevio._id, avance);
+        alert(`✅ Seguimiento actualizado correctamente.\nID: ${result.seguimiento._id}`);
       } else {
         result = await gestionarSeguimiento(seguimiento)
         alert(`✅ Seguimiento creado correctamente.\nID: ${result.id_seguimiento}`)
@@ -113,97 +104,100 @@ const CrearSeguimiento = () => {
     }
   }
 
+  const renderRegistroForm = () => (
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FechaCampo label="Fecha de Inicio" value={form.fecha_inicio} />
+        <FechaCampo label="Fecha de Actualización" value={form.fecha_actualizacion} />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Estado Actual</label>
+        <select
+          name="estado_actual"
+          value={form.estado_actual}
+          onChange={handleChange}
+          required
+          className="w-full border px-3 py-2 rounded"
+        >
+          <option value="pendiente">Pendiente</option>
+          <option value="en proceso">En proceso</option>
+          <option value="culminado">Culminado</option>
+        </select>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FileUploader label="Evaluaciones Recibidas" files={form.evaluaciones_recibidas} onChange={(e) => handleFileChange(e, 'eval')} icon="📄" />
+        <FileUploader label="Documentos Soporte" files={form.documentos_soporte} onChange={(e) => handleFileChange(e, 'doc')} icon="📎" />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Observaciones</label>
+        <textarea name="observaciones" value={form.observaciones} onChange={handleChange} className="w-full border px-3 py-2 rounded" rows={3} />
+      </div>
+
+      <ContactoFijo />
+    </>
+  );
+
+  const renderActualizarForm = () => (
+    <>
+      <FechaCampo label="Fecha de Última Actualización" value={form.fecha_actualizacion} />
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Actualizar Estado</label>
+        <select
+          name="estado_actual"
+          value={form.estado_actual}
+          onChange={handleChange}
+          className="w-full border px-3 py-2 rounded"
+        >
+          <option value="pendiente">Pendiente</option>
+          <option value="en proceso">En proceso</option>
+          <option value="culminado">Culminado</option>
+        </select>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FileUploader label="Agregar Evaluaciones" files={form.evaluaciones_recibidas} onChange={(e) => handleFileChange(e, 'eval')} icon="📄" />
+        <FileUploader label="Agregar Documentos" files={form.documentos_soporte} onChange={(e) => handleFileChange(e, 'doc')} icon="📎" />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Nuevas Observaciones</label>
+        <textarea name="observaciones" value={form.observaciones} onChange={handleChange} className="w-full border px-3 py-2 rounded" rows={3} />
+      </div>
+    </>
+  );
+
   return (
     <PageWrapper>
-      <div className='max-w-4xl mx-auto bg-white p-6 rounded-lg shadow mt-4'>
-        <h1 className='text-2xl font-bold text-gray-800 mb-6'>Seguimiento</h1>
+      <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow mt-4">
+        <h1 className="text-2xl font-bold text-gray-800 mb-6">
+          {seguimientoExistente ? 'Actualizar Seguimiento' : 'Registrar Seguimiento'}
+        </h1>
 
-        <form onSubmit={handleSubmit} className='space-y-4'>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className='block text-sm font-medium text-gray-700'>ID de la Solicitud</label>
+            <label className="block text-sm font-medium text-gray-700">ID de la Solicitud</label>
             <input
-              type='text'
-              name='id_solicitud'
+              type="text"
+              name="id_solicitud"
               value={form.id_solicitud}
               onChange={handleChange}
-              className='w-full border px-3 py-2 rounded'
+              className="w-full border px-3 py-2 rounded"
               required
+              readOnly={seguimientoExistente}
             />
-            {validSolicitud === true && <p className='text-green-600 text-sm'>✅ Solicitud válida</p>}
-            {validSolicitud === false && <p className='text-red-600 text-sm'>❌ Solicitud no encontrada</p>}
+            {validSolicitud === true && <p className="text-green-600 text-sm">✅ Solicitud válida</p>}
+            {validSolicitud === false && <p className="text-red-600 text-sm">❌ Solicitud no encontrada</p>}
           </div>
 
-          {/* Fechas */}
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            <FechaCampo label='Fecha de Inicio' value={form.fecha_inicio} />
-            <FechaCampo label='Fecha de Actualización' value={form.fecha_actualizacion} />
-            {form.estado_actual === 'culminado' && <FechaCampo label='Fecha de Fin' value={new Date().toISOString()} />}
-          </div>
+          {seguimientoExistente ? renderActualizarForm() : renderRegistroForm()}
 
-          {/* Estado */}
-          <div>
-            <label className='block text-sm font-medium text-gray-700'>Estado Actual</label>
-            <select
-              name='estado_actual'
-              value={form.estado_actual}
-              onChange={handleChange}
-              required
-              className='w-full border px-3 py-2 rounded'
-            >
-              <option value='pendiente'>Pendiente</option>
-              <option value='en proceso'>En proceso</option>
-              <option value='culminado'>Culminado</option>
-            </select>
-          </div>
-
-          {/* Documentos */}
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            <FileUploader
-              label='Evaluaciones Recibidas'
-              files={form.evaluaciones_recibidas}
-              onChange={e => handleFileChange(e, 'eval')}
-              icon='📄'
-            />
-            <FileUploader
-              label='Documentos Soporte'
-              files={form.documentos_soporte}
-              onChange={e => handleFileChange(e, 'doc')}
-              icon='📎'
-            />
-          </div>
-
-          {/* Observaciones */}
-          <div>
-            <label className='block text-sm font-medium text-gray-700'>Observaciones</label>
-            <textarea
-              name='observaciones'
-              value={form.observaciones}
-              onChange={handleChange}
-              className='w-full border px-3 py-2 rounded'
-              rows={3}
-            />
-          </div>
-
-          {/* Contacto */}
-          <ContactoFijo />
-
-          {/* Botones */}
-          <div className='pt-6 flex justify-between gap-4'>
-            <button
-              type='button'
-              onClick={() => navigate('/solicitudes')}
-              className='bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
-            >
-              Cancelar
-            </button>
-
-            <button
-              type='submit'
-              className='bg-primario text-white py-3 px-6 rounded-lg hover:bg-oscuro font-medium text-lg shadow-md hover:shadow-lg transition-all'
-            >
-              Registrar Seguimiento
-            </button>
-          </div>
+          <button type="submit" className="w-full mt-4 bg-primario text-white py-2 rounded hover:bg-oscuro">
+            {seguimientoExistente ? 'Guardar Cambios' : 'Registrar Seguimiento'}
+          </button>
         </form>
       </div>
     </PageWrapper>
@@ -211,7 +205,7 @@ const CrearSeguimiento = () => {
 }
 
 const FechaCampo = ({ label, value }) => {
-  const fechaValida = value?.$date ? value.$date : value
+  const fechaValida = value?.$date || value;
   return (
     <div>
       <label className='block text-sm text-gray-600'>{label}</label>
