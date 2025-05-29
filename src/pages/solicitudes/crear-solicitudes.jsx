@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react'
-import { crearSolicitud } from '../../lib/solicitudes-data'
+import { useState, useEffect } from 'react';
+import { crearSolicitud } from '../../lib/solicitudes-data.js';
 import equivalencias from './asignaturas-prueba'
 import PageWrapper from '../../components/PageWrapper'
 import { getStudents } from '../../lib/estudiantes-data'
 import { alphaNumeric, onlyEntireNumbers, code, onlyLetters } from '../../utils/patterns'
 //import { getConveniosXid } from '../../lib/convenios-data'
 
-export function CrearSolicitud() {
+export default function CrearSolicitud() {
+
   const [form, setForm] = useState({
     id_solicitante: '',
     id_convenio: '',

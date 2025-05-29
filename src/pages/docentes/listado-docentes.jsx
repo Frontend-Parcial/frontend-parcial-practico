@@ -23,7 +23,7 @@ export function ListadoDocentes() {
         <div className='flex justify-between items-center mb-8'>
           <h1 className='text-3xl font-bold text-gray-800'>Gestión de Docentes</h1>
           <button
-            className='bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md transition-all flex items-center gap-2'
+            className='bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg shadow-md transition-all flex items-center gap-2'
             onClick={() => navigate('/docentes/nuevo')}
           >
             <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
@@ -58,7 +58,7 @@ export function ListadoDocentes() {
               </svg>
               <p className='mt-4 text-gray-500'>No hay docentes registrados</p>
               <button
-                className='mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-all'
+                className='mt-4 bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg transition-all'
                 onClick={() => navigate('/docentes/nuevo')}
               >
                 Registrar Primer Docente
@@ -73,10 +73,10 @@ export function ListadoDocentes() {
                   onClick={() => navigate(`/docentes/${docente._id}`)}
                 >
                   <div className='p-5'>
-                    <div className='flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-blue-100 rounded-full'>
+                    <div className='flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-claro rounded-full'>
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
-                        className='h-6 w-6 text-blue-600'
+                        className='h-6 w-6 text-oscuro'
                         fill='none'
                         viewBox='0 0 24 24'
                         stroke='currentColor'
@@ -93,7 +93,7 @@ export function ListadoDocentes() {
                     <p className='text-sm text-center text-gray-500'>ID: {docente.documento_identidad}</p>
                   </div>
                   <div className='bg-gray-50 px-4 py-3 text-right'>
-                    <span className='text-xs font-medium text-blue-600 hover:text-blue-800 transition-colors'>
+                    <span className='text-xs font-medium text-claro hover:text-primario transition-colors'>
                       Ver detalles →
                     </span>
                   </div>

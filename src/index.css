@@ -6,10 +6,11 @@
   --color-primario: #42a542;
   --color-oscuro: #107b42;
   --color-claro: #8cce6b;
-  --color-prueba: #75b726;
+  --color-prueba: #75b729;
   --color-complementario: #faf800;
   --color-gradiente: linear-gradient(135deg, var(--color-oscuro), var(--color-primario));
   --blanco: #ffffff;
+  --color-logout: #DC2625;
   --gris-claro: #ececec;
   --gris: #808080;
   --gris-medio: #747777;

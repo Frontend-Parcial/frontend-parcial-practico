@@ -28,7 +28,7 @@ export function ObtenerEstudiante() {
           </div>
           <button
             type='button'
-            className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow flex items-center gap-2 transition-all'
+            className='bg-oscuro hover:bg-primario text-white px-6 py-2 rounded-lg shadow flex items-center gap-2 transition-all'
             onClick={() => navigate(`/estudiantes/actualizar/${id}`)}
           >
             <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
@@ -40,10 +40,9 @@ export function ObtenerEstudiante() {
 
         {datos.map(estudiante => (
           <div key={estudiante._id} className='bg-white rounded-xl shadow-md overflow-hidden'>
-            {/* Header con foto y datos básicos */}
-            <div className='bg-gradient-to-r from-blue-600 to-blue-800 p-6 text-white'>
+            <div className='bg-gradient-to-r from-oscuro to-claro p-6 text-white'>
               <div className='flex items-center gap-6'>
-                <div className='w-20 h-20 rounded-full bg-blue-400 flex items-center justify-center'>
+                <div className='w-20 h-20 rounded-full bg-primario flex items-center justify-center'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='h-10 w-10'
@@ -61,8 +60,8 @@ export function ObtenerEstudiante() {
                 </div>
                 <div>
                   <h2 className='text-2xl font-bold'>{estudiante.nombre_completo}</h2>
-                  <p className='text-blue-100'>{estudiante.programa_academico}</p>
-                  <p className='text-blue-100'>{estudiante.facultad}</p>
+                  <p className='text-gris-claro'>{estudiante.programa_academico}</p>
+                  <p className='text-gris-claro'>{estudiante.facultad}</p>
                 </div>
               </div>
             </div>
@@ -164,7 +163,7 @@ export function ObtenerEstudiante() {
               </button>
               <button
                 type='button'
-                className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow flex items-center gap-2 transition-all'
+                className='bg-oscuro hover:bg-primario text-white px-6 py-2 rounded-lg shadow flex items-center gap-2 transition-all'
                 onClick={() => navigate(`/estudiantes/actualizar/${id}`)}
               >
                 <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>

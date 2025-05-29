@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import logo from '../assets/ESCUDO_UPC_PQ.png'
-import UPC from '../assets/LOGO-UPC-MOVIL.jpg'
+import UPC from '../assets/LOGO-UPC.png'
 import { useAuth } from '../providers/AuthProvider'
 
 const theme = {
@@ -20,7 +20,7 @@ export function Header() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const tabs = ['Estudiantes', 'Docentes', 'Convenio', 'Solicitudes', 'Asignaturas', 'Seguimiento']
+  const tabs = ['Estudiantes', 'Docentes', 'Convenios', 'Solicitudes', 'Asignaturas', 'Seguimiento']
 
   // Detectar la pestaña activa desde la URL
   const currentPath = location.pathname.toLowerCase()
@@ -28,7 +28,7 @@ export function Header() {
 
   return (
     <div>
-      <header className=' flex justify-between items-center bg-prueba pl-8 pr-8'>
+      <header className=' flex justify-between items-center bg-primario pl-8 pr-8'>
         <div className='flex items-center'>
           <div className='text-white mr-2 cursor-pointer'>
             <div
@@ -65,7 +65,7 @@ export function Header() {
             </button>
           ))}
           <button
-            className='px-5 py-3 min-w-[100px] m-[10px] mr-[40px] ml-[20px] cursor-pointer transition-colors duration-[400ms] rounded hover:bg-red-300'
+            className='px-5 py-3 min-w-[100px] m-[10px] mr-[40px] ml-[20px] cursor-pointer transition-colors duration-[400ms] rounded hover:bg-logout'
             onClick={() => auth.logOut()}
           >
             Cerrar Sesión

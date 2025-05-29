@@ -203,7 +203,7 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Nombre Completo*</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: Juan Pérez'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
@@ -216,7 +216,7 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Tipo de Documento*</label>
                 <select
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   name='tipo_documento'
                   value={form.tipo_documento}
@@ -234,7 +234,7 @@ export function CrearDocente() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Documento de Identidad*</label>
                 <input
                   type='text'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: 123456789'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
@@ -248,7 +248,7 @@ export function CrearDocente() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Fecha de Nacimiento*</label>
                 <input
                   type='date'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   name='fecha_nacimiento'
                   value={form.fecha_nacimiento}
@@ -260,7 +260,7 @@ export function CrearDocente() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Email*</label>
                 <input
                   type='email'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: docente@universidad.edu'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, email.format)}
@@ -274,7 +274,7 @@ export function CrearDocente() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Teléfono*</label>
                 <input
                   type='tel'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: 3001234567'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
@@ -287,7 +287,7 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Dirección*</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: Calle 123 #45-67'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, address.format)}
@@ -305,7 +305,7 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Título de Pregrado</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: Licenciado en Matemáticas'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
@@ -317,7 +317,7 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Título de Posgrado</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: Magíster en Educación'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
@@ -329,7 +329,7 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Nivel de Formación*</label>
                 <select
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   name='nivel_formacion'
                   value={form.nivel_formacion}
@@ -347,7 +347,7 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Departamento*</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: Matemáticas'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
@@ -360,7 +360,7 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Facultad*</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Ej: Ciencias Exactas'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
@@ -373,7 +373,7 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Categoría Docente*</label>
                 <select
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   name='categoria_docente'
                   value={form.categoria_docente}
@@ -391,7 +391,7 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Tipo de Vinculación*</label>
                 <select
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   name='tipo_vinculacion'
                   value={form.tipo_vinculacion}
@@ -417,7 +417,7 @@ export function CrearDocente() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Años de Experiencia*</label>
                 <input
                   type='number'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='anos_experiencia'
@@ -431,7 +431,7 @@ export function CrearDocente() {
                 <input
                   type='number'
                   min='0'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='anos_experiencia_institucion'
@@ -443,7 +443,7 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Escalafón</label>
                 <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='escalafon'
@@ -465,7 +465,7 @@ export function CrearDocente() {
                   setForm(prev => ({ ...prev, nuevo_idioma: { ...prev.nuevo_idioma, idioma: e.target.value } }))
                 }
                 onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
               />
               <input
                 placeholder='Nivel'
@@ -474,12 +474,12 @@ export function CrearDocente() {
                   setForm(prev => ({ ...prev, nuevo_idioma: { ...prev.nuevo_idioma, nivel: e.target.value } }))
                 }
                 onBeforeInput={(e) => handleBeforeInput(e, lenguageLevel.format)}
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
               />
               <button
                 type='button'
                 onClick={agregarIdioma}
-                className='px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                className='px-4 py-2 bg-primario text-white rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
               >
                 +
               </button>
@@ -514,13 +514,13 @@ export function CrearDocente() {
                 value={form.nueva_area}
                 onChange={e => setForm(prev => ({ ...prev, nueva_area: e.target.value }))}
                 onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
-                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                 placeholder='Nueva área de conocimiento'
               />
               <button
                 type='button'
                 onClick={agregarArea}
-                className='px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                className='px-4 py-2 bg-primario text-white rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
               >
                 +
               </button>
@@ -554,7 +554,7 @@ export function CrearDocente() {
                 <input
                   type='number'
                   min='0'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='publicaciones'
@@ -567,7 +567,7 @@ export function CrearDocente() {
                 <input
                   type='number'
                   min='0'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='proyectos_investigacion'
@@ -583,13 +583,13 @@ export function CrearDocente() {
                   value={form.nuevo_grupo}
                   onChange={e => setForm(prev => ({ ...prev, nuevo_grupo: e.target.value }))}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Nuevo grupo de investigación'
                 />
                 <button
                   type='button'
                   onClick={agregarGrupo}
-                  className='px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                  className='px-4 py-2 bg-primario text-white rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                 >
                   +
                 </button>
@@ -622,7 +622,7 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Estado*</label>
                 <select
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   name='estado'
                   value={form.estado}
@@ -643,7 +643,7 @@ export function CrearDocente() {
                   step='0.1'
                   min='0'
                   max='5'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   onBeforeInput={(e) => handleBeforeInput(e, decimalNumber.format)}
                   name='evaluacion_docente_promedio'
@@ -660,7 +660,7 @@ export function CrearDocente() {
                   name='sanciones_academicas'
                   checked={form.sanciones_academicas}
                   onChange={handleChange}
-                  className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
+                  className='h-4 w-4 text-indigo-600 focus:ring-primario border-gray-300 rounded'
                 />
                 <label htmlFor='sanciones_academicas' className='ml-2 block text-sm text-gray-700'>
                   Sanciones académicas
@@ -674,7 +674,7 @@ export function CrearDocente() {
                   name='sanciones_disciplinarias'
                   checked={form.sanciones_disciplinarias}
                   onChange={handleChange}
-                  className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
+                  className='h-4 w-4 text-indigo-600 focus:ring-primario border-gray-300 rounded'
                 />
                 <label htmlFor='sanciones_disciplinarias' className='ml-2 block text-sm text-gray-700'>
                   Sanciones disciplinarias
@@ -688,7 +688,7 @@ export function CrearDocente() {
                   name='experiencia_internacional'
                   checked={form.experiencia_internacional}
                   onChange={handleChange}
-                  className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
+                  className='h-4 w-4 text-indigo-600 focus:ring-primario border-gray-300 rounded'
                 />
                 <label htmlFor='experiencia_internacional' className='ml-2 block text-sm text-gray-700'>
                   Experiencia internacional
@@ -707,13 +707,13 @@ export function CrearDocente() {
                   value={form.nueva_red}
                   onChange={e => setForm(prev => ({ ...prev, nueva_red: e.target.value }))}
                   onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   placeholder='Nueva red internacional'
                 />
                 <button
                   type='button'
                   onClick={agregarRed}
-                  className='px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                  className='px-4 py-2 bg-primario text-white rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                 >
                   +
                 </button>
@@ -741,7 +741,7 @@ export function CrearDocente() {
           <div className='pt-4'>
             <button
               type='submit'
-              className='w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors'
+              className='w-full bg-primario text-white py-2 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primario transition-colors'
             >
               Registrar Docente
             </button>
