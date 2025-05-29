@@ -3,18 +3,17 @@
 const apiUrl = import.meta.env.VITE_API_URL
 
 // Función para obtener todas las asignaturas
-export const obtenerAsignaturas = async (id) => {
+export const obtenerAsignaturas = async id => {
   const userToken = localStorage.getItem('site')
   try {
     const headers = {
       'Content-Type': 'application/json',
     }
 
-    // Solo agregar Authorization si hay token
     if (userToken) {
       headers['Authorization'] = `Bearer ${userToken}`
     }
-    console.log(`${apiUrl}/asignaturas/solicitud/${id}`)
+
     const response = await fetch(`${apiUrl}/asignaturas/solicitud/${id}`, {
       method: 'GET',
       headers,
@@ -30,17 +29,16 @@ export const obtenerAsignaturas = async (id) => {
 
     const data = await response.json()
     return data
-
   } catch (error) {
     console.error('Error al obtener asignaturas:', error)
     throw error
   }
 }
 
-// Función para obtener una asignatura específica por ID
+// Obtener una asignatura por ID
 export const obtenerAsignaturaPorId = async (id, token) => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/asignaturas/${id}`, {
+    const response = await fetch(`${apiUrl}/api/asignaturas/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -61,7 +59,6 @@ export const obtenerAsignaturaPorId = async (id, token) => {
 }
 
 export async function listAsignaturas({ _id, id_solicitud }) {
-  const apiUrl = import.meta.env.VITE_API_URL
   const token = localStorage.getItem('userToken')
 
   const response = await fetch(`${apiUrl}/asignaturas?_id=${_id}&id_solicitud=${id_solicitud}`, {
