@@ -16,8 +16,6 @@ import { HealthCheck } from './pages/healthcheck'
 import ListaSolicitudes from './pages/solicitudes/ListaSolicitudes'
 import CrearSeguimiento from './pages/seguimiento/gestionar-seguimiento'
 import SolicitudIntercambioForm from './pages/solicitudes/SolicitudesCreate'
-
-import { CrearSeguimiento } from './pages/seguimiento/gestionar-seguimiento'
 import { AnimatePresence } from 'framer-motion'
 import Layout from './components/Layout'
 

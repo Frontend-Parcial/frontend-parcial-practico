@@ -175,7 +175,7 @@ export function Register() {
                     </div>
 
                     <button
-                      className='h-[30px] w-full rounded-[8px] bg-oscuro text-white hover:bg-claro cursor-pointer transition-all ease-in-out duration-[300ms]'
+                      className='h-[30px] w-full rounded-[8px] bg-primario text-white hover:bg-oscuro cursor-pointer transition-all ease-in-out duration-[300ms]'
                       onClick={mensajeSesion}
                       type='submit'
                     >
@@ -235,7 +235,7 @@ function InputField({ label, name, value, type, placeholder, onChange, pattern, 
 function InfoCard({ title, subtitle }) {
   return (
     <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 hover:scale-105'>
-      <div className='bg-[#DBEBE3] rounded-full w-[40px] h-[40px] flex justify-center items-center'> - </div>
+      <div className='bg-primario rounded-full w-[40px] h-[40px] flex justify-center items-center'>    <span className='text-white font-bold text-lg'>✓</span>  </div>
       <div className='flex flex-col'>
         <p className='font-bold'>{title}</p>
         <p className='text-sm text-gray-700'>{subtitle}</p>
