@@ -24,19 +24,28 @@ export function ListadoDocentes() {
       <div className='max-w-6xl mx-auto p-6'>
         <div className='flex justify-between items-center mb-8'>
           <h1 className='text-3xl font-bold text-gray-800'>Gestión de Docentes</h1>
-          <button
-            className='bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg shadow-md transition-all flex items-center gap-2'
-            onClick={() => navigate('/docentes/nuevo')}
-          >
-            <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
-              <path
-                fillRule='evenodd'
-                d='M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z'
-                clipRule='evenodd'
-              />
-            </svg>
-            Nuevo Docente
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              type='button'
+              onClick={() => navigate(-1)}
+              className='bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-base shadow-md hover:shadow-lg transition-all'
+            >
+              Atrás
+            </button>
+            <button
+              className='bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
+              onClick={() => navigate('/docentes/nuevo')}
+            >
+              <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
+                <path
+                  fillRule='evenodd'
+                  d='M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z'
+                  clipRule='evenodd'
+                />
+              </svg>
+              Nuevo Docente
+            </button>
+          </div>
         </div>
 
         <div className='bg-white rounded-xl shadow-md p-6'>

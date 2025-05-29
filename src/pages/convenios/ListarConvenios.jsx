@@ -108,15 +108,22 @@ const ListaConvenios = () => {
                   <select
                     value={filtroTipo}
                     onChange={handleFiltroChange}
-                    className='border border-gray-300 rounded px-3 py-2 text-sm'
+                    className='border border-gray-300 rounded px-3 py-1 text-sm'
                   >
                     <option value=''>Todos los tipos</option>
                     <option value='nacional'>Nacional</option>
                     <option value='internacional'>Internacional</option>
                   </select>
+                  <button
+                    type='button'
+                    onClick={() => navigate(-1)}
+                    className='bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-base shadow-md hover:shadow-lg transition-all'
+                  >
+                    Atras
+                  </button>
                   <a
                     href='/convenios/nuevo'
-                    className='bg-primario text-white px-4 py-2 rounded hover:bg-primario/90 transition text-sm sm:text-base text-center'
+                    className='bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
                   >
                     Crear Convenio
                   </a>
