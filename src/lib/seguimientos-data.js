@@ -63,7 +63,8 @@ export async function getSeguimientoXsolicitud(id_solicitud) {
     }
 
     const data = await response.json();
-    return data.data; // ajusta según lo que devuelve tu backend
+    return data["seguimiento"];
+
   } catch (error) {
     console.error('Error en la consulta de seguimiento:', error);
     return null;
@@ -73,8 +74,8 @@ export async function getSeguimientoXsolicitud(id_solicitud) {
 
 export async function updateSeguimiento(id, data) {
   try {
-    const response = await fetch(`${apiUrl}/seguimiento/${id}`, {
-      method: 'PUT',
+    const response = await fetch(`${apiUrl}/seguimiento/${id}/reporte`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userToken}`,
