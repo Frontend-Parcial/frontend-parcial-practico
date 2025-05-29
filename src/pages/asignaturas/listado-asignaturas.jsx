@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { obtenerAsignaturas } from '../../lib/asignaturas-data'
 import PageWrapper from '../../components/PageWrapper'
 
 export function ListadoAsignaturas() {
@@ -36,28 +35,63 @@ export function ListadoAsignaturas() {
         setLoading(true)
         setError(null)
 
-        const asignaturas = await obtenerAsignaturas(form.id_solicitud)
+        const token = localStorage.getItem('site')
+        if (!token) {
+          setError('No hay token de autenticación')
+          navigate('/login')
+          return
+        }
 
-        // Si la respuesta es un array directo
+        const response = await fetch('/api/asignaturas', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            localStorage.removeItem('site')
+            navigate('/login')
+            return
+          }
+          throw new Error(`Error ${response.status}: ${response.statusText}`)
+        }
+
+        const asignaturas = await response.json()
+
+        // Manejo más robusto de la respuesta
+        let datosAsignaturas = []
+
         if (Array.isArray(asignaturas)) {
-          setDatos(asignaturas)
-        }
-        // Si la respuesta viene dentro de un objeto con una propiedad específica
-        else if (asignaturas.data && Array.isArray(asignaturas.data)) {
-          setDatos(asignaturas.data)
-        }
-        // Si es un solo objeto, lo convertimos en array
-        else if (asignaturas && typeof asignaturas === 'object') {
-          setDatos([asignaturas])
+          datosAsignaturas = asignaturas
+        } else if (asignaturas && asignaturas.data && Array.isArray(asignaturas.data)) {
+          datosAsignaturas = asignaturas.data
+        } else if (asignaturas && typeof asignaturas === 'object' && asignaturas._id) {
+          datosAsignaturas = [asignaturas]
         } else {
-          setDatos([])
+          datosAsignaturas = []
         }
+
+        setDatos(datosAsignaturas)
       } catch (error) {
         console.error('Error al cargar asignaturas:', error)
-        if (error.message.includes('404')) {
-          setError('No hay equivalencia')
+
+        // Manejo específico de errores de red o servidor
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+          setError('Error de conexión. Verifique su conexión a internet.')
+        } else if (error.message.includes('401') || error.message.includes('Unauthorized')) {
+          setError('Token de autenticación expirado')
+          localStorage.removeItem('site')
+          navigate('/login')
+          return
         } else {
-          setError(error.message || 'No se pudieron cargar las asignaturas')
+          if (error.message.includes('404')) {
+            setError('No hay equivalencia')
+          } else {
+            setError(error.message || 'No se pudieron cargar las asignaturas')
+          }
         }
         setDatos([])
       } finally {
@@ -66,7 +100,7 @@ export function ListadoAsignaturas() {
     }
 
     cargarAsignaturas()
-  }, [form.id_solicitud])
+  }, [])
 
   if (loading) {
     return (
@@ -97,8 +131,8 @@ export function ListadoAsignaturas() {
               <span className='text-red-800'>{error}</span>
             </div>
             <button
-              onClick={() => window.location.reload()}
-              className='mt-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm'
+              onClick={handleRetry}
+              className='mt-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm transition-colors'
             >
               Reintentar
             </button>
@@ -157,20 +191,19 @@ export function ListadoAsignaturas() {
             </div>
           ) : (
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-              {datos.map(asignatura => (
+              {datos.map((asignatura, index) => (
                 <div
-                  key={asignatura._id}
+                  key={asignatura._id || `asignatura-${index}`}
                   className='bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer'
                   onClick={() => navigate(`/asignaturas/${asignatura._id}`)}
                 >
                   <div className='p-5'>
                     <h3 className='text-lg font-medium text-center text-gray-800 mb-1'>
-                      {asignatura.nombre_asignatura_origen}
+                      {asignatura.nombre_asignatura_origen || 'Sin nombre'}
                     </h3>
-                    <p className='text-sm text-center text-gray-500'>ID solicitud: </p>
                     <p className='text-sm text-center text-gray-500'>Código: {asignatura.codigo_asignatura_origen}</p>
                     <p className='text-sm text-center text-gray-500'>
-                      Equivale a: {asignatura.nombre_asignatura_destino}
+                      Equivale a: {asignatura.nombre_asignatura_destino || 'N/A'}
                     </p>
                     <div className='mt-3 flex justify-between items-center text-xs'>
                       <span
@@ -182,9 +215,9 @@ export function ListadoAsignaturas() {
                             : 'bg-gray-500'
                         }`}
                       >
-                        {asignatura.estado_equivalencia}
+                        {asignatura.estado_equivalencia || 'Sin estado'}
                       </span>
-                      <span className='text-gray-500'>{asignatura.creditos_asignatura_origen} créditos</span>
+                      <span className='text-gray-500'>{asignatura.creditos_asignatura_origen || '0'} créditos</span>
                     </div>
                   </div>
                   <div className='bg-gray-50 px-4 py-3 text-right'>
