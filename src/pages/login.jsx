@@ -12,7 +12,7 @@ import { validateRegister } from '../utils/validators'
 export function Login() {
   const [mensaje, setMensaje] = useState('')
   const [clic, setClic] = useState(true)
-  const [inicioMensaje, setInicioMensaje] = useState('Login')
+  const [inicioMensaje, setInicioMensaje] = useState('Iniciar Sesión')
 
   const { getEmailStore } = useUsersStore()
   const auth = useAuth()
@@ -142,11 +142,6 @@ export function Login() {
                       />
                       {/* Este es */}
                       {errors.password && <p className='text-red-600 text-sm mt-1 max-w-[350px]'>{errors.password}</p>}
-                    </div>
-
-                    <div className='flex flex-row gap-2 mb-4 mt-[-15px]'>
-                      <input type='checkbox' id='remember-me' name='remember-me' value='true' />
-                      <label>Mantener la sesion iniciada</label>
                     </div>
 
                     <button

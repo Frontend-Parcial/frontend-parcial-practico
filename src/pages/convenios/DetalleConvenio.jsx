@@ -18,14 +18,14 @@ export function DetalleConvenio() {
         setLoading(true)
         const response = await fetch(`${apiUrl}/convenios/${id}`, {
           headers: {
-            'Authorization': `Bearer ${userToken}`
-          }
+            Authorization: `Bearer ${userToken}`,
+          },
         })
-        
+
         if (!response.ok) {
           throw new Error('Error al obtener el convenio')
         }
-        
+
         const data = await response.json()
         setConvenio(data)
       } catch (err) {
@@ -38,7 +38,7 @@ export function DetalleConvenio() {
     fetchData()
   }, [id])
 
-  const formatDate = (dateString) => {
+  const formatDate = dateString => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' }
     return new Date(dateString).toLocaleDateString('es-CO', options)
   }
@@ -46,8 +46,8 @@ export function DetalleConvenio() {
   if (loading) {
     return (
       <PageWrapper>
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primario"></div>
+        <div className='flex justify-center items-center h-64'>
+          <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-primario'></div>
         </div>
       </PageWrapper>
     )
@@ -56,9 +56,12 @@ export function DetalleConvenio() {
   if (error) {
     return (
       <PageWrapper>
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-4xl mx-auto mt-6" role="alert">
-          <strong className="font-bold">Error: </strong>
-          <span className="block sm:inline">{error}</span>
+        <div
+          className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-4xl mx-auto mt-6'
+          role='alert'
+        >
+          <strong className='font-bold'>Error: </strong>
+          <span className='block sm:inline'>{error}</span>
         </div>
       </PageWrapper>
     )
@@ -67,8 +70,11 @@ export function DetalleConvenio() {
   if (!convenio) {
     return (
       <PageWrapper>
-        <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative max-w-4xl mx-auto mt-6" role="alert">
-          <span className="block sm:inline">No se encontró el convenio solicitado</span>
+        <div
+          className='bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative max-w-4xl mx-auto mt-6'
+          role='alert'
+        >
+          <span className='block sm:inline'>No se encontró el convenio solicitado</span>
         </div>
       </PageWrapper>
     )
@@ -117,12 +123,16 @@ export function DetalleConvenio() {
               </div>
               <div>
                 <h2 className='text-2xl font-bold'>{convenio.nombre_institucion}</h2>
-                <p className='text-gris-claro'>{convenio.ciudad_institucion}, {convenio.pais_institucion}</p>
-                <span className={`mt-2 px-3 py-1 text-xs rounded-full ${
-                  convenio.tipo_convenio === 'internacional' 
-                    ? 'bg-purple-100 text-purple-800' 
-                    : 'bg-indigo-100 text-indigo-800'
-                }`}>
+                <p className='text-gris-claro'>
+                  {convenio.ciudad_institucion}, {convenio.pais_institucion}
+                </p>
+                <span
+                  className={`mt-2 px-3 py-1 text-xs rounded-full ${
+                    convenio.tipo_convenio === 'internacional'
+                      ? 'bg-purple-100 text-purple-800'
+                      : 'bg-indigo-100 text-indigo-800'
+                  }`}
+                >
                   {convenio.tipo_convenio}
                 </span>
               </div>
@@ -136,13 +146,15 @@ export function DetalleConvenio() {
                 <div className='mt-2 space-y-3'>
                   <p>
                     <span className='font-medium'>Estado:</span>
-                    <span className={`ml-2 px-2 py-1 text-xs rounded-full ${
-                      convenio.estado === 'activo' 
-                        ? 'bg-green-100 text-green-800' 
-                        : convenio.estado === 'vencido' 
-                          ? 'bg-red-100 text-red-800' 
+                    <span
+                      className={`ml-2 px-2 py-1 text-xs rounded-full ${
+                        convenio.estado === 'activo'
+                          ? 'bg-green-100 text-green-800'
+                          : convenio.estado === 'vencido'
+                          ? 'bg-red-100 text-red-800'
                           : 'bg-gray-100 text-gray-800'
-                    }`}>
+                      }`}
+                    >
                       {convenio.estado}
                     </span>
                   </p>

@@ -1,27 +1,25 @@
-import axiosClient from "./axiosclient";
-
+import axiosClient from './axiosclient'
 
 export const register = (email, password, name, role) => {
-    const registerData = {
-        email: email,
-        password: password,
-        nombre: name,
-        rol: role
-    };
+  const registerData = {
+    email: email,
+    password: password,
+    nombre: name,
+    rol: role,
+  }
 
-    return axiosClient.post('/auth/register', registerData);
-};
-
+  return axiosClient.post('/auth/register', registerData)
+}
 
 export const login = (email, password) => {
-    const loggingData = {
-        email: email,
-        password: password
-    };
+  const loggingData = {
+    email: email,
+    password: password,
+  }
 
-    const response = axiosClient.post('auth/login', loggingData);
-    localStorage.setItem("token", response["token"])
-    return response["message"]
-};
+  const response = axiosClient.post('auth/login', loggingData)
+  localStorage.setItem('token', response['token'])
+  return response['message']
+}
 
 export const verifyToken = () => axiosClient.get('/auth/verifyToken')
