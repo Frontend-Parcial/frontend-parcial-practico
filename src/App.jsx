@@ -129,6 +129,10 @@ function AnimatedRoutes() {
               </Layout>
             }
           />
+          <Route path='/solicitudes/nuevo' element={<Layout><SolicitudIntercambioForm /></Layout>} />
+          <Route path='/convenios' element={<Layout><ListaConvenios /></Layout>} />
+          <Route path='/convenios/nuevo' element={<Layout><CrearConvenio /></Layout>} />
+          <Route path='/convenios/:id' element={<Layout><DetalleConvenio /></Layout>} />
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
           {/* <Route path='/solicitudes' element={<ListaSolicitudes />} /> */}
            
