@@ -181,20 +181,20 @@ const ListaSolicitudes = () => {
                               </span>
                             </td>
                             <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
-                              <button
+                              <div className='flex flex-col space-y-4'>
+                                <button
                                 onClick={() => handleVerSeguimiento(solicitud._id)}
                                 className='text-primario hover:text-oscuro mr-3'
                               >
                                 Ver Seguimiento
                               </button>
-                            </td>
-                            <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
                               <button
                                 onClick={() => handleVerAsignaturas(solicitud._id)}
                                 className='text-primario hover:text-oscuro mr-3'
                               >
                                 Ver Asignaturas
                               </button>
+                              </div>
                             </td>
                           </tr>
                         ))}
