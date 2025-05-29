@@ -6,12 +6,14 @@ import PageWrapper from '../../components/PageWrapper'
 //! ESTE ES EL PUNTO DE ENTRADA DE LOS DOCENTES
 export function ListadoDocentes() {
   const [datos, setDatos] = useState([])
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await listDocentes()
       setDatos(data)
+      setLoading(false)
     }
 
     fetchData()
@@ -40,7 +42,11 @@ export function ListadoDocentes() {
         <div className='bg-white rounded-xl shadow-md p-6'>
           <h2 className='text-xl font-semibold text-gray-700 mb-6'>Listado de Docentes</h2>
 
-          {datos.length === 0 ? (
+          {loading ? (
+            <div className='flex justify-center items-center p-8'>
+              <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primario'></div>
+            </div>
+          ) : datos.length === 0 ? (
             <div className='text-center py-12'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'

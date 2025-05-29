@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { getDocentesXid, updateDocentes } from '../../lib/docentes-data'
 import PageWrapper from '../../components/PageWrapper'
 import { decimalNumber, email, onlyEntireNumbers, onlyLetters } from '../../utils/patterns'
@@ -9,6 +10,7 @@ export function ActualizarDocentes() {
   const [datosOriginales, setDatosOriginales] = useState({})
   const [cambios, setCambios] = useState({})
   const [cargando, setCargando] = useState(true)
+  const navigate = useNavigate()
 
   const TEACHER_CATEGORIES = [
     { value: 'Instructor', label: 'Instructor' },
@@ -89,7 +91,7 @@ export function ActualizarDocentes() {
                 <input
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='telefono'
                   defaultValue={datosOriginales.telefono || ''}
                 />
@@ -100,7 +102,7 @@ export function ActualizarDocentes() {
                 <input
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, email.format)}
+                  onBeforeInput={e => handleBeforeInput(e, email.format)}
                   name='email'
                   defaultValue={datosOriginales.email || ''}
                 />
@@ -111,7 +113,7 @@ export function ActualizarDocentes() {
                 <input
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyLetters.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='departamento'
                   defaultValue={datosOriginales.departamento || ''}
                 />
@@ -124,7 +126,7 @@ export function ActualizarDocentes() {
                   onChange={handleInput}
                   name='categoria_docente'
                   defaultValue={datosOriginales.categoria_docente || ''}
-                > 
+                >
                   <option value='asistente'>Asistente</option>
                   <option value='asociado'>Asociado</option>
                   <option value='instructor'>Instructor</option>
@@ -144,7 +146,7 @@ export function ActualizarDocentes() {
                   max='5'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleNumberInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, decimalNumber.format)}
+                  onBeforeInput={e => handleBeforeInput(e, decimalNumber.format)}
                   name='evaluacion_docente_promedio'
                   defaultValue={datosOriginales.evaluacion_docente_promedio || ''}
                 />
@@ -157,7 +159,7 @@ export function ActualizarDocentes() {
                   min='0'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleNumberInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='publicaciones'
                   defaultValue={datosOriginales.publicaciones || ''}
                 />
@@ -170,7 +172,7 @@ export function ActualizarDocentes() {
                   min='0'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleNumberInput}
-                  onBeforeInput={(e) => handleBeforeInput(e, onlyEntireNumbers.format)}
+                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='proyectos_investigacion'
                   defaultValue={datosOriginales.proyectos_investigacion || ''}
                 />
@@ -193,7 +195,15 @@ export function ActualizarDocentes() {
             </div>
           </div>
 
-          <div className='pt-6'>
+          {/* Botones */}
+          <div className='pt-6 flex justify-between gap-4'>
+            <button
+              type='button'
+              onClick={() => navigate(`/docentes/${id}`)}
+              className='bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
+            >
+              Cancelar
+            </button>
             <button
               type='submit'
               className='w-full bg-primario text-white py-3 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primario transition-colors font-medium'

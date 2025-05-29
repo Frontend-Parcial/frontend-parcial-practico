@@ -3,7 +3,7 @@
 const apiUrl = import.meta.env.VITE_API_URL
 
 // Función para obtener todas las asignaturas
-export const obtenerAsignaturas = async (id) => {
+export const obtenerAsignaturas = async id => {
   const userToken = localStorage.getItem('site')
   try {
     const headers = {
@@ -30,7 +30,6 @@ export const obtenerAsignaturas = async (id) => {
 
     const data = await response.json()
     return data
-
   } catch (error) {
     console.error('Error al obtener asignaturas:', error)
     throw error
