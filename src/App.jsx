@@ -20,6 +20,7 @@ import ListaConvenios from './pages/convenios/ListarConvenios'
 import CrearConvenio from './pages/convenios/component/CrearNuevoConvenio'
 import { DetalleConvenio } from './pages/convenios/DetalleConvenio'
 import { ListadoAsignaturas } from './pages/asignaturas/listado-asignaturas'
+import { DetalleAsignaturas } from './pages/asignaturas/detalleAsignaturas'
 
 import { AnimatePresence } from 'framer-motion'
 import Layout from './components/Layout'
@@ -130,32 +131,32 @@ function AnimatedRoutes() {
               </Layout>
             }
           />
-          <Route 
-            path='/solicitudes/nuevo' 
+          <Route
+            path='/solicitudes/nuevo'
             element={
               <Layout>
                 <SolicitudIntercambioForm />
-            </Layout>
-            } 
+              </Layout>
+            }
           />
-          <Route 
-            path='/convenios' 
+          <Route
+            path='/convenios'
             element={
               <Layout>
                 <ListaConvenios />
               </Layout>
-            } 
+            }
           />
-          <Route 
-            path='/convenios/nuevo' 
+          <Route
+            path='/convenios/nuevo'
             element={
               <Layout>
-                  <CrearConvenio />
+                <CrearConvenio />
               </Layout>
-            } 
+            }
           />
-          <Route 
-            path='/convenios/:id' 
+          <Route
+            path='/convenios/:id'
             element={
               <Layout>
                 <DetalleConvenio />
@@ -167,6 +168,15 @@ function AnimatedRoutes() {
             element={
               <Layout>
                 <ListadoAsignaturas />
+              </Layout>
+            }
+          />
+
+          <Route
+            path='/asignaturas/:id'
+            element={
+              <Layout>
+                <DetalleAsignaturas />
               </Layout>
             }
           />

@@ -18,37 +18,44 @@ export function ListadoAsignaturas() {
     responsable_seguimiento: 'María Castro - Coordinadora ORPI',
     reporte_avance: [],
     fecha_inicio: '',
-    fecha_actualizacion: ''
-  });
+    fecha_actualizacion: '',
+  })
 
-   useEffect(() => {
-    const idGuardado = localStorage.getItem('id_solicitud_seleccionada');
+  const handleVerAsignatura = asignatura => {
+    // Guardamos la asignatura completa en localStorage
+    localStorage.setItem('asignatura_seleccionada', JSON.stringify(asignatura))
+    // Navegamos al detalle usando SOLO el ID
+    navigate(`/asignaturas/${asignatura._id}`)
+  }
+  useEffect(() => {
+    const idGuardado = localStorage.getItem('id_solicitud_seleccionada')
     if (idGuardado) {
-      setForm(prev => ({ ...prev, id_solicitud: idGuardado }));
-      localStorage.removeItem('id_solicitud_seleccionada');
+      setForm(prev => ({ ...prev, id_solicitud: idGuardado }))
+      localStorage.removeItem('id_solicitud_seleccionada')
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    if (!form.id_solicitud) return;
+    if (!form.id_solicitud) return
     const cargarAsignaturas = async () => {
       try {
         setLoading(true)
         setError(null)
 
-        const asignaturas = await obtenerAsignaturas(form.id_solicitud)
+        const response = await obtenerAsignaturas(form.id_solicitud)
+        console.log(response.asignaturas)
 
         // Si la respuesta es un array directo
-        if (Array.isArray(asignaturas)) {
-          setDatos(asignaturas)
+        if (Array.isArray(response.asignaturas)) {
+          setDatos(response.asignaturas)
         }
         // Si la respuesta viene dentro de un objeto con una propiedad específica
-        else if (asignaturas.data && Array.isArray(asignaturas.data)) {
-          setDatos(asignaturas.data)
+        else if (response.data && Array.isArray(response.data)) {
+          setDatos(response.data)
         }
         // Si es un solo objeto, lo convertimos en array
-        else if (asignaturas && typeof asignaturas === 'object') {
-          setDatos([asignaturas])
+        else if (response && typeof response === 'object') {
+          setDatos([response])
         } else {
           setDatos([])
         }
@@ -172,6 +179,7 @@ export function ListadoAsignaturas() {
                     <h3 className='text-lg font-medium text-center text-gray-800 mb-1'>
                       {asignatura.nombre_asignatura_origen}
                     </h3>
+                    <p className='text-sm text-center text-gray-500'>ID solicitante: {asignatura.id_solicitud?.$oid}</p>
                     <p className='text-sm text-center text-gray-500'>Código: {asignatura.codigo_asignatura_origen}</p>
                     <p className='text-sm text-center text-gray-500'>
                       Equivale a: {asignatura.nombre_asignatura_destino}
@@ -191,11 +199,14 @@ export function ListadoAsignaturas() {
                       <span className='text-gray-500'>{asignatura.creditos_asignatura_origen} créditos</span>
                     </div>
                   </div>
-                  <div className='bg-gray-50 px-4 py-3 text-right'>
-                    <span className='text-xs font-medium text-claro hover:text-primario transition-colors'>
-                      Ver detalles →
-                    </span>
-                  </div>
+                  <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
+                    <button
+                      onClick={() => handleVerAsignatura(asignatura)} // ✅ CORRECTO - pasas el objeto completo
+                      className='text-primario hover:text-oscuro mr-3'
+                    >
+                      Ver detalle
+                    </button>
+                  </td>
                 </div>
               ))}
             </div>
