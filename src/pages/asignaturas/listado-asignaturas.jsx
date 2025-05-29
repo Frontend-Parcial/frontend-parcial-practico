@@ -30,6 +30,7 @@ export function ListadoAsignaturas() {
   }, []);
 
   useEffect(() => {
+    if (!form.id_solicitud) return;
     const cargarAsignaturas = async () => {
       try {
         setLoading(true)
