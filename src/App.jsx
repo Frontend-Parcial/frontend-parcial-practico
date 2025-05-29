@@ -16,12 +16,12 @@ import { HealthCheck } from './pages/healthcheck'
 import ListaSolicitudes from './pages/solicitudes/ListaSolicitudes'
 import CrearSeguimiento from './pages/seguimiento/gestionar-seguimiento'
 import SolicitudIntercambioForm from './pages/solicitudes/SolicitudesCreate'
-
-import { AnimatePresence } from 'framer-motion'
-import Layout from './components/Layout'
 import ListaConvenios from './pages/convenios/ListarConvenios'
 import CrearConvenio from './pages/convenios/component/CrearNuevoConvenio'
 import { DetalleConvenio } from './pages/convenios/DetalleConvenio'
+
+import { AnimatePresence } from 'framer-motion'
+import Layout from './components/Layout'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -163,7 +163,7 @@ function AnimatedRoutes() {
           />
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
           {/* <Route path='/solicitudes' element={<ListaSolicitudes />} /> */}
-           
+
           {/* <Route path='/prueba' element={<Pruebas />} /> */}
         </Route>
       </Routes>
