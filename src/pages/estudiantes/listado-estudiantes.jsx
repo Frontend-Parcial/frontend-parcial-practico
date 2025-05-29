@@ -23,7 +23,7 @@ export function ListadoEstudiantes() {
         <div className='flex justify-between items-center mb-8'>
           <h1 className='text-3xl font-bold text-gray-800'>Gestión de Estudiantes</h1>
           <button
-            className='bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md transition-all flex items-center gap-2'
+            className='bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg shadow-md transition-all flex items-center gap-2'
             onClick={() => navigate('/estudiantes/nuevo')}
           >
             <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>

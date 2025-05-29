@@ -1,7 +1,6 @@
 
 export const onlyLetters = {
         format: /^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]+$/,
-        validation: /^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]{3,}$/,
         message: "Solo se permiten letras"
     }
 export const email = {
@@ -30,4 +29,14 @@ export const decimalNumber = {
 export const lenguageLevel = {
     format: /^(A[1-2]|B[1-2]|C[1-2]|TOEFL\s\d{2,3}|IELTS\s\d(\.\d)?)$/,
     message: "Digite caracterés válidos para un nivel de idioma"
+}
+
+export const alphaNumeric = {
+    format : /^[a-zA-Z0-9áéíóúÁÉÍÓÚ]+$/,
+    message: "Solo permite letras y números"
+}
+
+export const code = {
+    format: /^[A-Z0-9-]+$/,
+    message: "Solo permite letras mayúsculas números o guión"
 }

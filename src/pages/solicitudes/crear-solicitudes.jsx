@@ -3,6 +3,7 @@ import { crearSolicitud } from '../../lib/solicitudes-data.js';
 import equivalencias from './asignaturas-prueba'
 import PageWrapper from '../../components/PageWrapper'
 import { getStudents } from '../../lib/estudiantes-data'
+import { alphaNumeric, onlyEntireNumbers, code, onlyLetters } from '../../utils/patterns'
 //import { getConveniosXid } from '../../lib/convenios-data'
 
 export default function CrearSolicitud() {
@@ -59,6 +60,12 @@ export default function CrearSolicitud() {
     checkConvenio()
   }, [form.id_convenio])
 */
+  const handleBeforeInput = (e, pattern) => {
+    if (pattern && !pattern.test(e.data)) {
+      e.preventDefault()
+    }
+  }
+
   const handleChange = e => {
     const { name, value } = e.target
     setForm(prev => ({ ...prev, [name]: value }))
@@ -169,7 +176,7 @@ export default function CrearSolicitud() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">ID del Solicitante*</label>
-              <input type="text" name="id_solicitante" value={form.id_solicitante} onChange={handleChange} required placeholder="Ej: 682bd232..."
+              <input type="text" name="id_solicitante" value={form.id_solicitante} onBeforeInput={(e) => {handleBeforeInput(e, alphaNumeric.format)}} onChange={handleChange} required placeholder="Ej: 682bd232..."
                 className="w-full border border-gray-300 px-3 py-2 rounded" />
                 {validEstudiante === true && <p className="text-green-600 text-sm mt-1">ID válido ✅</p>}
                 {validEstudiante === false && <p className="text-red-600 text-sm mt-1">ID no válido ❌</p>}
@@ -177,7 +184,7 @@ export default function CrearSolicitud() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">ID del Convenio*</label>
-              <input type="text" name="id_convenio" value={form.id_convenio} onChange={handleChange} required placeholder="Ej: 682bf4f4..."
+              <input type="text" name="id_convenio" value={form.id_convenio} required placeholder="Ej: 682bf4f4..."
                 className="w-full border border-gray-300 px-3 py-2 rounded" />
             </div>
 
@@ -212,7 +219,7 @@ export default function CrearSolicitud() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700">Duración (semestres)*</label>
-              <input type="number" name="duracion" value={form.duracion} onChange={handleChange} required placeholder="Ej: 1"
+              <input type="number" name="duracion" value={form.duracion} onBeforeInput={(e) => {handleBeforeInput(e, onlyEntireNumbers.format)}} onChange={handleChange} required placeholder="Ej: 1"
                 className="w-full border border-gray-300 px-3 py-2 rounded" />
             </div>
             </div>
@@ -222,8 +229,8 @@ export default function CrearSolicitud() {
 
             <h3 className="text-lg font-semibold text-gray-800 mb-2">Asignaturas</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-2">
-              <input name="codigo_asignatura_origen" placeholder="Código origen" value={form.nueva_asignatura.codigo_asignatura_origen} onChange={handleAsignaturaChange} className="border border-gray-300 px-2 py-1 rounded" />
-              <input name="nombre_asignatura_origen" value={form.nueva_asignatura.nombre_asignatura_origen} readOnly className="bg-gray-100 border border-gray-300 px-2 py-1 rounded" />
+              <input name="codigo_asignatura_origen" placeholder="Código origen" value={form.nueva_asignatura.codigo_asignatura_origen} onBeforeInput={(e) => {handleBeforeInput(e, code.format)}} onChange={handleAsignaturaChange} className="border border-gray-300 px-2 py-1 rounded" />
+              <input name="nombre_asignatura_origen" value={form.nueva_asignatura.nombre_asignatura_origen} onBeforeInput={(e) => {handleBeforeInput(e, onlyLetters.format)}} readOnly className="bg-gray-100 border border-gray-300 px-2 py-1 rounded" />
               <input name="creditos_asignatura_origen" type="number" placeholder="Créditos origen" value={form.nueva_asignatura.creditos_asignatura_origen} onChange={handleAsignaturaChange} className="border border-gray-300 px-2 py-1 rounded" />
               <input name="codigo_asignatura_destino" placeholder="Código destino" value={form.nueva_asignatura.codigo_asignatura_destino} onChange={handleAsignaturaChange} className="border border-gray-300 px-2 py-1 rounded" />
               <input name="nombre_asignatura_destino" value={form.nueva_asignatura.nombre_asignatura_destino} readOnly className="bg-gray-100 border border-gray-300 px-2 py-1 rounded" />

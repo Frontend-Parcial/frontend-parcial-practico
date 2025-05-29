@@ -169,7 +169,6 @@ export async function listSolicitudes() {
  */
 export async function getSolicitudXid(id) {
   try {
-    console.log('Token enviado:', userToken);
     const response = await fetch(`${apiUrl}/solicitudes/${id}`, {
       method: 'GET',
       headers: {
@@ -184,7 +183,6 @@ export async function getSolicitudXid(id) {
     }
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error('Error al hacer la solicitud:', error);

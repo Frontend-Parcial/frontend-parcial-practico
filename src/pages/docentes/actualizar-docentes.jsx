@@ -78,7 +78,7 @@ export function ActualizarDocentes() {
 
   return (
     <PageWrapper>
-      <div className='max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md'>
+      <div className='max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-4'>
         <h1 className='text-2xl font-bold text-gray-800 mb-6 border-b pb-2'>Actualizar Docente</h1>
         <form className='space-y-4' onSubmit={handleSubmitEvent}>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>

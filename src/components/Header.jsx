@@ -20,7 +20,7 @@ export function Header() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const tabs = ['Estudiantes', 'Docentes', 'Convenio', 'Solicitudes', 'Asignaturas', 'Seguimiento']
+  const tabs = ['Inicio','Estudiantes', 'Docentes', 'Convenios', 'Solicitudes']
 
   // Detectar la pestaña activa desde la URL
   const currentPath = location.pathname.toLowerCase()
@@ -32,7 +32,7 @@ export function Header() {
         <div className='flex items-center'>
           <div className='text-white mr-2 cursor-pointer'>
             <div
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate('/Inicio')}
               className='text-4xl font-bold'
               style={{ fontFamily: theme.fontInstitucional }}
             >

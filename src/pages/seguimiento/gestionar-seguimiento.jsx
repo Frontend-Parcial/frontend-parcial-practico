@@ -83,7 +83,6 @@ const CrearSeguimiento = () => {
     try {
       // Validar si ya hay seguimiento para esta solicitud antes de guardar
       const seguimientoPrevio = await getSeguimientoXsolicitud(form.id_solicitud);
-      
 
       const seguimiento = {
         ...form,
@@ -99,11 +98,12 @@ const CrearSeguimiento = () => {
 
       let result;
       if (seguimientoPrevio && seguimientoPrevio._id) {
-        result = await updateSeguimiento(seguimientoPrevio._id, seguimiento);
-        alert(`✅ Seguimiento actualizado correctamente.\nID: ${result._id}`);
+        let avance = { "contenido": form.observaciones }
+        result = await updateSeguimiento(seguimientoPrevio._id, avance);
+        alert(`✅ Seguimiento actualizado correctamente.\nID: ${result.seguimiento._id}`);
       } else {
         result = await gestionarSeguimiento(seguimiento);
-        alert(`✅ Seguimiento creado correctamente.\nID: ${result._id}`);
+        alert(`✅ Seguimiento creado correctamente.\nID: ${result.id_seguimiento}`);
       }
 
     } catch (error) {
@@ -114,7 +114,7 @@ const CrearSeguimiento = () => {
 
   return (
     <PageWrapper>
-      <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow">
+      <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow mt-4">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">Seguimiento</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">

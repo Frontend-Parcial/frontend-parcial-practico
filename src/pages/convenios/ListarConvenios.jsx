@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageWrapper from '../../components/PageWrapper'
+
+const apiUrl = import.meta.env.VITE_API_URL
 const userToken = localStorage.getItem('site')
 
-const ListaSolicitudes = () => {
-  const [solicitudes, setSolicitudes] = useState([])
+const ListaConvenios = () => {
+  const [convenios, setConvenios] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [pagination, setPagination] = useState({
@@ -13,23 +15,30 @@ const ListaSolicitudes = () => {
     total: 0,
     pages: 1,
   })
+  const [filtroTipo, setFiltroTipo] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
-    const cargarSolicitudes = async () => {
+    const cargarConvenios = async () => {
       const apiUrl = import.meta.env.VITE_API_URL
       try {
         setLoading(true)
-        const response = await fetch(`${apiUrl}/solicitudes/?page=${pagination.page}&per_page=${pagination.perPage}`, {
+
+        let url = `${apiUrl}/convenios/?page=${pagination.page}&per_page=${pagination.perPage}`
+        if (filtroTipo) {
+          url += `&tipo=${filtroTipo}`
+        }
+
+        const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
         })
         const data = await response.json()
-        console.log(data.solicitudes[0].solicitante)
-        if (!response.ok) throw new Error(data.message || 'Error al cargar solicitudes')
 
-        setSolicitudes(data.solicitudes || [])
+        if (!response.ok) throw new Error(data.message || 'Error al cargar convenios')
+
+        setConvenios(data.convenios || [])
         setPagination({
           page: data.page || 1,
           perPage: data.per_page || 10,
@@ -37,24 +46,14 @@ const ListaSolicitudes = () => {
           pages: data.pages || 1,
         })
       } catch (err) {
-        console.error('Error al cargar solicitudes:', err)
-        setError(err.message || 'Error al cargar las solicitudes')
+        console.error('Error al cargar convenios:', err)
+        setError(err.message || 'Error al cargar los convenios')
       } finally {
         setLoading(false)
       }
     }
-    cargarSolicitudes()
-  }, [pagination.page])
-
-  const handleVerSeguimiento = id => {
-    localStorage.setItem('id_solicitud_seleccionada', id)
-    window.location.href = '/seguimiento'
-  }
-  
-  const handleVerAsignaturas = id => {
-    localStorage.setItem('id_solicitud_seleccionada', id)
-    window.location.href = '/asignaturas'
-  }
+    cargarConvenios()
+  }, [pagination.page, filtroTipo])
 
   const handlePageChange = newPage => {
     if (newPage >= 1 && newPage <= pagination.pages) {
@@ -63,43 +62,36 @@ const ListaSolicitudes = () => {
   }
 
   const formatFecha = fechaString => {
-    const fechaReal = fechaString?.$date ? fechaString.$date : fechaString
-    const fecha = new Date(fechaReal)
+    const fecha = new Date(fechaString)
     if (isNaN(fecha)) return 'Fecha inválida'
 
-    return (
-      <div>
-        <div>
-          {fecha.toLocaleDateString('es-CO', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-          })}
-        </div>
-        <div className='text-xs text-gray-600'>
-          {fecha.toLocaleTimeString('es-CO', {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false,
-          })}
-        </div>
-      </div>
-    )
+    return fecha.toLocaleDateString('es-CO', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
   }
 
   const getEstadoColor = estado => {
     switch (estado.toLowerCase()) {
-      case 'aprobado':
+      case 'activo':
         return 'bg-green-100 text-green-800'
-      case 'rechazado':
+      case 'inactivo':
         return 'bg-red-100 text-red-800'
-      case 'pendiente':
-        return 'bg-yellow-100 text-yellow-800'
-      case 'en revision':
+      case 'vencido':
+        return 'bg-orange-100 text-orange-800'
+      case 'en renovación':
         return 'bg-blue-100 text-blue-800'
       default:
         return 'bg-gray-100 text-gray-800'
     }
+  }
+  const handleVerConvenio = id => {
+    window.location.href = `/convenios/${id}`
+  }
+  const handleFiltroChange = e => {
+    setFiltroTipo(e.target.value)
+    setPagination(prev => ({ ...prev, page: 1 })) // Resetear a primera página al cambiar filtro
   }
 
   return (
@@ -108,14 +100,25 @@ const ListaSolicitudes = () => {
         <main className='flex-grow bg-gray-100 p-4'>
           <div className='max-w-6xl mx-auto'>
             <div className='bg-white rounded-lg shadow-md overflow-hidden'>
-              <div className='p-4 border-b border-gray-200 flex items-center justify-between'>
-                <h2 className='text-xl font-semibold text-gray-800'>Listado de Solicitudes</h2>
-                <a
-                  href='/solicitudes/nuevo'
-                  className='bg-primario text-white px-4 py-2 rounded hover:bg-primario/90 transition'
-                >
-                  Crear Solicitud
-                </a>
+              <div className='p-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
+                <h2 className='text-xl font-semibold text-gray-800'>Listado de Convenios</h2>
+                <div className='flex flex-col sm:flex-row gap-3'>
+                  <select
+                    value={filtroTipo}
+                    onChange={handleFiltroChange}
+                    className='border border-gray-300 rounded px-3 py-2 text-sm'
+                  >
+                    <option value=''>Todos los tipos</option>
+                    <option value='nacional'>Nacional</option>
+                    <option value='internacional'>Internacional</option>
+                  </select>
+                  <a
+                    href='/convenios/nuevo'
+                    className='bg-primario text-white px-4 py-2 rounded hover:bg-primario/90 transition text-sm sm:text-base text-center'
+                  >
+                    Crear Convenio
+                  </a>
+                </div>
               </div>
 
               {loading ? (
@@ -124,8 +127,8 @@ const ListaSolicitudes = () => {
                 </div>
               ) : error ? (
                 <div className='p-4 text-red-500 text-center'>{error}</div>
-              ) : solicitudes.length === 0 ? (
-                <div className='p-4 text-gray-500 text-center'>No hay solicitudes registradas</div>
+              ) : convenios.length === 0 ? (
+                <div className='p-4 text-gray-500 text-center'>No hay convenios registrados</div>
               ) : (
                 <>
                   <div className='overflow-x-auto'>
@@ -133,68 +136,63 @@ const ListaSolicitudes = () => {
                       <thead className='bg-gray-50'>
                         <tr>
                           <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                            Estudiante
+                            Institución
                           </th>
                           <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                            Convenio
+                            Ubicación
                           </th>
                           <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                            Periodo
+                            Tipo
                           </th>
                           <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                            Fecha
+                            Vigencia
                           </th>
                           <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
                             Estado
                           </th>
-                          <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                            Acciones
-                          </th>
                         </tr>
                       </thead>
                       <tbody className='bg-white divide-y divide-gray-200'>
-                        {solicitudes.map(solicitud => (
-                          <tr key={solicitud._id} className='hover:bg-gray-50'>
+                        {convenios.map(convenio => (
+                          <tr key={convenio._id} className='hover:bg-gray-50'>
                             <td className='px-6 py-4 whitespace-nowrap'>
-                              <div className='font-medium text-gray-900'>{solicitud.solicitante.nombre}</div>
-                              <div className='text-sm text-gray-500'>{solicitud.solicitante.programa}</div>
+                              <div className='font-medium text-gray-900'>{convenio.nombre_institucion}</div>
                             </td>
                             <td className='px-6 py-4 whitespace-nowrap'>
-                              <div className='font-medium text-gray-900'>{solicitud.convenio.nombre_institucion}</div>
-                              <div className='text-sm text-gray-500'>
-                                {solicitud.convenio.pais} ({solicitud.convenio.tipo})
-                              </div>
+                              <div className='text-gray-900'>{convenio.ciudad_institucion}</div>
+                              <div className='text-sm text-gray-500'>{convenio.pais_institucion}</div>
+                            </td>
+                            <td className='px-6 py-4 whitespace-nowrap'>
+                              <span
+                                className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                                  convenio.tipo_convenio === 'internacional'
+                                    ? 'bg-purple-100 text-purple-800'
+                                    : 'bg-indigo-100 text-indigo-800'
+                                }`}
+                              >
+                                {convenio.tipo_convenio}
+                              </span>
                             </td>
                             <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-                              {solicitud.periodo_academico}
-                            </td>
-                            <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-                              {formatFecha(solicitud.fecha_solicitud)}
+                              <div>Inicio: {formatFecha(convenio.fecha_inicio)}</div>
+                              <div>Fin: {formatFecha(convenio.fecha_fin)}</div>
                             </td>
                             <td className='px-6 py-4 whitespace-nowrap'>
                               <span
                                 className={`px-2 py-1 text-xs font-semibold rounded-full ${getEstadoColor(
-                                  solicitud.estado_solicitud,
+                                  convenio.estado,
                                 )}`}
                               >
-                                {solicitud.estado_solicitud}
+                                {convenio.estado}
                               </span>
                             </td>
                             <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
-                              <div className='flex flex-col space-y-4'>
-                                <button
-                                onClick={() => handleVerSeguimiento(solicitud._id)}
+                              <button
+                                onClick={() => handleVerConvenio(convenio._id)}
                                 className='text-primario hover:text-oscuro mr-3'
                               >
-                                Ver Seguimiento
+                                Ver detalle
                               </button>
-                              <button
-                                onClick={() => handleVerAsignaturas(solicitud._id)}
-                                className='text-claro hover:text-primario mr-3'
-                              >
-                                Ver Asignaturas
-                              </button>
-                              </div>
                             </td>
                           </tr>
                         ))}
@@ -310,4 +308,4 @@ const ListaSolicitudes = () => {
   )
 }
 
-export default ListaSolicitudes
+export default ListaConvenios
