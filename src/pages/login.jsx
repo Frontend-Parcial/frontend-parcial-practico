@@ -97,24 +97,30 @@ export function Login() {
                 <img src={logoUniversidad} alt='Logo' className='h-32 mb-6' />
               </div>
               <div className=' w-[80%] gap-2.5 flex flex-col'>
-                <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 hover:scale-105'>
-                  <div className='bg-oscuro rounded-full w-[40px] h-[40px] flex justify-center items-center'> </div>
+                <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 '>
+                  <div className='bg-primario rounded-full w-[40px] h-[40px] flex justify-center items-center'>
+                      <span className='text-white font-bold text-lg'>✓</span>  
+                  </div>
                   <div className='flex flex-col'>
                     <p className='font-bold'>Movilidad Internacional</p>
                     <p className='text-sm text-gray-700'>Accede a oportunidades academicas globales</p>
                   </div>
                 </div>
 
-                <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 hover:scale-105'>
-                  <div className='bg-oscuro rounded-full w-[40px] h-[40px] flex justify-center items-center'> </div>
+                <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 '>
+                  <div className='bg-primario rounded-full w-[40px] h-[40px] flex justify-center items-center'>
+                    <span className='text-white font-bold text-lg'>✓</span>  
+                  </div>
                   <div className='flex flex-col'>
                     <p className='font-bold'>Seguimiento Academico</p>
                     <p className='text-sm text-gray-700'>Administra tus procesos de intercambio</p>
                   </div>
                 </div>
 
-                <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 hover:scale-105'>
-                  <div className='bg-oscuro rounded-full w-[40px] h-[40px] flex justify-center items-center'> </div>
+                <div className='bg-white rounded-[10px] flex flex-row p-1 items-center gap-3 transition-all duration-300 '>
+                  <div className='bg-primario rounded-full w-[40px] h-[40px] flex justify-center items-center'>
+                    <span className='text-white font-bold text-lg'>✓</span>  
+                  </div>
                   <div className='flex flex-col'>
                     <p className='font-bold'>Gestion Documental</p>
                     <p className='text-sm text-gray-700'>Centraliza toda tu documentacion</p>
@@ -175,7 +181,7 @@ export function Login() {
                     </div>
 
                     <button
-                      className='h-[30px] w-full rounded-[8px] bg-oscuro text-white  hover:bg-claro cursor-pointer transition-all ease-in-out duration-[300ms]'
+                      className='h-[30px] w-full rounded-[8px] bg-primario text-white  hover:bg-oscuro cursor-pointer transition-all ease-in-out duration-[300ms]'
                       onClick={mensajeSesion}
                       type='submit'
                     >

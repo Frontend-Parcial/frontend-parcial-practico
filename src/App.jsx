@@ -35,7 +35,7 @@ function AnimatedRoutes() {
         <Route path='/healthcheck' element={<HealthCheck />} />
         <Route element={<PrivateRoute />}>
           <Route
-            path='/dashboard'
+            path='/Inicio'
             element={
               <Layout>
                 <DashboardTablero />
@@ -170,10 +170,6 @@ function AnimatedRoutes() {
               </Layout>
             }
           />
-          {/* <Route path='/prueba' element={<Pruebas />} /> */}
-          {/* <Route path='/solicitudes' element={<ListaSolicitudes />} /> */}
-
-          {/* <Route path='/prueba' element={<Pruebas />} /> */}
         </Route>
       </Routes>
     </AnimatePresence>

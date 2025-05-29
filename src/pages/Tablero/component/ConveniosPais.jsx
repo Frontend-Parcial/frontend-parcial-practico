@@ -133,11 +133,20 @@ const ConveniosPais = ({ isExpanded, onToggleExpand }) => {
         doubleClickZoom: isExpanded,
         boxZoom: isExpanded,
         keyboard: isExpanded,
-        attributionControl: false
+        attributionControl: false,
+        // Limitar la repetición de continentes
+        worldCopyJump: false,
+        maxBounds: [[-90, -180], [90, 180]],
+        maxBoundsViscosity: 1.0
       }).setView([20, 0], isExpanded ? 2 : 1);
 
+      // Configurar límites de zoom para evitar repetición
+      map.setMaxZoom(8);
+      map.setMinZoom(1);
+
       window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
+        maxZoom: 8,
+        noWrap: true, // Evitar repetición horizontal del mapa
       }).addTo(map);
 
       // Agregar marcadores para cada país con convenios
@@ -145,9 +154,9 @@ const ConveniosPais = ({ isExpanded, onToggleExpand }) => {
         const marker = window.L.marker([convenio.lat, convenio.lng])
           .addTo(map)
           .bindPopup(`
-            <div style="text-align: center; padding: 8px; min-width: 120px;">
-              <strong style="color: #333; font-size: 14px;">${convenio.pais}</strong><br>
-              <span style="color: #666; font-size: 12px;">
+            <div style="text-align: center; padding: 8px; min-width: 120px; font-family: Arial, sans-serif;">
+              <strong style="color: #107b42; font-size: 14px; font-weight: 600;">${convenio.pais}</strong><br>
+              <span style="color: #42a542; font-size: 12px; font-weight: 500; background-color: #8cce6b; padding: 2px 6px; border-radius: 4px; margin-top: 4px; display: inline-block;">
                 ${convenio.count} convenio${convenio.count !== 1 ? 's' : ''}
               </span>
             </div>
@@ -158,6 +167,16 @@ const ConveniosPais = ({ isExpanded, onToggleExpand }) => {
 
       mapInstanceRef.current = map;
 
+      // Manejar clicks dentro del mapa para cerrarlo cuando está expandido
+      if (isExpanded) {
+        map.on('click', (e) => {
+          // Verificar si el click no fue en un marcador
+          if (!e.originalEvent.target.closest('.leaflet-marker-icon')) {
+            onToggleExpand(false);
+          }
+        });
+      }
+
       setTimeout(() => {
         if (mapInstanceRef.current) {
           mapInstanceRef.current.invalidateSize();
@@ -167,7 +186,7 @@ const ConveniosPais = ({ isExpanded, onToggleExpand }) => {
     } catch (error) {
       console.error('Error initializing map:', error);
     }
-  }, [isMapReady, isExpanded, convenios, loading]);
+  }, [isMapReady, isExpanded, convenios, loading, onToggleExpand]);
 
   // Manejar clicks fuera del componente para minimizar
   useEffect(() => {
@@ -194,7 +213,6 @@ const ConveniosPais = ({ isExpanded, onToggleExpand }) => {
       event.stopPropagation();
       onToggleExpand(true);
     }
-    // Si está expandido, no hacer nada para permitir interacción con el mapa
   };
 
   // Cleanup
@@ -256,7 +274,7 @@ const ConveniosPais = ({ isExpanded, onToggleExpand }) => {
               onToggleExpand(false); // Cerrar el mapa al hacer click en el panel
             }}
           >
-            <h4 className="font-semibold text-sm mb-2 text-gray-800 flex items-center justify-between">
+            <h4 className="font-semibold text-sm mb-2 flex items-center justify-between" style={{ color: '#107b42' }}>
               Países con convenios ({convenios.length})
             </h4>
             <ul className="text-xs space-y-1 max-h-32 overflow-y-auto">
@@ -265,13 +283,13 @@ const ConveniosPais = ({ isExpanded, onToggleExpand }) => {
                 .map((convenio, index) => (
                 <li key={index} className="flex justify-between items-center py-1">
                   <span className="text-gray-700">{convenio.pais}:</span>
-                  <span className="font-medium text-white bg-blue-600 px-2 py-0.5 rounded text-xs">
+                  <span className="font-medium text-white px-2 py-0.5 rounded text-xs" style={{ backgroundColor: '#42a542' }}>
                     {convenio.count}
                   </span>
                 </li>
               ))}
             </ul>
-            <div className="mt-2 pt-2 border-t text-xs text-gray-500">
+            <div className="mt-2 pt-2 border-t text-xs" style={{ color: '#8cce6b' }}>
               Total: {convenios.reduce((sum, c) => sum + c.count, 0)} convenios
             </div>
           </div>
@@ -284,8 +302,8 @@ const ConveniosPais = ({ isExpanded, onToggleExpand }) => {
             style={{ zIndex: 500 }}
           >
             <div className="bg-white px-3 py-2 rounded-lg shadow-lg">
-              <p className="text-sm font-medium text-gray-800">Click para expandir</p>
-              <p className="text-xs text-gray-600">
+              <p className="text-sm font-medium" style={{ color: '#107b42' }}>Click para expandir</p>
+              <p className="text-xs" style={{ color: '#42a542' }}>
                 {convenios.length} países con convenios
               </p>
             </div>

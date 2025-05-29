@@ -190,7 +190,7 @@ const ListaSolicitudes = () => {
                               </button>
                               <button
                                 onClick={() => handleVerAsignaturas(solicitud._id)}
-                                className='text-primario hover:text-oscuro mr-3'
+                                className='text-claro hover:text-primario mr-3'
                               >
                                 Ver Asignaturas
                               </button>

@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     setToken(token)
     localStorage.setItem('site', token)
     // localStorage.setItem('site', rol)
-    navigate('/dashboard')
+    navigate('/Inicio')
   }
   const registerPost = async data => {
     try {

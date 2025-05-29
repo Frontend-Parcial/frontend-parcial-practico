@@ -20,7 +20,7 @@ export function Header() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const tabs = ['Estudiantes', 'Docentes', 'Convenios', 'Solicitudes']
+  const tabs = ['Inicio','Estudiantes', 'Docentes', 'Convenios', 'Solicitudes']
 
   // Detectar la pestaña activa desde la URL
   const currentPath = location.pathname.toLowerCase()
@@ -32,7 +32,7 @@ export function Header() {
         <div className='flex items-center'>
           <div className='text-white mr-2 cursor-pointer'>
             <div
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate('/Inicio')}
               className='text-4xl font-bold'
               style={{ fontFamily: theme.fontInstitucional }}
             >
@@ -48,18 +48,6 @@ export function Header() {
       {/* Navigation */}
       <nav style={{ backgroundColor: theme.grisClaro }} className='p-2 shadow-md'>
         <div className='flex justify-between max-w-5xl mx-auto'>
-          <button
-            className='px-4 py-2 mr-4 rounded transition-all duration-200 hover:bg-gray-100 hover:shadow hover:scale-95 cursor-pointer'
-            style={{
-              backgroundColor: theme.blanco,
-              color: theme.colorTextoOscuro,
-              boxShadow: `0 2px 4px ${theme.sombra}`,
-              border: `1px solid ${theme.colorClaro}`,
-            }}
-            onClick={() => navigate(-1)}
-          >
-            ← Atrás
-          </button>
           {tabs.map(tab => (
             <button
               key={tab}
