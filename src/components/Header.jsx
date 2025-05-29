@@ -48,6 +48,18 @@ export function Header() {
       {/* Navigation */}
       <nav style={{ backgroundColor: theme.grisClaro }} className='p-2 shadow-md'>
         <div className='flex justify-between max-w-5xl mx-auto'>
+          <button
+            className='px-4 py-2 mr-4 rounded transition-all duration-200 hover:bg-gray-100 hover:shadow hover:scale-95 cursor-pointer'
+            style={{
+              backgroundColor: theme.blanco,
+              color: theme.colorTextoOscuro,
+              boxShadow: `0 2px 4px ${theme.sombra}`,
+              border: `1px solid ${theme.colorClaro}`,
+            }}
+            onClick={() => navigate(-1)}
+          >
+            ← Atrás
+          </button>
           {tabs.map(tab => (
             <button
               key={tab}
