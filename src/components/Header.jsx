@@ -20,7 +20,7 @@ export function Header() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const tabs = ['Estudiantes', 'Docentes', 'Convenios', 'Solicitudes', 'Asignaturas']
+  const tabs = ['Estudiantes', 'Docentes', 'Convenios', 'Solicitudes']
 
   // Detectar la pestaña activa desde la URL
   const currentPath = location.pathname.toLowerCase()
