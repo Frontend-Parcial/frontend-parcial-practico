@@ -672,18 +672,22 @@ export function CrearDocente() {
             <button
               type='button'
               onClick={() => navigate(`/docentes`)}
-              className='bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
+              className='bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
             >
               Cancelar
             </button>
             <button
               type='submit'
+<<<<<<< HEAD
               disabled={Object.keys(errors).length > 0}
               className={`w-full py-2 px-4 rounded-md font-medium transition-colors ${
                 Object.keys(errors).length > 0
                   ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
                   : 'bg-primario text-white hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primario'
               }`}
+=======
+              className='bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
+>>>>>>> 166c779e537861269c2cde3c0563cd86a9b2d444
             >
               Registrar Docente
             </button>
