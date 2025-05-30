@@ -2,6 +2,7 @@ const apiUrl = import.meta.env.VITE_API_URL
 const userToken = localStorage.getItem('site')
 
 export async function getMovilidadDocente() {
+  const userToken = localStorage.getItem('site')
   try {
     const response = await fetch(`${apiUrl}/docentes/`, {
       method: 'GET',

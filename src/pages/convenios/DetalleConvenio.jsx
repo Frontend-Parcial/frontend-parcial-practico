@@ -14,6 +14,7 @@ export function DetalleConvenio() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const userToken = localStorage.getItem('site')
       try {
         setLoading(true)
         const response = await fetch(`${apiUrl}/convenios/${id}`, {
