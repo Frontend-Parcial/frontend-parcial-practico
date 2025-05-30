@@ -357,19 +357,11 @@ export function CrearAsignaturas() {
 
         {/* Información de la solicitud */}
         <div className='bg-gradient-to-r from-claro to-oscuro p-6 text-white'>
-          <h2 className='text-gray-600 font-semibold text-blue-800 mb-3'>Información de la Solicitud</h2>
+          <h1 className=' font-semibold mb-3 '>Información de la Solicitud</h1>
           <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
             <div>
-              <span className='text-sm font-medium text-blue-600'>Estudiante:</span>
-              <p className='text-blue-800 font-semibold'>{nombreEstudiante || 'No disponible'}</p>
-            </div>
-            <div>
-              <span className='text-sm font-medium text-blue-600'>Convenio:</span>
-              <p className='text-blue-800 font-semibold'>{convenio || 'No disponible'}</p>
-            </div>
-            <div>
-              <span className='text-sm font-medium text-blue-600'>ID Solicitud:</span>
-              <p className='text-blue-800 font-semibold'>{idSolicitud}</p>
+              <span className=' font-medium '>ID Solicitud:</span>
+              <p className='font-semibold'>{idSolicitud}</p>
             </div>
           </div>
           {solicitud?.universidad_destino && (
