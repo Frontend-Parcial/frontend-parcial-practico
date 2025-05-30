@@ -192,6 +192,7 @@ const CrearSeguimiento = () => {
             {validSolicitud === true && <p className="text-green-600 text-sm">✅ Solicitud válida</p>}
             {validSolicitud === false && <p className="text-red-600 text-sm">❌ Solicitud no encontrada</p>}
           </div>
+          {seguimientoExistente ? renderActualizarForm() : renderRegistroForm()}
 
           <div className='pt-6 flex justify-between gap-4'>
             <button
@@ -201,7 +202,6 @@ const CrearSeguimiento = () => {
             >
               Cancelar
           </button>
-            {seguimientoExistente ? renderActualizarForm() : renderRegistroForm()}
             <button type="submit" 
               className="w-full mt-4 bg-primario text-white py-2 rounded hover:bg-oscuro">
               {seguimientoExistente ? 'Guardar Cambios' : 'Registrar Seguimiento'}
