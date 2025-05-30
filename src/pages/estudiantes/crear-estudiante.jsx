@@ -328,6 +328,6 @@ export function CrearEstudiante() {
           <p className='text-xs text-gray-500 mt-2'>* Campos obligatorios</p>
         </form>
       </div>
-    </PageWrapper>
+    </PageWrapper> 
   )
 }
