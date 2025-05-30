@@ -21,6 +21,7 @@ import CrearConvenio from './pages/convenios/component/CrearNuevoConvenio'
 import { DetalleConvenio } from './pages/convenios/DetalleConvenio'
 import { ListadoAsignaturas } from './pages/asignaturas/listado-asignaturas'
 import { DetalleAsignaturas } from './pages/asignaturas/detalleAsignaturas'
+import { CrearAsignaturas } from './pages/asignaturas/crearAsignaturas'
 
 import { AnimatePresence } from 'framer-motion'
 import Layout from './components/Layout'
@@ -177,6 +178,15 @@ function AnimatedRoutes() {
             element={
               <Layout>
                 <DetalleAsignaturas />
+              </Layout>
+            }
+          />
+
+          <Route
+            path='/asignaturas/crearAsignaturas'
+            element={
+              <Layout>
+                <CrearAsignaturas />
               </Layout>
             }
           />

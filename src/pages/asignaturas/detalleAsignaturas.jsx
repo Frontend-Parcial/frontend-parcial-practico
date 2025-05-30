@@ -6,6 +6,7 @@ export function DetalleAsignaturas() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [asignatura, setAsignatura] = useState(null)
+  const [solicitudInfo, setSolicitudInfo] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -13,10 +14,19 @@ export function DetalleAsignaturas() {
       try {
         // Intentamos obtener la asignatura del localStorage
         const asignaturaGuardada = localStorage.getItem('asignatura_seleccionada')
+        const solicitudGuardada = localStorage.getItem('solicitud_info_detalle')
 
         if (asignaturaGuardada) {
           const asignaturaData = JSON.parse(asignaturaGuardada)
           setAsignatura(asignaturaData)
+
+          // Si hay información de la solicitud, la cargamos también
+          if (solicitudGuardada) {
+            const solicitudData = JSON.parse(solicitudGuardada)
+            setSolicitudInfo(solicitudData)
+            localStorage.removeItem('solicitud_info_detalle')
+          }
+
           // Limpiamos el localStorage después de usar los datos
           localStorage.removeItem('asignatura_seleccionada')
         } else {
@@ -32,6 +42,22 @@ export function DetalleAsignaturas() {
 
     cargarAsignatura()
   }, [id])
+
+  const handleCrearAsignatura = () => {
+    // Guardamos todos los datos necesarios en localStorage
+    localStorage.setItem('id_solicitud_crear', asignatura.id_solicitud?.$oid || asignatura.id_solicitud)
+
+    // Si tenemos información de la solicitud, la pasamos
+    if (solicitudInfo) {
+      localStorage.setItem('nombre_estudiante_crear', solicitudInfo.nombre_estudiante || '')
+      localStorage.setItem('convenio_crear', solicitudInfo.convenio || '')
+    }
+
+    // Pasamos también la universidad de origen de la asignatura actual
+    localStorage.setItem('universidad_origen_crear', asignatura.universidad_origen || '')
+
+    navigate('/asignaturas/crearAsignaturas')
+  }
 
   if (loading) {
     return (
@@ -84,6 +110,18 @@ export function DetalleAsignaturas() {
             <p className='text-gray-600'>
               ID SOLICITUD: <span className='font-mono bg-gray-100 px-2 py-1 rounded'>{asignatura._id}</span>
             </p>
+            {solicitudInfo && (
+              <div className='mt-2 text-sm text-gray-600'>
+                <p>
+                  Estudiante: <span className='font-semibold'>{solicitudInfo.nombre_estudiante}</span>
+                </p>
+                {solicitudInfo.convenio && (
+                  <p>
+                    Convenio: <span className='font-semibold'>{solicitudInfo.convenio}</span>
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
@@ -208,6 +246,19 @@ export function DetalleAsignaturas() {
 
         {/* Botones de Acción */}
         <div className='mt-6 flex justify-end gap-4'>
+          <button
+            className='bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg shadow-md transition-all flex items-center gap-2'
+            onClick={handleCrearAsignatura}
+          >
+            <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
+              <path
+                fillRule='evenodd'
+                d='M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z'
+                clipRule='evenodd'
+              />
+            </svg>
+            Nueva Asignatura
+          </button>
           <button
             onClick={() => navigate(`/asignaturas/editar/${asignatura._id}`)}
             className='bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg transition-all flex items-center gap-2'

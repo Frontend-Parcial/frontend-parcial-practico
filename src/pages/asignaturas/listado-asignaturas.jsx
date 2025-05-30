@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { obtenerAsignaturas } from '../../lib/asignaturas-data'
+import { obtenerAsignaturas, obtenerSolicitudPorId } from '../../lib/asignaturas-data'
 import PageWrapper from '../../components/PageWrapper'
 
 export function ListadoAsignaturas() {
   const [datos, setDatos] = useState([])
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [solicitudData, setSolicitudData] = useState(null)
   const navigate = useNavigate()
 
   const [form, setForm] = useState({
@@ -22,11 +23,93 @@ export function ListadoAsignaturas() {
   })
 
   const handleVerAsignatura = asignatura => {
-    // Guardamos la asignatura completa en localStorage
-    localStorage.setItem('asignatura_seleccionada', JSON.stringify(asignatura))
-    // Navegamos al detalle usando SOLO el ID
-    navigate(`/asignaturas/${asignatura._id}`)
+    try {
+      // Método 1: Guardamos en localStorage (como backup)
+      localStorage.setItem('asignatura_seleccionada', JSON.stringify(asignatura))
+      console.log('Datos guardados en localStorage:', asignatura)
+      console.log('Navegando a:', `/asignaturas/${asignatura._id}`)
+
+      // Método 2: Pasamos los datos a través del estado de navegación (más confiable)
+      navigate(`/asignaturas/${asignatura._id}`, {
+        state: { asignatura, solicitudData },
+      })
+    } catch (error) {
+      console.error('Error al guardar en localStorage:', error)
+      navigate(`/asignaturas/${asignatura._id}`, {
+        state: { asignatura, solicitudData },
+      })
+    }
   }
+
+  const handleCrearAsignatura = () => {
+    try {
+      // Preparamos los datos completos para crear asignatura usando la estructura correcta
+      const datosParaCrear = {
+        id_solicitud: form.id_solicitud,
+        // Datos del estudiante (desde solicitante)
+        nombre_estudiante: solicitudData?.solicitante?.nombre_completo || '',
+        documento_estudiante: solicitudData?.solicitante?.documento_identidad || '',
+        programa_origen: solicitudData?.solicitante?.programa_academico || '',
+        facultad_origen: solicitudData?.solicitante?.facultad || '',
+        semestre_estudiante: solicitudData?.solicitante?.semestre || '',
+        creditos_cursados: solicitudData?.solicitante?.creditos_cursados || '',
+        promedio_academico: solicitudData?.solicitante?.promedio_academico || '',
+        email_estudiante: solicitudData?.solicitante?.email || '',
+        telefono_estudiante: solicitudData?.solicitante?.telefono || '',
+
+        // Datos de la universidad y convenio
+        nombre_universidad: solicitudData?.convenio?.nombre_institucion || '',
+        pais_universidad: solicitudData?.convenio?.pais_institucion || '',
+        ciudad_universidad: solicitudData?.convenio?.ciudad_institucion || '',
+        tipo_convenio: solicitudData?.convenio?.tipo_convenio || '',
+        convenio_descripcion: solicitudData?.convenio?.descripcion || '',
+        requisitos_especificos: solicitudData?.convenio?.requisitos_especificos || '',
+        beneficios: solicitudData?.convenio?.beneficios || '',
+
+        // Datos de la solicitud
+        periodo_academico: solicitudData?.periodo_academico || '',
+        modalidad: solicitudData?.modalidad || '',
+        tipo_intercambio: solicitudData?.tipo_intercambio || '',
+        duracion: solicitudData?.duracion || '',
+        estado_solicitud: solicitudData?.estado_solicitud || '',
+        fecha_solicitud: solicitudData?.fecha_solicitud || '',
+
+        // Contacto de la institución
+        contacto_institucion: solicitudData?.convenio?.contacto_institucion || null,
+      }
+
+      // Guardamos todos los datos necesarios en localStorage
+      localStorage.setItem('datos_crear_asignatura', JSON.stringify(datosParaCrear))
+      localStorage.setItem('id_solicitud_crear', form.id_solicitud)
+
+      console.log('Datos guardados para crear asignatura:', datosParaCrear)
+
+      // Navegamos a la ruta de crear asignatura
+      navigate('/asignaturas/crearAsignaturas', {
+        state: { datosCreacion: datosParaCrear },
+      })
+    } catch (error) {
+      console.error('Error al preparar datos para crear asignatura:', error)
+      localStorage.setItem('id_solicitud_crear', form.id_solicitud)
+      navigate('/asignaturas/crearAsignaturas')
+    }
+  }
+
+  // Función para cargar los datos de la solicitud
+  const cargarDatosSolicitud = async idSolicitud => {
+    try {
+      console.log('Cargando datos de solicitud:', idSolicitud)
+      const solicitud = await obtenerSolicitudPorId(idSolicitud)
+      console.log('Datos de solicitud obtenidos:', solicitud)
+      setSolicitudData(solicitud)
+      return solicitud
+    } catch (error) {
+      console.error('Error al cargar datos de solicitud:', error)
+      setSolicitudData(null)
+      return null
+    }
+  }
+
   useEffect(() => {
     const idGuardado = localStorage.getItem('id_solicitud_seleccionada')
     if (idGuardado) {
@@ -37,32 +120,45 @@ export function ListadoAsignaturas() {
 
   useEffect(() => {
     if (!form.id_solicitud) return
-    const cargarAsignaturas = async () => {
+
+    const cargarDatos = async () => {
       try {
         setLoading(true)
         setError(null)
 
-        const response = await obtenerAsignaturas(form.id_solicitud)
-        console.log(response.asignaturas)
+        // Cargar datos de solicitud y asignaturas en paralelo
+        const [solicitudPromise, asignaturasPromise] = await Promise.allSettled([
+          cargarDatosSolicitud(form.id_solicitud),
+          obtenerAsignaturas(form.id_solicitud),
+        ])
 
-        // Si la respuesta es un array directo
-        if (Array.isArray(response.asignaturas)) {
-          setDatos(response.asignaturas)
-        }
-        // Si la respuesta viene dentro de un objeto con una propiedad específica
-        else if (response.data && Array.isArray(response.data)) {
-          setDatos(response.data)
-        }
-        // Si es un solo objeto, lo convertimos en array
-        else if (response && typeof response === 'object') {
-          setDatos([response])
+        // Procesar resultado de asignaturas
+        if (asignaturasPromise.status === 'fulfilled') {
+          const response = asignaturasPromise.value
+          console.log('Asignaturas obtenidas:', response.asignaturas)
+
+          // Si la respuesta es un array directo
+          if (Array.isArray(response.asignaturas)) {
+            setDatos(response.asignaturas)
+          }
+          // Si la respuesta viene dentro de un objeto con una propiedad específica
+          else if (response.data && Array.isArray(response.data)) {
+            setDatos(response.data)
+          }
+          // Si es un solo objeto, lo convertimos en array
+          else if (response && typeof response === 'object') {
+            setDatos([response])
+          } else {
+            setDatos([])
+          }
         } else {
-          setDatos([])
+          throw asignaturasPromise.reason
         }
       } catch (error) {
-        console.error('Error al cargar asignaturas:', error)
-        setError(error.message || 'No se pudieron cargar las asignaturas')
+        console.error('Error al cargar datos:', error)
+        setError(error.message || 'No se pudieron cargar los datos')
         setDatos([])
+
         if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
           setError('Error de conexión. Verifique su conexión a internet.')
         } else if (error.message.includes('401') || error.message.includes('Unauthorized')) {
@@ -72,19 +168,18 @@ export function ListadoAsignaturas() {
           return
         } else {
           if (error.message.includes('404')) {
-            setError('No hay equivalencia')
+            setError('No hay equivalencias registradas')
           } else {
-            setError(error.message || 'No se pudieron cargar las asignaturas')
+            setError(error.message || 'No se pudieron cargar los datos')
           }
         }
-        setDatos([])
       } finally {
         setLoading(false)
       }
     }
 
-    cargarAsignaturas()
-  }, [form.id_solicitud])
+    cargarDatos()
+  }, [form.id_solicitud, navigate])
 
   if (loading) {
     return (
@@ -92,7 +187,7 @@ export function ListadoAsignaturas() {
         <div className='max-w-6xl mx-auto p-6'>
           <div className='flex justify-center items-center h-64'>
             <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-primario'></div>
-            <span className='ml-3 text-gray-600'>Cargando asignaturas...</span>
+            <span className='ml-3 text-gray-600'>Cargando datos...</span>
           </div>
         </div>
       </PageWrapper>
@@ -124,15 +219,53 @@ export function ListadoAsignaturas() {
     <PageWrapper>
       <div className='max-w-6xl mx-auto p-6'>
         <div className='flex justify-between items-center mb-8'>
-          <h1 className='text-3xl font-bold text-gray-800'>Gestión de Asignaturas</h1>
+          <div>
+            <h1 className='text-3xl font-bold text-gray-800'>Gestión de Asignaturas</h1>
+            {solicitudData && (
+              <div className='mt-2 text-sm text-gray-600'>
+                <p>
+                  <strong>Estudiante:</strong> {solicitudData.solicitante?.nombre_completo || 'No especificado'}
+                </p>
+                <p>
+                  <strong>Programa:</strong> {solicitudData.solicitante?.programa_academico || 'No especificado'}
+                </p>
+                <p>
+                  <strong>Universidad destino:</strong>{' '}
+                  {solicitudData.convenio?.nombre_institucion || 'No especificada'}
+                </p>
+                <p>
+                  <strong>País:</strong> {solicitudData.convenio?.pais_institucion || 'No especificado'}
+                </p>
+                <p>
+                  <strong>Tipo de convenio:</strong> {solicitudData.convenio?.tipo_convenio || 'No especificado'}
+                </p>
+                <p>
+                  <strong>Estado solicitud:</strong>
+                  <span
+                    className={`ml-2 px-2 py-1 rounded-full text-xs text-white ${
+                      solicitudData.estado_solicitud === 'aprobada'
+                        ? 'bg-green-500'
+                        : solicitudData.estado_solicitud === 'pendiente'
+                        ? 'bg-yellow-500'
+                        : solicitudData.estado_solicitud === 'rechazada'
+                        ? 'bg-red-500'
+                        : 'bg-gray-500'
+                    }`}
+                  >
+                    {solicitudData.estado_solicitud || 'No especificado'}
+                  </span>
+                </p>
+              </div>
+            )}
+          </div>
           <button
             className='bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg shadow-md transition-all flex items-center gap-2'
-            onClick={() => navigate('/asignaturas/nueva')}
+            onClick={handleCrearAsignatura}
           >
             <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
               <path
                 fillRule='evenodd'
-                d='M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z'
+                d='M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z'
                 clipRule='evenodd'
               />
             </svg>
@@ -162,7 +295,7 @@ export function ListadoAsignaturas() {
               <p className='mt-4 text-gray-500'>No hay asignaturas registradas</p>
               <button
                 className='mt-4 bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg transition-all'
-                onClick={() => navigate('/asignaturas/nueva')}
+                onClick={handleCrearAsignatura}
               >
                 Registrar Asignatura
               </button>
@@ -173,7 +306,7 @@ export function ListadoAsignaturas() {
                 <div
                   key={asignatura._id}
                   className='bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer'
-                  onClick={() => navigate(`/asignaturas/${asignatura._id}`)}
+                  onClick={() => handleVerAsignatura(asignatura)}
                 >
                   <div className='p-5'>
                     <h3 className='text-lg font-medium text-center text-gray-800 mb-1'>
@@ -199,14 +332,17 @@ export function ListadoAsignaturas() {
                       <span className='text-gray-500'>{asignatura.creditos_asignatura_origen} créditos</span>
                     </div>
                   </div>
-                  <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
+                  <div className='px-6 py-4 whitespace-nowrap text-sm font-medium border-t border-gray-100'>
                     <button
-                      onClick={() => handleVerAsignatura(asignatura)} // ✅ CORRECTO - pasas el objeto completo
-                      className='text-primario hover:text-oscuro mr-3'
+                      onClick={e => {
+                        e.stopPropagation()
+                        handleVerAsignatura(asignatura)
+                      }}
+                      className='text-primario hover:text-oscuro mr-3 transition-colors'
                     >
                       Ver detalle
                     </button>
-                  </td>
+                  </div>
                 </div>
               ))}
             </div>
