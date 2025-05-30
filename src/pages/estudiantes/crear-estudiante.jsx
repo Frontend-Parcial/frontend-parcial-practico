@@ -19,9 +19,9 @@ export function CrearEstudiante() {
     semestre: '',
     creditos_cursados: '',
     promedio_academico: '',
-    estado: 'activo', // Valor por defecto según el fetch
-    sanciones_academicas: false, // Valor por defecto según el fetch
-    sanciones_disciplinarias: false, // Valor por defecto según el fetch
+    estado: 'activo',
+    sanciones_academicas: false,
+    sanciones_disciplinarias: false,
   })
 
   const handleBeforeInput = (e, pattern) => {
@@ -59,9 +59,83 @@ export function CrearEstudiante() {
 
   const handleInput = e => {
     const { name, value, type, checked } = e.target
+    let newValue = type === 'checkbox' ? checked : value
+
+    // Validaciones específicas por campo
+    if (name === 'nombre_completo' && newValue.length > 35) {
+      return
+    }
+
+    if (name === 'telefono') {
+      const numericValue = newValue.replace(/[^0-9]/g, '')
+      if (numericValue.length > 10) {
+        return
+      }
+      newValue = numericValue
+    }
+
+    if (name === 'documento_identidad') {
+      const numericValue = newValue.replace(/[^0-9]/g, '')
+      if (numericValue.length > 11) {
+        return
+      }
+      newValue = numericValue
+    }
+
+    if (name === 'direccion' && newValue.length > 35) {
+      return
+    }
+
+    if (name === 'programa_academico' && newValue.length > 50) {
+      return
+    }
+
+    if (name === 'fecha_nacimiento') {
+      const today = new Date().toISOString().split('T')[0]
+      if (newValue > today) {
+        return
+      }
+    }
+
+    if (name === 'email') {
+      if (newValue.length > 45) {
+        return
+      }
+      if (newValue.includes('@') && newValue.length > 15 && !newValue.endsWith('@unicesar.edu.co')) {
+        return
+      }
+    }
+
+    if (name === 'semestre') {
+      const numericValue = newValue.replace(/[^0-9]/g, '')
+      if (numericValue.length > 2) {
+        return
+      }
+      newValue = numericValue
+    }
+
+    if (name === 'creditos_cursados') {
+      const numericValue = newValue.replace(/[^0-9]/g, '')
+      if (numericValue.length > 3) {
+        return
+      }
+      newValue = numericValue
+    }
+
+    if (name === 'promedio_academico') {
+      let processedValue = newValue.replace(',', '.')
+      if (processedValue && parseFloat(processedValue) > 5.0) {
+        return
+      }
+      if (!/^\d*\.?\d*$/.test(processedValue)) {
+        return
+      }
+      newValue = processedValue
+    }
+
     setEstudiante(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: newValue,
     }))
   }
 
@@ -95,6 +169,7 @@ export function CrearEstudiante() {
                   onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='nombre_completo'
                   value={estudiante.nombre_completo}
+                  maxLength='35'
                   required
                 />
               </div>
@@ -120,13 +195,13 @@ export function CrearEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Documento de Identidad*</label>
                 <input
-                  type='number'
+                  type='text'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: 123456789'
                   onChange={handleInput}
-                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='documento_identidad'
                   value={estudiante.documento_identidad}
+                  maxLength='11'
                   required
                 />
               </div>
@@ -139,6 +214,7 @@ export function CrearEstudiante() {
                   onChange={handleInput}
                   name='fecha_nacimiento'
                   value={estudiante.fecha_nacimiento}
+                  max={new Date().toISOString().split('T')[0]}
                   required
                 />
               </div>
@@ -148,12 +224,15 @@ export function CrearEstudiante() {
                 <input
                   type='email'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
-                  placeholder='Ej: estudiante@universidad.edu'
+                  placeholder='Ej: estudiante@unicesar.edu.co'
                   onChange={handleInput}
                   name='email'
                   value={estudiante.email}
+                  maxLength='45'
+                  pattern='.*@unicesar\.edu\.co$'
                   required
                 />
+                <p className='text-xs text-gray-500 mt-1'>Debe ser un correo institucional @unicesar.edu.co</p>
               </div>
             </div>
 
@@ -161,13 +240,13 @@ export function CrearEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Teléfono*</label>
                 <input
-                  type='tel'
+                  type='text'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: 3001234567'
                   onChange={handleInput}
-                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='telefono'
                   value={estudiante.telefono}
+                  maxLength='10'
                   required
                 />
               </div>
@@ -181,6 +260,7 @@ export function CrearEstudiante() {
                   onBeforeInput={e => handleBeforeInput(e, address.format)}
                   name='direccion'
                   value={estudiante.direccion}
+                  maxLength='35'
                   required
                 />
               </div>
@@ -194,6 +274,7 @@ export function CrearEstudiante() {
                   onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='programa_academico'
                   value={estudiante.programa_academico}
+                  maxLength='50'
                   required
                 />
               </div>
@@ -214,15 +295,13 @@ export function CrearEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Semestre*</label>
                 <input
-                  type='number'
-                  min='1'
-                  max='20'
+                  type='text'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   placeholder='Ej: 5'
                   onChange={handleInput}
-                  onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='semestre'
                   value={estudiante.semestre}
+                  maxLength='2'
                   required
                 />
               </div>
@@ -233,13 +312,13 @@ export function CrearEstudiante() {
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-1'>Créditos Cursados*</label>
               <input
-                type='number'
+                type='text'
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                 placeholder='Ej: 45'
                 onChange={handleInput}
                 name='creditos_cursados'
-                onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                 value={estudiante.creditos_cursados}
+                maxLength='3'
                 required
               />
             </div>
@@ -247,14 +326,10 @@ export function CrearEstudiante() {
             <div>
               <label className='block text-sm font-medium text-gray-700 mb-1'>Promedio Académico*</label>
               <input
-                type='number'
-                step='0.1'
-                min='0'
-                max='5'
+                type='text'
                 className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                 placeholder='Ej: 4.2'
                 onChange={handleInput}
-                onBeforeInput={e => handleBeforeInput(e, decimalNumber.format)}
                 name='promedio_academico'
                 value={estudiante.promedio_academico}
                 required
@@ -309,7 +384,6 @@ export function CrearEstudiante() {
             </div>
           </div>
 
-          {/* Botones */}
           <div className='pt-6 flex justify-between gap-4'>
             <button
               type='button'
