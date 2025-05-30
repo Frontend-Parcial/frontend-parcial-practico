@@ -314,13 +314,13 @@ export function CrearEstudiante() {
             <button
               type='button'
               onClick={() => navigate('/estudiantes')}
-              className='bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
+              className='bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
             >
               Cancelar
             </button>
             <button
               type='submit'
-              className='w-full bg-primario text-white py-2 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-claro transition-colors'
+              className='bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
             >
               Registrar Estudiante
             </button>
@@ -328,6 +328,6 @@ export function CrearEstudiante() {
           <p className='text-xs text-gray-500 mt-2'>* Campos obligatorios</p>
         </form>
       </div>
-    </PageWrapper>
+    </PageWrapper> 
   )
 }

@@ -450,7 +450,7 @@ const SolicitudIntercambioForm = () => {
                     <button
                       type='button'
                       onClick={addAsignatura}
-                      className='bg-primario text-complementario py-1 px-3 rounded-lg hover:bg-oscuro text-sm flex items-center'
+                      className='bg-primario text-white py-2 px-3 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
                     >
                       <span className='mr-1'>+</span> Añadir Asignatura
                     </button>
@@ -602,13 +602,13 @@ const SolicitudIntercambioForm = () => {
                   <button
                     type='button'
                     onClick={() => navigate('/solicitudes')}
-                    className='bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
+                    className='bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
                   >
                     Cancelar
                   </button>
                   <button
                     type='submit'
-                    className='bg-primario text-complementario py-3 px-8 rounded-lg hover:bg-oscuro font-medium text-lg shadow-md hover:shadow-lg transition-all disabled:opacity-50'
+                    className='bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (

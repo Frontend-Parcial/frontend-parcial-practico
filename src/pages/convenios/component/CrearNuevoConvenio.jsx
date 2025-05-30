@@ -369,17 +369,17 @@ const CrearConvenio = () => {
                   </div>
                 )}
 
-                <div className='pt-6 flex justify-between gap-4'>
+                <div className='pt-6 flex justify-end gap-4'>
                   <button
                     type='button'
                     onClick={() => navigate('/convenios')}
-                    className='bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
+                    className='bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
                   >
                     Cancelar
                   </button>
                   <button
                     type='submit'
-                    className='bg-primario text-complementario py-3 px-8 rounded-lg hover:bg-oscuro font-medium text-lg shadow-md hover:shadow-lg transition-all disabled:opacity-50'
+                    className='bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
