@@ -77,7 +77,9 @@ export function CrearAsignaturas() {
         break
       case 'codigo_asignatura_origen':
       case 'codigo_asignatura_destino':
-        if (value && value.length < 3) {
+        if (!value || value.trim() === '') {
+          // Se valida como requerido en validarFormulario
+        } else if (value.length < 3) {
           errores[name] = 'El código debe tener al menos 3 caracteres'
         } else {
           delete errores[name]
@@ -85,11 +87,27 @@ export function CrearAsignaturas() {
         break
       case 'nombre_asignatura_origen':
       case 'nombre_asignatura_destino':
-        if (value && value.length < 5) {
+        if (!value || value.trim() === '') {
+          // Se valida como requerido en validarFormulario
+        } else if (value.length < 5) {
           errores[name] = 'El nombre debe tener al menos 5 caracteres'
         } else {
           delete errores[name]
         }
+        break
+      case 'universidad_origen':
+      case 'universidad_destino':
+        if (!value || value.trim() === '') {
+          // Se valida como requerido en validarFormulario
+        } else {
+          delete errores[name]
+        }
+        break
+      case 'descripcion_asignatura_origen':
+      case 'descripcion_asignatura_destino':
+      case 'observaciones':
+        // Campos opcionales, no requieren validación adicional ya que el límite se controla en handleInputChange
+        delete errores[name]
         break
       default:
         break
@@ -101,13 +119,44 @@ export function CrearAsignaturas() {
   // Manejar cambios en el formulario
   const handleInputChange = e => {
     const { name, value } = e.target
+
+    // Aplicar límites de caracteres antes de actualizar el estado
+    let valorLimitado = value
+
+    switch (name) {
+      case 'nombre_asignatura_origen':
+      case 'nombre_asignatura_destino':
+        if (value.length > 35) return // No permitir más de 35 caracteres
+        break
+      case 'codigo_asignatura_origen':
+      case 'codigo_asignatura_destino':
+        if (value.length > 7) return // No permitir más de 7 caracteres
+        break
+      case 'universidad_origen':
+      case 'universidad_destino':
+        if (value.length > 40) return // No permitir más de 40 caracteres
+        break
+      case 'descripcion_asignatura_origen':
+      case 'descripcion_asignatura_destino':
+      case 'observaciones':
+        if (value.length > 100) return // No permitir más de 100 caracteres
+        break
+      case 'creditos_asignatura_origen':
+      case 'creditos_asignatura_destino':
+        // Para créditos, validar que esté en el rango correcto
+        if (value !== '' && (isNaN(value) || parseInt(value) < 1 || parseInt(value) > 10)) {
+          return // No permitir valores fuera del rango
+        }
+        break
+    }
+
     setForm(prev => ({
       ...prev,
-      [name]: value,
+      [name]: valorLimitado,
     }))
 
     // Validar en tiempo real
-    validarCampo(name, value)
+    validarCampo(name, valorLimitado)
 
     // Limpiar mensaje de error general si el usuario está editando
     if (error) {
@@ -139,16 +188,35 @@ export function CrearAsignaturas() {
     // Validar créditos
     if (
       form.creditos_asignatura_origen &&
-      (isNaN(form.creditos_asignatura_origen) || parseInt(form.creditos_asignatura_origen) < 1)
+      (isNaN(form.creditos_asignatura_origen) ||
+        parseInt(form.creditos_asignatura_origen) < 1 ||
+        parseInt(form.creditos_asignatura_origen) > 10)
     ) {
-      errores.creditos_asignatura_origen = 'Los créditos deben ser un número mayor a 0'
+      errores.creditos_asignatura_origen = 'Los créditos deben ser un número entre 1 y 10'
     }
 
     if (
       form.creditos_asignatura_destino &&
-      (isNaN(form.creditos_asignatura_destino) || parseInt(form.creditos_asignatura_destino) < 1)
+      (isNaN(form.creditos_asignatura_destino) ||
+        parseInt(form.creditos_asignatura_destino) < 1 ||
+        parseInt(form.creditos_asignatura_destino) > 10)
     ) {
-      errores.creditos_asignatura_destino = 'Los créditos deben ser un número mayor a 0'
+      errores.creditos_asignatura_destino = 'Los créditos deben ser un número entre 1 y 10'
+    }
+
+    // Validar longitudes máximas (ya no es necesario ya que se controla en handleInputChange)
+    // Solo validamos longitudes mínimas y otros criterios específicos
+    if (form.nombre_asignatura_origen && form.nombre_asignatura_origen.length < 5) {
+      errores.nombre_asignatura_origen = 'El nombre debe tener al menos 5 caracteres'
+    }
+    if (form.nombre_asignatura_destino && form.nombre_asignatura_destino.length < 5) {
+      errores.nombre_asignatura_destino = 'El nombre debe tener al menos 5 caracteres'
+    }
+    if (form.codigo_asignatura_origen && form.codigo_asignatura_origen.length < 3) {
+      errores.codigo_asignatura_origen = 'El código debe tener al menos 3 caracteres'
+    }
+    if (form.codigo_asignatura_destino && form.codigo_asignatura_destino.length < 3) {
+      errores.codigo_asignatura_destino = 'El código debe tener al menos 3 caracteres'
     }
 
     setErroresValidacion(errores)
@@ -286,6 +354,18 @@ export function CrearAsignaturas() {
     return null
   }
 
+  // Función para mostrar contador de caracteres
+  const ContadorCaracteres = ({ actual, maximo, nombre }) => {
+    const restantes = maximo - actual
+    const colorClase = restantes < 10 ? 'text-red-500' : restantes < 20 ? 'text-yellow-500' : 'text-gray-500'
+
+    return (
+      <div className={`text-xs mt-1 ${colorClase}`}>
+        {actual}/{maximo} caracteres
+      </div>
+    )
+  }
+
   if (loading) {
     return (
       <PageWrapper>
@@ -388,10 +468,16 @@ export function CrearAsignaturas() {
                   value={form.nombre_asignatura_origen}
                   onChange={handleInputChange}
                   required
+                  maxLength={35}
                   className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primario ${
                     erroresValidacion.nombre_asignatura_origen ? 'border-red-300' : 'border-gray-300'
                   }`}
                   placeholder='Ej: Arquitectura de Software'
+                />
+                <ContadorCaracteres
+                  actual={form.nombre_asignatura_origen.length}
+                  maximo={35}
+                  nombre='nombre_asignatura_origen'
                 />
                 <MostrarError campo='nombre_asignatura_origen' />
               </div>
@@ -406,10 +492,16 @@ export function CrearAsignaturas() {
                   value={form.codigo_asignatura_origen}
                   onChange={handleInputChange}
                   required
+                  maxLength={7}
                   className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primario ${
                     erroresValidacion.codigo_asignatura_origen ? 'border-red-300' : 'border-gray-300'
                   }`}
                   placeholder='Ej: IS-4502'
+                />
+                <ContadorCaracteres
+                  actual={form.codigo_asignatura_origen.length}
+                  maximo={7}
+                  nombre='codigo_asignatura_origen'
                 />
                 <MostrarError campo='codigo_asignatura_origen' />
               </div>
@@ -443,11 +535,13 @@ export function CrearAsignaturas() {
                   value={form.universidad_origen}
                   onChange={handleInputChange}
                   required
+                  maxLength={40}
                   className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primario ${
                     erroresValidacion.universidad_origen ? 'border-red-300' : 'border-gray-300'
                   }`}
                   placeholder='Ej: Universidad de Barcelona'
                 />
+                <ContadorCaracteres actual={form.universidad_origen.length} maximo={40} nombre='universidad_origen' />
                 <MostrarError campo='universidad_origen' />
               </div>
 
@@ -458,9 +552,18 @@ export function CrearAsignaturas() {
                   value={form.descripcion_asignatura_origen}
                   onChange={handleInputChange}
                   rows='3'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primario'
+                  maxLength={100}
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primario ${
+                    erroresValidacion.descripcion_asignatura_origen ? 'border-red-300' : 'border-gray-300'
+                  }`}
                   placeholder='Descripción del contenido de la asignatura...'
                 />
+                <ContadorCaracteres
+                  actual={form.descripcion_asignatura_origen.length}
+                  maximo={100}
+                  nombre='descripcion_asignatura_origen'
+                />
+                <MostrarError campo='descripcion_asignatura_origen' />
               </div>
             </div>
 
@@ -478,10 +581,16 @@ export function CrearAsignaturas() {
                   value={form.nombre_asignatura_destino}
                   onChange={handleInputChange}
                   required
+                  maxLength={35}
                   className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primario ${
                     erroresValidacion.nombre_asignatura_destino ? 'border-red-300' : 'border-gray-300'
                   }`}
                   placeholder='Ej: Diseño y Arquitectura de Sistemas'
+                />
+                <ContadorCaracteres
+                  actual={form.nombre_asignatura_destino.length}
+                  maximo={35}
+                  nombre='nombre_asignatura_destino'
                 />
                 <MostrarError campo='nombre_asignatura_destino' />
               </div>
@@ -496,10 +605,16 @@ export function CrearAsignaturas() {
                   value={form.codigo_asignatura_destino}
                   onChange={handleInputChange}
                   required
+                  maxLength={7}
                   className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primario ${
                     erroresValidacion.codigo_asignatura_destino ? 'border-red-300' : 'border-gray-300'
                   }`}
                   placeholder='Ej: ARQ-3150'
+                />
+                <ContadorCaracteres
+                  actual={form.codigo_asignatura_destino.length}
+                  maximo={7}
+                  nombre='codigo_asignatura_destino'
                 />
                 <MostrarError campo='codigo_asignatura_destino' />
               </div>
@@ -533,11 +648,13 @@ export function CrearAsignaturas() {
                   value={form.universidad_destino}
                   onChange={handleInputChange}
                   required
+                  maxLength={40}
                   className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primario ${
                     erroresValidacion.universidad_destino ? 'border-red-300' : 'border-gray-300'
                   }`}
                   placeholder='UNIMINUTO'
                 />
+                <ContadorCaracteres actual={form.universidad_destino.length} maximo={40} nombre='universidad_destino' />
                 <MostrarError campo='universidad_destino' />
               </div>
 
@@ -548,9 +665,18 @@ export function CrearAsignaturas() {
                   value={form.descripcion_asignatura_destino}
                   onChange={handleInputChange}
                   rows='3'
-                  className='w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primario'
+                  maxLength={100}
+                  className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primario ${
+                    erroresValidacion.descripcion_asignatura_destino ? 'border-red-300' : 'border-gray-300'
+                  }`}
                   placeholder='Descripción del contenido de la asignatura equivalente...'
                 />
+                <ContadorCaracteres
+                  actual={form.descripcion_asignatura_destino.length}
+                  maximo={100}
+                  nombre='descripcion_asignatura_destino'
+                />
+                <MostrarError campo='descripcion_asignatura_destino' />
               </div>
             </div>
           </div>
