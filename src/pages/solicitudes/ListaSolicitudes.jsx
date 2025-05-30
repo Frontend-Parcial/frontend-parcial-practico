@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PageWrapper from '../../components/PageWrapper'
+import { FiEye } from 'react-icons/fi'
+import { HiOutlineBookOpen } from 'react-icons/hi'
+
 const userToken = localStorage.getItem('site')
 
 const ListaSolicitudes = () => {
@@ -13,6 +16,19 @@ const ListaSolicitudes = () => {
     total: 0,
     pages: 1,
   })
+
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const solicitudesFiltradas = solicitudes.filter(solicitud => {
+    const texto = searchTerm.toLowerCase()
+    return (
+      solicitud.solicitante.nombre.toLowerCase().includes(texto) ||
+      solicitud.solicitante.programa.toLowerCase().includes(texto) ||
+      solicitud.convenio.nombre_institucion.toLowerCase().includes(texto) ||
+      solicitud.convenio.pais.toLowerCase().includes(texto)
+    )
+  })
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -110,22 +126,20 @@ const ListaSolicitudes = () => {
             <div className='bg-white rounded-lg shadow-md overflow-hidden'>
               <div className='p-4 border-b border-gray-200 flex items-center justify-between'>
                 <h2 className='text-xl font-semibold text-gray-800'>Listado de Solicitudes</h2>
-                <div className="flex items-center gap-4">
-                  <button
-                    type='button'
-                    onClick={() => navigate(-1)}
-                    className='bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-base shadow-md hover:shadow-lg transition-all'
-                  >
-                    Atrás
-                  </button>
+                <input
+                  type='text'
+                  placeholder='Buscar por estudiante, programa o institución...'
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                  className='mt-2 w-full sm:w-96 px-4 py-2 border rounded-md text-sm shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
+                />
 
-                  <a
-                    href='/solicitudes/nuevo'
-                    className='bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
-                  >
-                    Crear Solicitud
-                  </a>
-                </div>
+                <a
+                  href='/solicitudes/nuevo'
+                  className='bg-primario text-white px-4 py-2 rounded hover:bg-primario/90 transition'
+                >
+                  Crear Solicitud
+                </a>
               </div>
 
               {loading ? (
@@ -163,7 +177,7 @@ const ListaSolicitudes = () => {
                         </tr>
                       </thead>
                       <tbody className='bg-white divide-y divide-gray-200'>
-                        {solicitudes.map(solicitud => (
+                        {solicitudesFiltradas.map(solicitud => (
                           <tr key={solicitud._id} className='hover:bg-gray-50'>
                             <td className='px-6 py-4 whitespace-nowrap'>
                               <div className='font-medium text-gray-900'>{solicitud.solicitante.nombre}</div>
@@ -191,18 +205,20 @@ const ListaSolicitudes = () => {
                               </span>
                             </td>
                             <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
-                              <div className='flex flex-col space-y-4'>
+                              <div className='flex space-x-4'>
                                 <button
                                   onClick={() => handleVerSeguimiento(solicitud._id)}
-                                  className='text-primario hover:text-oscuro mr-3'
+                                  title='Ver Seguimiento'
+                                  className='text-primario hover:text-oscuro transition-colors duration-200'
                                 >
-                                  Ver Seguimiento
+                                  <FiEye size={20} />
                                 </button>
                                 <button
                                   onClick={() => handleVerAsignaturas(solicitud._id)}
-                                  className='text-claro hover:text-primario mr-3'
+                                  title='Ver Asignaturas'
+                                  className='text-claro hover:text-primario transition-colors duration-200'
                                 >
-                                  Ver Asignaturas
+                                  <HiOutlineBookOpen size={20} />
                                 </button>
                               </div>
                             </td>
