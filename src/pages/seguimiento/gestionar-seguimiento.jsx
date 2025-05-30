@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import PageWrapper from '../../components/PageWrapper'
 import { getSolicitudXid } from '../../lib/solicitudes-data'
+import { useNavigate } from 'react-router-dom'
 import { gestionarSeguimiento, getSeguimientoXsolicitud, updateSeguimiento } from '../../lib/seguimientos-data'
 
 const CrearSeguimiento = () => {
@@ -18,6 +19,7 @@ const CrearSeguimiento = () => {
 
   const [validSolicitud, setValidSolicitud] = useState(null);
   const [seguimientoExistente, setSeguimientoExistente] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const idGuardado = localStorage.getItem('id_solicitud_seleccionada')
@@ -194,16 +196,19 @@ const CrearSeguimiento = () => {
           </div>
           {seguimientoExistente ? renderActualizarForm() : renderRegistroForm()}
 
-          <div className='pt-6 flex justify-between gap-4'>
+          <div className='pt-6 flex justify-end gap-4'>
             <button
               type='button'
-              onClick={() => navigate(`/docentes`)}
-              className='bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
+              onClick={() => navigate(`/solicitudes`)}
+              className='bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-base shadow-md hover:shadow-lg transition-all'
             >
               Cancelar
-          </button>
-            <button type="submit" 
-              className="w-full mt-4 bg-primario text-white py-2 rounded hover:bg-oscuro">
+            </button>
+
+            <button
+              type="submit"
+              className="bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all"
+            >
               {seguimientoExistente ? 'Guardar Cambios' : 'Registrar Seguimiento'}
             </button>
           </div>
