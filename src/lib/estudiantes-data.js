@@ -130,6 +130,7 @@ export async function listStudents() {
     }
 
     const data = await response.json()
+    console.log(data.estudiantes)
     return Array.isArray(data.estudiantes) ? data.estudiantes : []
   } catch (error) {
     console.error('Error al hacer la solicitud:', error)
@@ -174,6 +175,7 @@ export async function createStudent(data) {
     }
 
     const data = await response.json() // Guardar la respuesta
+    return data
   } catch (error) {
     console.error('Error al hacer la solicitud:', error)
     throw new Error(error.message)
