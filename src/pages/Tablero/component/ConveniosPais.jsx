@@ -211,7 +211,7 @@ const ConveniosPais = ({ isExpanded, onToggleExpand }) => {
     }
   }, [isExpanded, onToggleExpand])
 
-  // Manejar click en el mapa para expandir (solo si no está expandido)
+ 
   const handleMapClick = event => {
     if (!isExpanded) {
       event.stopPropagation()
@@ -232,7 +232,7 @@ const ConveniosPais = ({ isExpanded, onToggleExpand }) => {
 
   return (
     <div className='h-full' ref={containerRef}>
-      <h3 className='text-sm font-semibold mb-2'>Convenios por país</h3>
+      <h3 className='text-sm font-semibold mb-2'>Convenios activos por país</h3>
       <div
         className={`relative w-full rounded overflow-hidden border bg-gray-100 transition-all duration-300 ${
           !isExpanded ? 'cursor-pointer hover:shadow-md' : 'cursor-default'
@@ -307,9 +307,6 @@ const ConveniosPais = ({ isExpanded, onToggleExpand }) => {
             <div className='bg-white px-3 py-2 rounded-lg shadow-lg'>
               <p className='text-sm font-medium' style={{ color: '#107b42' }}>
                 Click para expandir
-              </p>
-              <p className='text-xs' style={{ color: '#42a542' }}>
-                {convenios.length} países con convenios
               </p>
             </div>
           </div>
