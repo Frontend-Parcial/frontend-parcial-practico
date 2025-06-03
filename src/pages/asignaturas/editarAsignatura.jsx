@@ -421,10 +421,6 @@ export function EditarAsignatura() {
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Créditos</label>
                 <p className='text-gray-800 bg-white p-3 rounded-lg border'>{asignatura.creditos_asignatura_origen}</p>
               </div>
-              <div>
-                <label className='block text-sm font-medium text-gray-600 mb-1'>Universidad</label>
-                <p className='text-gray-800 bg-white p-3 rounded-lg border'>{asignatura.universidad_origen}</p>
-              </div>
             </div>
           </div>
 
