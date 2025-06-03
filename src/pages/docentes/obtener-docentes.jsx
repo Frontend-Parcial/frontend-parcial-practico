@@ -89,6 +89,12 @@ export function ObtenerDocentes() {
                     <p>
                       <span className='font-medium'>Dirección:</span> {docente.direccion}
                     </p>
+                    <p>
+                      <span className='font-medium'>Departamento:</span> {docente.departamento}
+                    </p>
+                      <p>
+                      <span className='font-medium'>Facultad:</span> {docente.facultad}
+                    </p>
                   </div>
                 </div>
 
