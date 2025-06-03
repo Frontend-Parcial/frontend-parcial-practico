@@ -59,6 +59,19 @@ export function DetalleAsignaturas() {
     navigate('/asignaturas/crearAsignaturas')
   }
 
+  // Reemplazar el botón "Editar" en detalleAsignaturas.jsx (línea aproximada 185)
+  // Y agregar esta función antes del return:
+
+  const handleEditarAsignatura = () => {
+    // Método 1: Navigation state (recomendado)
+    navigate(`/asignaturas/editar/${asignatura._id}`, {
+      state: { asignatura },
+    })
+
+    // Método 2: localStorage como backup
+    localStorage.setItem('asignatura_seleccionada', JSON.stringify(asignatura))
+  }
+
   if (loading) {
     return (
       <PageWrapper>
@@ -160,10 +173,6 @@ export function DetalleAsignaturas() {
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Créditos</label>
                 <p className='text-gray-800 bg-gray-50 p-3 rounded-lg'>{asignatura.creditos_asignatura_origen}</p>
               </div>
-              <div>
-                <label className='block text-sm font-medium text-gray-600 mb-1'>Universidad</label>
-                <p className='text-gray-800 bg-gray-50 p-3 rounded-lg'>{asignatura.universidad_origen}</p>
-              </div>
             </div>
           </div>
 
@@ -201,6 +210,7 @@ export function DetalleAsignaturas() {
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Créditos</label>
                 <p className='text-gray-800 bg-gray-50 p-3 rounded-lg'>{asignatura.creditos_asignatura_destino}</p>
               </div>
+
               <div>
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Estado de Equivalencia</label>
                 <span
@@ -259,7 +269,20 @@ export function DetalleAsignaturas() {
             </svg>
             Nueva Asignatura
           </button>
-         
+          <button
+            onClick={() =>
+              navigate(`/asignaturas/editarAsignatura/${asignatura._id}`, {
+                state: { asignatura },
+              })
+            }
+            className='bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg transition-all flex items-center gap-2'
+          >
+            <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
+              <path d='M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z' />
+            </svg>
+            Editar
+          </button>
+
           <button
             onClick={() => navigate('/solicitudes')}
             className='bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-all'
