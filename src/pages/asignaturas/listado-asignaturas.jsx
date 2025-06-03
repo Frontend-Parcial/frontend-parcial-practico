@@ -114,7 +114,6 @@ export function ListadoAsignaturas() {
     const idGuardado = localStorage.getItem('id_solicitud_seleccionada')
     if (idGuardado) {
       setForm(prev => ({ ...prev, id_solicitud: idGuardado }))
-      localStorage.removeItem('id_solicitud_seleccionada')
     }
   }, [])
 
