@@ -26,6 +26,32 @@ export async function listDocentes() {
     return [] // retorna un array vacío si hay error
   }
 }
+export async function listDocentesPaginate(paginate) {
+  const userToken = localStorage.getItem('site')
+  try {
+    const response = await fetch(`${apiUrl}/docentes/${paginate}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({})) // por si la respuesta no es JSON válida
+      throw new Error(errorData.message || 'Error al obtener los docentes')
+    }
+
+    const data = await response.json()
+
+    // Asegúrate de que devuelve un array
+    return data
+    return Array.isArray(data?.data?.docentes) ? data.data.docentes : []
+  } catch (error) {
+    console.error('Error al hacer la solicitud:', error)
+    return [] // retorna un array vacío si hay error
+  }
+}
 
 export async function createDocentes(data) {
   const userToken = localStorage.getItem('site')

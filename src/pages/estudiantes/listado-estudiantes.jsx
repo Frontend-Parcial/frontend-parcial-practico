@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { listStudents } from '../../lib/estudiantes-data'
+import { listStudents, listStudentsPaginate } from '../../lib/estudiantes-data'
 import { useNavigate } from 'react-router-dom'
 import PageWrapper from '../../components/PageWrapper'
 
@@ -8,16 +8,32 @@ export function ListadoEstudiantes() {
   const [datos, setDatos] = useState([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
-
+  const [pagination, setPagination] = useState({
+    page: 1,
+    perPage: 10,
+    total: 0,
+    pages: 1,
+  })
   useEffect(() => {
     const fetchData = async () => {
-      const data = await listStudents()
-      setDatos(data)
+      const data = await listStudentsPaginate(`?page=${pagination.page}&per_page=${pagination.perPage}`)
+      setDatos(data.estudiantes)
+      setPagination({
+          page: data.page || 1,
+          perPage: data.per_page || 10,
+          total: data.total || 0,
+          pages: data.pages || 1,
+        })
       setLoading(false)
     }
 
     fetchData()
-  }, [])
+  }, [pagination.page])
+  const handlePageChange = newPage => {
+    if (newPage >= 1 && newPage <= pagination.pages) {
+      setPagination(prev => ({ ...prev, page: newPage }))
+    }
+  }
 
   return (
     <PageWrapper>
@@ -80,6 +96,7 @@ export function ListadoEstudiantes() {
               </button>
             </div>
           ) : (
+            <>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
               {datos.map(estudiante => (
                 <div
@@ -115,6 +132,105 @@ export function ListadoEstudiantes() {
                 </div>
               ))}
             </div>
+             <div className='bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6'>
+                    <div className='hidden sm:flex-1 sm:flex sm:items-center sm:justify-between'>
+                      <div>
+                        <p className='text-sm text-gray-700'>
+                          Mostrando{' '}
+                          <span className='font-medium'>{(pagination.page - 1) * pagination.perPage + 1}</span> a{' '}
+                          <span className='font-medium'>
+                            {Math.min(pagination.page * pagination.perPage, pagination.total)}
+                          </span>{' '}
+                          de <span className='font-medium'>{pagination.total}</span> resultados
+                        </p>
+                      </div>
+                      <div>
+                        <nav
+                          className='relative z-0 inline-flex rounded-md shadow-sm -space-x-px'
+                          aria-label='Pagination'
+                        >
+                          <button
+                            onClick={() => handlePageChange(pagination.page - 1)}
+                            disabled={pagination.page === 1}
+                            className={`relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium ${
+                              pagination.page === 1
+                                ? 'text-gray-300 cursor-not-allowed'
+                                : 'text-gray-500 hover:bg-gray-50'
+                            }`}
+                          >
+                            <span className='sr-only'>Anterior</span>
+                            <svg
+                              className='h-5 w-5'
+                              xmlns='http://www.w3.org/2000/svg'
+                              viewBox='0 0 20 20'
+                              fill='currentColor'
+                              aria-hidden='true'
+                            >
+                              <path
+                                fillRule='evenodd'
+                                d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+                                clipRule='evenodd'
+                              />
+                            </svg>
+                          </button>
+
+                          {Array.from({ length: Math.min(5, pagination.pages) }, (_, i) => {
+                            let pageNum
+                            if (pagination.pages <= 5) {
+                              pageNum = i + 1
+                            } else if (pagination.page <= 3) {
+                              pageNum = i + 1
+                            } else if (pagination.page >= pagination.pages - 2) {
+                              pageNum = pagination.pages - 4 + i
+                            } else {
+                              pageNum = pagination.page - 2 + i
+                            }
+
+                            return (
+                              <button
+                                key={pageNum}
+                                onClick={() => handlePageChange(pageNum)}
+                                className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+                                  pagination.page === pageNum
+                                    ? 'z-10 bg-primario border-primario text-white'
+                                    : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                                }`}
+                              >
+                                {pageNum}
+                              </button>
+                            )
+                          })}
+
+                          <button
+                            onClick={() => handlePageChange(pagination.page + 1)}
+                            disabled={pagination.page === pagination.pages}
+                            className={`relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium ${
+                              pagination.page === pagination.pages
+                                ? 'text-gray-300 cursor-not-allowed'
+                                : 'text-gray-500 hover:bg-gray-50'
+                            }`}
+                          >
+                            <span className='sr-only'>Siguiente</span>
+                            <svg
+                              className='h-5 w-5'
+                              xmlns='http://www.w3.org/2000/svg'
+                              viewBox='0 0 20 20'
+                              fill='currentColor'
+                              aria-hidden='true'
+                            >
+                              <path
+                                fillRule='evenodd'
+                                d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z'
+                                clipRule='evenodd'
+                              />
+                            </svg>
+                          </button>
+                        </nav>
+                      </div>
+                    </div>
+                  </div>
+            </>
+            
           )}
         </div>
       </div>
