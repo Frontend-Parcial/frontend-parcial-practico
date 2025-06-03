@@ -43,7 +43,6 @@ export function Login() {
       return
     }
     try {
-      //! Aca estoy guardando el email para otras validaciones
       getEmailStore(input.email)
       await auth.loginPost(input)
     } catch (error) {
@@ -78,8 +77,6 @@ export function Login() {
       e.preventDefault()
     }
   }
-
-  // prueba prueba prueba
 
   return (
     <PageWrapper>

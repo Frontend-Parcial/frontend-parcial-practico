@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import PageWrapper from '../../components/PageWrapper'
 import { email, onlyEntireNumbers, onlyLetters, address, lenguageLevel, decimalNumber } from '../../utils/patterns'
 
-// Opciones para los select
 const DOCUMENT_TYPES = [
   { value: 'CC', label: 'Cédula de Ciudadanía' },
   { value: 'TI', label: 'Tarjeta de Identidad' },
@@ -41,7 +40,6 @@ const STATUS_OPTIONS = [
   { value: 'jubilado', label: 'Jubilado' },
 ]
 
-// Datos de facultades y departamentos
 const FACULTADES = [
   {
     value: 'Facultad de Ciencias Administrativas, Contables y Economicas',
@@ -156,7 +154,6 @@ export function CrearDocente() {
     nueva_red: '',
   })
 
-  // Validaciones personalizadas
   const validateEmail = email => {
     const institutionalEmailRegex = /^[a-zA-Z0-9._%+-]+@unicesar\.edu\.co$/
     return institutionalEmailRegex.test(email)
@@ -172,7 +169,6 @@ export function CrearDocente() {
     return value.length <= maxLength
   }
 
-  // Validar campos de texto para que no acepten números y respeten longitud máxima
   const validateTextInput = (value, maxLength = 35) => {
     const textOnly = value.replace(/[0-9]/g, '')
     return textOnly.slice(0, maxLength)
@@ -221,20 +217,17 @@ export function CrearDocente() {
   const handleChange = e => {
     const { name, value, type, checked } = e.target
 
-    // Aplicar validación de solo texto para campos específicos
     let processedValue = value
     if (['nombre_completo', 'titulo_pregrado', 'titulo_posgrado', 'departamento', 'facultad'].includes(name)) {
       processedValue = validateTextInput(value, 35)
     }
 
-    // Si cambia la facultad, actualizamos los departamentos disponibles
     if (name === 'facultad') {
       const facultadSeleccionada = FACULTADES.find(f => f.value === value)
       const nuevosDepartamentos = facultadSeleccionada ? facultadSeleccionada.departamentos : []
 
       setDepartamentosDisponibles(nuevosDepartamentos)
 
-      // Resetear el departamento cuando cambia la facultad
       setForm(prev => ({
         ...prev,
         [name]: processedValue,
@@ -324,7 +317,6 @@ export function CrearDocente() {
   const handleSubmit = async e => {
     e.preventDefault()
 
-    // Validar campos obligatorios antes del envío
     const requiredFields = {
       nombre_completo: 'Nombre completo es obligatorio',
       documento_identidad: 'Documento de identidad es obligatorio',
@@ -365,7 +357,6 @@ export function CrearDocente() {
 
     const { nuevo_idioma, nueva_area, nuevo_grupo, nueva_red, ...formulario } = form
 
-    // Convertir campos numéricos a número
     formulario.anos_experiencia = Number(formulario.anos_experiencia)
     formulario.anos_experiencia_institucion = Number(formulario.anos_experiencia_institucion)
     formulario.publicaciones = Number(formulario.publicaciones)
@@ -387,7 +378,6 @@ export function CrearDocente() {
     }
   }
 
-  // Componente para mostrar errores
   const ErrorMessage = ({ error }) => {
     if (!error) return null
     return <p className='text-red-500 text-xs mt-1'>{error}</p>
@@ -706,8 +696,9 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Años de Experiencia*</label>
                 <input
-                  type='number'
+                  type='text'
                   min='0'
+                  maxLength={2}
                   className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario ${
                     errors.anos_experiencia ? 'border-red-500' : 'border-gray-300'
                   }`}
@@ -726,8 +717,8 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Años en la Institución*</label>
                 <input
-                  type='number'
-                  min='0'
+                  type='text'
+                  maxLength={2}
                   className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario ${
                     errors.anos_experiencia_institucion ? 'border-red-500' : 'border-gray-300'
                   }`}
@@ -746,20 +737,17 @@ export function CrearDocente() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Escalafón</label>
                 <input
-                  type='number'
-                  min='0'
+                  type='text'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
                   onChange={handleChange}
                   onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='escalafon'
+                  maxLength={2}
                   value={form.escalafon}
                 />
               </div>
             </div>
           </div>
-
-          {/* Resto de secciones: Idiomas, Áreas de conocimiento, Investigación, etc. */}
-          {/* ... (continúa con el resto del formulario igual que antes) ... */}
 
           {/* Botones */}
           <div className='pt-6 flex justify-between gap-4'>

@@ -44,7 +44,6 @@ export function ActualizarEstudiante() {
     { value: 'Facultad de Educacion', label: 'Facultad de Educacion' },
   ]
 
-  //! Programas
   const programasCiencias = [
     { value: 'Administracion de Empresas', label: 'Administracion de Empresas' },
     {
@@ -134,7 +133,6 @@ export function ActualizarEstudiante() {
         }
         setDatosOriginales(datosCompletos)
 
-        // Cargar programas académicos basados en la facultad actual
         if (datosCompletos.facultad) {
           handleProgramas(datosCompletos.facultad)
         }
@@ -149,7 +147,6 @@ export function ActualizarEstudiante() {
     fetchData()
   }, [id])
 
-  // Función para validar campos de solo texto
   const validarSoloTexto = valor => {
     const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/
     return regex.test(valor) || valor === ''
@@ -166,7 +163,6 @@ export function ActualizarEstudiante() {
 
     let newValue = type === 'checkbox' ? checked : value
 
-    // Validaciones específicas para inputs de texto
     if (name === 'nombre_completo' && newValue.length > 35) {
       return
     }
@@ -234,20 +230,16 @@ export function ActualizarEstudiante() {
       newValue = processedValue
     }
 
-    // Lógica especial para cuando cambia la facultad
     if (name === 'facultad') {
       handleProgramas(newValue)
-      // Registrar cambio de facultad
       setCambios(prev => ({
         ...prev,
         [name]: newValue,
-        // Si se cambia la facultad, limpiar el programa académico
         programa_academico: '',
       }))
       return
     }
 
-    // Validación para campos que solo deben contener texto
     if (['nombre_completo'].includes(name)) {
       if (!validarSoloTexto(newValue) && newValue !== '') {
         setErrores(prev => ({
@@ -264,7 +256,6 @@ export function ActualizarEstudiante() {
       }
     }
 
-    // Registrar cambios para todos los demás campos
     setCambios(prev => ({
       ...prev,
       [name]: newValue,
@@ -304,7 +295,6 @@ export function ActualizarEstudiante() {
     )
   }
 
-  // Obtener el valor actual para los selects (datos originales + cambios)
   const getFieldValue = fieldName => {
     return cambios.hasOwnProperty(fieldName) ? cambios[fieldName] : datosOriginales[fieldName] || ''
   }

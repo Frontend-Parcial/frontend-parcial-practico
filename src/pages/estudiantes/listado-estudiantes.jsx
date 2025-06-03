@@ -3,7 +3,6 @@ import { listStudents, listStudentsPaginate } from '../../lib/estudiantes-data'
 import { useNavigate } from 'react-router-dom'
 import PageWrapper from '../../components/PageWrapper'
 
-//! ESTE ES EL PUNTO DE ENTRADA DE LOS ESTUDIANTES
 export function ListadoEstudiantes() {
   const [datos, setDatos] = useState([])
   const [loading, setLoading] = useState(true)
