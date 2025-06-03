@@ -44,6 +44,7 @@ const STATUS_OPTIONS = [
 export function CrearDocente() {
   const navigate = useNavigate()
   const [errors, setErrors] = useState({})
+  const [programasAcademicos, setProgramasAcademicos] = useState([])
   const [form, setForm] = useState({
     nombre_completo: '',
     documento_identidad: '',
@@ -129,8 +130,6 @@ export function CrearDocente() {
         break
       case 'titulo_pregrado':
       case 'titulo_posgrado':
-      case 'departamento':
-      case 'facultad':
         if (value && !validateMaxLength(value, 35)) {
           newErrors[name] = 'Este campo no puede exceder 35 caracteres'
         } else {
@@ -156,6 +155,23 @@ export function CrearDocente() {
     setForm(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : processedValue,
+    }))
+
+
+    if (name === 'facultad') {
+      handleProgramas(newValue)
+      // Limpiar el programa académico cuando cambia la facultad
+      setEstudiante(prev => ({
+        ...prev,
+        [name]: newValue,
+        programa_academico: '', // Resetear programa académico
+      }))
+      return
+    }
+
+    setEstudiante(prev => ({
+      ...prev,
+      [name]: newValue,
     }))
 
     // Validar el campo en tiempo real
@@ -301,6 +317,102 @@ export function CrearDocente() {
     if (!error) return null
     return <p className='text-red-500 text-xs mt-1'>{error}</p>
   }
+
+  const facultades = [
+    {
+      value: 'Facultad de Ciencias Administrativas, Contables y Economicas',
+      label: 'Facultad de Ciencias Administrativas, Contables y Economicas',
+    },
+    { value: 'Facultad de Bellas Artes', label: 'Facultad de Bellas Artes' },
+    {
+      value: 'Facultad de Derecho, Ciencias Politicas y Sociales',
+      label: 'Facultad de Derecho, Ciencias Politicas y Sociales',
+    },
+    { value: 'Facultad de Ciencias Basicas', label: 'Facultad de Ciencias Basicas' },
+    { value: 'Facultad de Ingenierías y Tecnologías', label: 'Facultad de Ingenierías y Tecnologías' },
+    { value: 'Facultad de Ciencias de la Salud', label: 'Facultad de Ciencias de la Salud' },
+    { value: 'Facultad de Educacion', label: 'Facultad de Educacion' },
+  ]
+
+  //! Programas
+  const programasCiencias = [
+    { value: 'Administracion de Empresas', label: 'Administracion de Empresas' },
+    {
+      value: 'Administracion de Empresas Turisticas y Hoteleras',
+      label: 'Administracion de Empresas Turisticas y Hoteleras',
+    },
+    { value: 'Comercio Internacional', label: 'Comercio Internacional' },
+    { value: 'Contaduria Publica', label: 'Contaduria Publica' },
+    { value: 'Economia', label: 'Economia' },
+  ]
+
+  const programasBellasArtes = [
+    { value: 'Licenciatura en Artes', label: 'Licenciatura en Artes' },
+    { value: 'Musica', label: 'Musica' },
+  ]
+
+  const programasDerecho = [
+    { value: 'Derecho', label: 'Derecho' },
+    { value: 'Psicologia', label: 'Psicologia' },
+    { value: 'Sociologia', label: 'Sociologia' },
+  ]
+
+  const programasCienciasBasicas = [{ value: 'Microbiologia', label: 'Microbiologia' }]
+
+  const programasIngenierias = [
+    { value: 'Ingenieria Agroindustrial', label: 'Ingenieria Agroindustrial' },
+    { value: 'Ingenieria Ambiental y Sanitaria', label: 'Ingenieria Ambiental y Sanitaria' },
+    { value: 'Ingenieria de Sistemas', label: 'Ingenieria de Sistemas' },
+    { value: 'Ingenieria Electronica', label: 'Ingenieria Electronica' },
+  ]
+
+  const programasCienciasSalud = [
+    { value: 'Enfermeria', label: 'Enfermeria' },
+    { value: 'Instrumentacion Quirurgica', label: 'Instrumentacion Quirurgica' },
+  ]
+
+  const programasEducacion = [
+    {
+      value: 'Licenciatura en Ciencias Naturales y Educacion Ambiental',
+      label: 'Ciencias Naturales y Educacion Ambiental',
+    },
+    { value: 'Licenciatura en Literatura y Lengua Castellana', label: 'Literatura y Lengua Castellana' },
+    { value: 'Licenciatura en Matematicas', label: 'Matematicas' },
+    { value: 'Licenciatura en Español e Ingles', label: 'Español e Ingles' },
+    {
+      value: 'Licenciatura en Educacion Fisica, Recreacion y Deportes',
+      label: 'Educacion Fisica, Recreacion y Deportes',
+    },
+  ]
+
+  function handleProgramas(facultad) {
+    switch (facultad) {
+      case 'Facultad de Ciencias Administrativas, Contables y Economicas':
+        setProgramasAcademicos(programasCiencias)
+        break
+      case 'Facultad de Bellas Artes':
+        setProgramasAcademicos(programasBellasArtes)
+        break
+      case 'Facultad de Derecho, Ciencias Politicas y Sociales':
+        setProgramasAcademicos(programasDerecho)
+        break
+      case 'Facultad de Ciencias Basicas':
+        setProgramasAcademicos(programasCienciasBasicas)
+        break
+      case 'Facultad de Ingenierías y Tecnologías':
+        setProgramasAcademicos(programasIngenierias)
+        break
+      case 'Facultad de Ciencias de la Salud':
+        setProgramasAcademicos(programasCienciasSalud)
+        break
+      case 'Facultad de Educacion':
+        setProgramasAcademicos(programasEducacion)
+        break
+      default:
+        setProgramasAcademicos([])
+    }
+  }
+
 
   return (
     <PageWrapper>
@@ -522,8 +634,24 @@ export function CrearDocente() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>
                   Departamento* (máx. 35 caracteres)
                 </label>
-                <input
-                  className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario ${
+                   <select
+                  className='w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
+                  onChange={handleInput}
+                  name='departamento'
+                  value={form.departamento}
+                  required
+                  disabled={!form.facultad || programasAcademicos.length === 0}
+                >
+                  <option value=''>
+                    {!form.facultad ? 'Primero seleccione una facultad' : 'Seleccione un departamento'}
+                  </option>
+                  {programasAcademicos.map(programa => (
+                    <option key={programa.value} value={programa.value}>
+                      {programa.label}
+                    </option>
+                  ))}
+                </select>
+                {/* <input
                     errors.departamento ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder='Ej: Matemáticas'
@@ -537,15 +665,26 @@ export function CrearDocente() {
                 <div className='flex justify-between'>
                   <ErrorMessage error={errors.departamento} />
                   <span className='text-xs text-gray-400'>{form.departamento.length}/35</span>
-                </div>
+                </div> */}
               </div>
 
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Facultad* (máx. 35 caracteres)</label>
-                <input
-                  className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario ${
-                    errors.facultad ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                    <select
+                  className='w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-primario focus:border-primario'
+                  onChange={handleChange}
+                  name='facultad'
+                  value={form.facultad}
+                  required
+                >
+                  <option value=''>Seleccione una facultad</option>
+                  {facultades.map(facultad => (
+                    <option key={facultad.value} value={facultad.value}>
+                      {facultad.label}
+                    </option>
+                  ))}
+                </select>
+                {/* <input
                   placeholder='Ej: Ciencias Exactas'
                   onChange={handleChange}
                   onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
@@ -557,7 +696,7 @@ export function CrearDocente() {
                 <div className='flex justify-between'>
                   <ErrorMessage error={errors.facultad} />
                   <span className='text-xs text-gray-400'>{form.facultad.length}/35</span>
-                </div>
+                </div> */}
               </div>
 
               <div>

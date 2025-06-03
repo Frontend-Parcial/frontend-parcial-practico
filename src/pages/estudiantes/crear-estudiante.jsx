@@ -6,6 +6,7 @@ import { address, onlyLetters, onlyEntireNumbers, decimalNumber } from '../../ut
 
 export function CrearEstudiante() {
   const navigate = useNavigate()
+  const [programasAcademicos, setProgramasAcademicos] = useState([])
   const [estudiante, setEstudiante] = useState({
     nombre_completo: '',
     documento_identidad: '',
@@ -47,8 +48,11 @@ export function CrearEstudiante() {
       estudiante.promedio_academico !== ''
     ) {
       try {
-        await createStudent(estudiante)
-        alert('Estudiante creado exitosamente')
+        // await createStudent(estudiante)
+        console.log(estudiante)
+        if (await createStudent(estudiante)) {
+          alert('Estudiante creado exitosamente')
+        }
       } catch (error) {
         alert(error.message)
       }
@@ -101,7 +105,7 @@ export function CrearEstudiante() {
       if (newValue.length > 45) {
         return
       }
-      if (newValue.includes('@') && newValue.length > 15 && !newValue.endsWith('@unicesar.edu.co')) {
+      if (newValue.includes('@') && newValue.length > 45 && !newValue.endsWith('@unicesar.edu.co')) {
         return
       }
     }
@@ -133,6 +137,18 @@ export function CrearEstudiante() {
       newValue = processedValue
     }
 
+    // Lógica especial para cuando cambia la facultad
+    if (name === 'facultad') {
+      handleProgramas(newValue)
+      // Limpiar el programa académico cuando cambia la facultad
+      setEstudiante(prev => ({
+        ...prev,
+        [name]: newValue,
+        programa_academico: '', // Resetear programa académico
+      }))
+      return
+    }
+
     setEstudiante(prev => ({
       ...prev,
       [name]: newValue,
@@ -152,6 +168,101 @@ export function CrearEstudiante() {
     { value: 'graduado', label: 'Graduado' },
     { value: 'retirado', label: 'Retirado' },
   ]
+
+  const facultades = [
+    {
+      value: 'Facultad de Ciencias Administrativas, Contables y Economicas',
+      label: 'Facultad de Ciencias Administrativas, Contables y Economicas',
+    },
+    { value: 'Facultad de Bellas Artes', label: 'Facultad de Bellas Artes' },
+    {
+      value: 'Facultad de Derecho, Ciencias Politicas y Sociales',
+      label: 'Facultad de Derecho, Ciencias Politicas y Sociales',
+    },
+    { value: 'Facultad de Ciencias Basicas', label: 'Facultad de Ciencias Basicas' },
+    { value: 'Facultad de Ingenierías y Tecnologías', label: 'Facultad de Ingenierías y Tecnologías' },
+    { value: 'Facultad de Ciencias de la Salud', label: 'Facultad de Ciencias de la Salud' },
+    { value: 'Facultad de Educacion', label: 'Facultad de Educacion' },
+  ]
+
+  //! Programas
+  const programasCiencias = [
+    { value: 'Administracion de Empresas', label: 'Administracion de Empresas' },
+    {
+      value: 'Administracion de Empresas Turisticas y Hoteleras',
+      label: 'Administracion de Empresas Turisticas y Hoteleras',
+    },
+    { value: 'Comercio Internacional', label: 'Comercio Internacional' },
+    { value: 'Contaduria Publica', label: 'Contaduria Publica' },
+    { value: 'Economia', label: 'Economia' },
+  ]
+
+  const programasBellasArtes = [
+    { value: 'Licenciatura en Artes', label: 'Licenciatura en Artes' },
+    { value: 'Musica', label: 'Musica' },
+  ]
+
+  const programasDerecho = [
+    { value: 'Derecho', label: 'Derecho' },
+    { value: 'Psicologia', label: 'Psicologia' },
+    { value: 'Sociologia', label: 'Sociologia' },
+  ]
+
+  const programasCienciasBasicas = [{ value: 'Microbiologia', label: 'Microbiologia' }]
+
+  const programasIngenierias = [
+    { value: 'Ingenieria Agroindustrial', label: 'Ingenieria Agroindustrial' },
+    { value: 'Ingenieria Ambiental y Sanitaria', label: 'Ingenieria Ambiental y Sanitaria' },
+    { value: 'Ingenieria de Sistemas', label: 'Ingenieria de Sistemas' },
+    { value: 'Ingenieria Electronica', label: 'Ingenieria Electronica' },
+  ]
+
+  const programasCienciasSalud = [
+    { value: 'Enfermeria', label: 'Enfermeria' },
+    { value: 'Instrumentacion Quirurgica', label: 'Instrumentacion Quirurgica' },
+  ]
+
+  const programasEducacion = [
+    {
+      value: 'Licenciatura en Ciencias Naturales y Educacion Ambiental',
+      label: 'Ciencias Naturales y Educacion Ambiental',
+    },
+    { value: 'Licenciatura en Literatura y Lengua Castellana', label: 'Literatura y Lengua Castellana' },
+    { value: 'Licenciatura en Matematicas', label: 'Matematicas' },
+    { value: 'Licenciatura en Español e Ingles', label: 'Español e Ingles' },
+    {
+      value: 'Licenciatura en Educacion Fisica, Recreacion y Deportes',
+      label: 'Educacion Fisica, Recreacion y Deportes',
+    },
+  ]
+
+  function handleProgramas(facultad) {
+    switch (facultad) {
+      case 'Facultad de Ciencias Administrativas, Contables y Economicas':
+        setProgramasAcademicos(programasCiencias)
+        break
+      case 'Facultad de Bellas Artes':
+        setProgramasAcademicos(programasBellasArtes)
+        break
+      case 'Facultad de Derecho, Ciencias Politicas y Sociales':
+        setProgramasAcademicos(programasDerecho)
+        break
+      case 'Facultad de Ciencias Basicas':
+        setProgramasAcademicos(programasCienciasBasicas)
+        break
+      case 'Facultad de Ingenierías y Tecnologías':
+        setProgramasAcademicos(programasIngenierias)
+        break
+      case 'Facultad de Ciencias de la Salud':
+        setProgramasAcademicos(programasCienciasSalud)
+        break
+      case 'Facultad de Educacion':
+        setProgramasAcademicos(programasEducacion)
+        break
+      default:
+        setProgramasAcademicos([])
+    }
+  }
 
   return (
     <PageWrapper>
@@ -281,37 +392,42 @@ export function CrearEstudiante() {
               </div>
 
               <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>Programa Académico*</label>
-                <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
-                  placeholder='Ej: Ingeniería de Sistemas'
-                  onChange={handleInput}
-                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
-                  name='programa_academico'
-                  value={estudiante.programa_academico}
-                  maxLength='50'
-                  required
-                />
-                <div className='flex justify-between'>
-                  <span className='text-xs text-gray-400'>{estudiante.programa_academico.length}/50</span>
-                </div>
-              </div>
-
-              <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Facultad*</label>
-                <input
-                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
-                  placeholder='Ej: Ingeniería'
+                <select
+                  className='w-full px-1 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
                   onChange={handleInput}
-                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='facultad'
                   value={estudiante.facultad}
                   required
-                  maxLength='30'
-                />
-                <div className='flex justify-between mb-[-13px]'>
-                  <span className='text-xs text-gray-400'>{estudiante.facultad.length}/30</span>
-                </div>
+                >
+                  <option value=''>Seleccione una facultad</option>
+                  {facultades.map(facultad => (
+                    <option key={facultad.value} value={facultad.value}>
+                      {facultad.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Programa Académico*</label>
+                <select
+                  className='w-full px-1 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-claro focus:border-oscuro'
+                  onChange={handleInput}
+                  name='programa_academico'
+                  value={estudiante.programa_academico}
+                  required
+                  disabled={!estudiante.facultad || programasAcademicos.length === 0}
+                >
+                  <option value=''>
+                    {!estudiante.facultad ? 'Primero seleccione una facultad' : 'Seleccione un programa académico'}
+                  </option>
+                  {programasAcademicos.map(programa => (
+                    <option key={programa.value} value={programa.value}>
+                      {programa.label}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>

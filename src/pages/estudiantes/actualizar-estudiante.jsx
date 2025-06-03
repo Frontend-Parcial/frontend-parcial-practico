@@ -7,6 +7,7 @@ import { address, decimalNumber, email, onlyEntireNumbers, onlyLetters } from '.
 
 export function ActualizarEstudiante() {
   const { id } = useParams()
+  const [programasAcademicos, setProgramasAcademicos] = useState([])
   const [datosOriginales, setDatosOriginales] = useState({})
   const [cambios, setCambios] = useState({})
   const [cargando, setCargando] = useState(true)
@@ -27,15 +28,117 @@ export function ActualizarEstudiante() {
     { value: 'retirado', label: 'Retirado' },
   ]
 
+  const facultades = [
+    {
+      value: 'Facultad de Ciencias Administrativas, Contables y Economicas',
+      label: 'Facultad de Ciencias Administrativas, Contables y Economicas',
+    },
+    { value: 'Facultad de Bellas Artes', label: 'Facultad de Bellas Artes' },
+    {
+      value: 'Facultad de Derecho, Ciencias Politicas y Sociales',
+      label: 'Facultad de Derecho, Ciencias Politicas y Sociales',
+    },
+    { value: 'Facultad de Ciencias Basicas', label: 'Facultad de Ciencias Basicas' },
+    { value: 'Facultad de Ingenierías y Tecnologías', label: 'Facultad de Ingenierías y Tecnologías' },
+    { value: 'Facultad de Ciencias de la Salud', label: 'Facultad de Ciencias de la Salud' },
+    { value: 'Facultad de Educacion', label: 'Facultad de Educacion' },
+  ]
+
+  //! Programas
+  const programasCiencias = [
+    { value: 'Administracion de Empresas', label: 'Administracion de Empresas' },
+    {
+      value: 'Administracion de Empresas Turisticas y Hoteleras',
+      label: 'Administracion de Empresas Turisticas y Hoteleras',
+    },
+    { value: 'Comercio Internacional', label: 'Comercio Internacional' },
+    { value: 'Contaduria Publica', label: 'Contaduria Publica' },
+    { value: 'Economia', label: 'Economia' },
+  ]
+
+  const programasBellasArtes = [
+    { value: 'Licenciatura en Artes', label: 'Licenciatura en Artes' },
+    { value: 'Musica', label: 'Musica' },
+  ]
+
+  const programasDerecho = [
+    { value: 'Derecho', label: 'Derecho' },
+    { value: 'Psicologia', label: 'Psicologia' },
+    { value: 'Sociologia', label: 'Sociologia' },
+  ]
+
+  const programasCienciasBasicas = [{ value: 'Microbiologia', label: 'Microbiologia' }]
+
+  const programasIngenierias = [
+    { value: 'Ingenieria Agroindustrial', label: 'Ingenieria Agroindustrial' },
+    { value: 'Ingenieria Ambiental y Sanitaria', label: 'Ingenieria Ambiental y Sanitaria' },
+    { value: 'Ingenieria de Sistemas', label: 'Ingenieria de Sistemas' },
+    { value: 'Ingenieria Electronica', label: 'Ingenieria Electronica' },
+  ]
+
+  const programasCienciasSalud = [
+    { value: 'Enfermeria', label: 'Enfermeria' },
+    { value: 'Instrumentacion Quirurgica', label: 'Instrumentacion Quirurgica' },
+  ]
+
+  const programasEducacion = [
+    {
+      value: 'Licenciatura en Ciencias Naturales y Educacion Ambiental',
+      label: 'Ciencias Naturales y Educacion Ambiental',
+    },
+    { value: 'Licenciatura en Literatura y Lengua Castellana', label: 'Literatura y Lengua Castellana' },
+    { value: 'Licenciatura en Matematicas', label: 'Matematicas' },
+    { value: 'Licenciatura en Español e Ingles', label: 'Español e Ingles' },
+    {
+      value: 'Licenciatura en Educacion Fisica, Recreacion y Deportes',
+      label: 'Educacion Fisica, Recreacion y Deportes',
+    },
+  ]
+
+  function handleProgramas(facultad) {
+    switch (facultad) {
+      case 'Facultad de Ciencias Administrativas, Contables y Economicas':
+        setProgramasAcademicos(programasCiencias)
+        break
+      case 'Facultad de Bellas Artes':
+        setProgramasAcademicos(programasBellasArtes)
+        break
+      case 'Facultad de Derecho, Ciencias Politicas y Sociales':
+        setProgramasAcademicos(programasDerecho)
+        break
+      case 'Facultad de Ciencias Basicas':
+        setProgramasAcademicos(programasCienciasBasicas)
+        break
+      case 'Facultad de Ingenierías y Tecnologías':
+        setProgramasAcademicos(programasIngenierias)
+        break
+      case 'Facultad de Ciencias de la Salud':
+        setProgramasAcademicos(programasCienciasSalud)
+        break
+      case 'Facultad de Educacion':
+        setProgramasAcademicos(programasEducacion)
+        break
+      default:
+        setProgramasAcademicos([])
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getStudents(id)
-        setDatosOriginales({
+        const datosCompletos = {
           ...data,
           sanciones_academicas: data.sanciones_academicas || false,
           sanciones_disciplinarias: data.sanciones_disciplinarias || false,
-        })
+        }
+        setDatosOriginales(datosCompletos)
+
+        // Cargar programas académicos basados en la facultad actual
+        if (datosCompletos.facultad) {
+          handleProgramas(datosCompletos.facultad)
+        }
+
         setCargando(false)
       } catch (error) {
         console.error('Error al cargar datos del estudiante:', error)
@@ -62,7 +165,8 @@ export function ActualizarEstudiante() {
     const { name, value, type, checked } = e.target
 
     let newValue = type === 'checkbox' ? checked : value
-    //! CODIGO EXPERIMENTAL
+
+    // Validaciones específicas para inputs de texto
     if (name === 'nombre_completo' && newValue.length > 35) {
       return
     }
@@ -70,7 +174,6 @@ export function ActualizarEstudiante() {
     if (name === 'telefono') {
       const numericValue = newValue.replace(/[^0-9]/g, '')
       if (numericValue.length > 10) {
-        console.log('asdjfasjdf')
         return
       }
       newValue = numericValue
@@ -85,10 +188,6 @@ export function ActualizarEstudiante() {
     }
 
     if (name === 'direccion' && newValue.length > 35) {
-      return
-    }
-
-    if (name === 'programa_academico' && newValue.length > 50) {
       return
     }
 
@@ -135,11 +234,22 @@ export function ActualizarEstudiante() {
       newValue = processedValue
     }
 
-    //! FIN DEL CODIGO EXPERIMENTAL
+    // Lógica especial para cuando cambia la facultad
+    if (name === 'facultad') {
+      handleProgramas(newValue)
+      // Registrar cambio de facultad
+      setCambios(prev => ({
+        ...prev,
+        [name]: newValue,
+        // Si se cambia la facultad, limpiar el programa académico
+        programa_academico: '',
+      }))
+      return
+    }
 
     // Validación para campos que solo deben contener texto
-    if (['nombre_completo', 'programa_academico', 'facultad'].includes(name)) {
-      if (!validarSoloTexto(value) && value !== '') {
+    if (['nombre_completo'].includes(name)) {
+      if (!validarSoloTexto(newValue) && newValue !== '') {
         setErrores(prev => ({
           ...prev,
           [name]: 'Este campo solo puede contener letras y espacios',
@@ -154,9 +264,10 @@ export function ActualizarEstudiante() {
       }
     }
 
+    // Registrar cambios para todos los demás campos
     setCambios(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: newValue,
     }))
   }
 
@@ -193,6 +304,11 @@ export function ActualizarEstudiante() {
     )
   }
 
+  // Obtener el valor actual para los selects (datos originales + cambios)
+  const getFieldValue = fieldName => {
+    return cambios.hasOwnProperty(fieldName) ? cambios[fieldName] : datosOriginales[fieldName] || ''
+  }
+
   return (
     <PageWrapper>
       <div className='max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-4'>
@@ -222,7 +338,7 @@ export function ActualizarEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   name='tipo_documento'
-                  defaultValue={datosOriginales.tipo_documento || ''}
+                  value={getFieldValue('tipo_documento')}
                 >
                   <option value=''>Seleccione...</option>
                   {tiposDocumento.map(tipo => (
@@ -299,35 +415,42 @@ export function ActualizarEstudiante() {
               </div>
 
               <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>Programa Académico</label>
-                <input
-                  className={`w-full px-3 py-2 border ${
-                    errores.programa_academico ? 'border-red-500' : 'border-gray-300'
-                  } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario`}
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Facultad</label>
+                <select
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
-                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
-                  name='programa_academico'
-                  defaultValue={datosOriginales.programa_academico || ''}
-                  maxLength='50'
-                />
-                {errores.programa_academico && (
-                  <p className='mt-1 text-sm text-red-600'>{errores.programa_academico}</p>
-                )}
+                  name='facultad'
+                  value={getFieldValue('facultad')}
+                >
+                  <option value=''>Seleccione una facultad...</option>
+                  {facultades.map(facultad => (
+                    <option key={facultad.value} value={facultad.value}>
+                      {facultad.label}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>Facultad</label>
-                <input
-                  className={`w-full px-3 py-2 border ${
-                    errores.facultad ? 'border-red-500' : 'border-gray-300'
-                  } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario`}
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Programa Académico</label>
+                <select
+                  className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
-                  onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
-                  name='facultad'
-                  defaultValue={datosOriginales.facultad || ''}
-                  maxLength='30'
-                />
-                {errores.facultad && <p className='mt-1 text-sm text-red-600'>{errores.facultad}</p>}
+                  name='programa_academico'
+                  value={getFieldValue('programa_academico')}
+                  disabled={!getFieldValue('facultad') || programasAcademicos.length === 0}
+                >
+                  <option value=''>
+                    {!getFieldValue('facultad')
+                      ? 'Primero seleccione una facultad'
+                      : 'Seleccione un programa académico...'}
+                  </option>
+                  {programasAcademicos.map(programa => (
+                    <option key={programa.value} value={programa.value}>
+                      {programa.label}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>
@@ -360,9 +483,6 @@ export function ActualizarEstudiante() {
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Promedio Académico</label>
                 <input
                   type='text'
-                  // step='0.01'
-                  // min='0'
-                  // max='5'
                   maxLength='3'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
@@ -378,7 +498,7 @@ export function ActualizarEstudiante() {
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   name='estado'
-                  defaultValue={datosOriginales.estado || 'activo'}
+                  value={getFieldValue('estado') || 'activo'}
                 >
                   {estadosEstudiante.map(estado => (
                     <option key={estado.value} value={estado.value}>
@@ -419,6 +539,7 @@ export function ActualizarEstudiante() {
               </label>
             </div>
           </div>
+
           {/* Botones */}
           <div className='pt-6 flex justify-between gap-4'>
             <button
