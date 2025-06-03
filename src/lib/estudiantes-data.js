@@ -137,6 +137,31 @@ export async function listStudents() {
   }
 }
 
+export async function listStudentsPaginate(paginate) {
+  const userToken = localStorage.getItem('site')
+  try {
+    const response = await fetch(`${apiUrl}/estudiantes/${paginate}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({})) // Maneja JSON inválido
+      throw new Error(errorData.message || 'Error al obtener los estudiantes')
+    }
+
+    const data = await response.json()
+    return data
+    return Array.isArray(data.estudiantes) ? data.estudiantes : []
+  } catch (error) {
+    console.error('Error al hacer la solicitud:', error)
+    return [] // <- Muy importante: siempre retorna un array vacío en caso de error
+  }
+}
+
 export async function createStudent(data) {
   const userToken = localStorage.getItem('site')
   const datos = {
