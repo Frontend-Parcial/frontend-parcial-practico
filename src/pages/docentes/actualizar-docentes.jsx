@@ -279,6 +279,7 @@ export function ActualizarDocentes() {
       alert('Docente actualizado correctamente')
       setDatosOriginales({ ...datosOriginales, ...cambios })
       setCambios({})
+      navigate('/docentes')
     } catch (error) {
       alert(error.message || 'Error al actualizar docente')
     }
