@@ -90,6 +90,7 @@ export async function updateDocentes(data, id) {
       telefono: data.telefono,
       email: data.email,
       departamento: data.departamento,
+      facultad: data.facultad,
       categoria_docente: data.categoria_docente,
       evaluacion_docente_promedio:
         data.evaluacion_docente_promedio !== undefined ? Number(data.evaluacion_docente_promedio) : undefined,
