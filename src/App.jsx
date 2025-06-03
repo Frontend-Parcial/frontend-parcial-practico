@@ -26,6 +26,7 @@ import { EditarAsignatura } from './pages/asignaturas/editarAsignatura'
 
 import { AnimatePresence } from 'framer-motion'
 import Layout from './components/Layout'
+import EditarConvenioForm from './pages/convenios/component/EditarConvenio'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -162,6 +163,14 @@ function AnimatedRoutes() {
             element={
               <Layout>
                 <DetalleConvenio />
+              </Layout>
+            }
+          />
+           <Route
+            path='/convenios/actualizar/:id'
+            element={
+              <Layout>
+                <EditarConvenioForm />
               </Layout>
             }
           />

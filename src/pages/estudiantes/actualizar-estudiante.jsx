@@ -61,6 +61,82 @@ export function ActualizarEstudiante() {
   const handleInput = e => {
     const { name, value, type, checked } = e.target
 
+    let newValue = type === 'checkbox' ? checked : value
+    //! CODIGO EXPERIMENTAL
+    if (name === 'nombre_completo' && newValue.length > 35) {
+      return
+    }
+
+    if (name === 'telefono') {
+      const numericValue = newValue.replace(/[^0-9]/g, '')
+      if (numericValue.length > 10) {
+        console.log('asdjfasjdf')
+        return
+      }
+      newValue = numericValue
+    }
+
+    if (name === 'documento_identidad') {
+      const numericValue = newValue.replace(/[^0-9]/g, '')
+      if (numericValue.length > 11) {
+        return
+      }
+      newValue = numericValue
+    }
+
+    if (name === 'direccion' && newValue.length > 35) {
+      return
+    }
+
+    if (name === 'programa_academico' && newValue.length > 50) {
+      return
+    }
+
+    if (name === 'fecha_nacimiento') {
+      const today = new Date().toISOString().split('T')[0]
+      if (newValue > today) {
+        return
+      }
+    }
+
+    if (name === 'email') {
+      if (newValue.length > 45) {
+        return
+      }
+      if (newValue.includes('@') && newValue.length > 15 && !newValue.endsWith('@unicesar.edu.co')) {
+        return
+      }
+    }
+
+    if (name === 'semestre') {
+      const numericValue = newValue.replace(/[^0-9]/g, '')
+      if (numericValue.length > 2) {
+        return
+      }
+      newValue = numericValue
+    }
+
+    if (name === 'creditos_cursados') {
+      const numericValue = newValue.replace(/[^0-9]/g, '')
+      if (numericValue.length > 3) {
+        return
+      }
+      newValue = numericValue
+    }
+
+    if (name === 'promedio_academico') {
+      let processedValue = newValue.replace(',', '.')
+      if (processedValue && parseFloat(processedValue) > 5.0) {
+        return
+      }
+      if (!/^\d*\.?\d*$/.test(processedValue)) {
+        return
+      }
+      newValue = processedValue
+    }
+
+    //! FIN DEL CODIGO EXPERIMENTAL
+
     // Validación para campos que solo deben contener texto
     if (['nombre_completo', 'programa_academico', 'facultad'].includes(name)) {
       if (!validarSoloTexto(value) && value !== '') {
@@ -134,6 +210,7 @@ export function ActualizarEstudiante() {
                   onChange={handleInput}
                   onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='nombre_completo'
+                  maxLength='35'
                   defaultValue={datosOriginales.nombre_completo || ''}
                 />
                 {errores.nombre_completo && <p className='mt-1 text-sm text-red-600'>{errores.nombre_completo}</p>}
@@ -157,14 +234,15 @@ export function ActualizarEstudiante() {
               </div>
 
               <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>Documento</label>
+                <label className='block text-sm font-medium text-gray-700 mb-1'>Documento de Identidad</label>
                 <input
-                  type='number'
+                  type='text'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='documento_identidad'
                   defaultValue={datosOriginales.documento_identidad || ''}
+                  maxLength='11'
                 />
               </div>
 
@@ -187,6 +265,7 @@ export function ActualizarEstudiante() {
                   onChange={handleInput}
                   onBeforeInput={e => handleBeforeInput(e, email.format)}
                   name='email'
+                  maxLength='45'
                   defaultValue={datosOriginales.email || ''}
                 />
               </div>
@@ -194,12 +273,13 @@ export function ActualizarEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Teléfono</label>
                 <input
-                  type='tel'
+                  type='text'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='telefono'
                   defaultValue={datosOriginales.telefono || ''}
+                  maxLength='10'
                 />
               </div>
             </div>
@@ -213,6 +293,7 @@ export function ActualizarEstudiante() {
                   onChange={handleInput}
                   onBeforeInput={e => handleBeforeInput(e, address.format)}
                   name='direccion'
+                  maxLength='35'
                   defaultValue={datosOriginales.direccion || ''}
                 />
               </div>
@@ -227,6 +308,7 @@ export function ActualizarEstudiante() {
                   onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='programa_academico'
                   defaultValue={datosOriginales.programa_academico || ''}
+                  maxLength='50'
                 />
                 {errores.programa_academico && (
                   <p className='mt-1 text-sm text-red-600'>{errores.programa_academico}</p>
@@ -243,6 +325,7 @@ export function ActualizarEstudiante() {
                   onBeforeInput={e => handleBeforeInput(e, onlyLetters.format)}
                   name='facultad'
                   defaultValue={datosOriginales.facultad || ''}
+                  maxLength='30'
                 />
                 {errores.facultad && <p className='mt-1 text-sm text-red-600'>{errores.facultad}</p>}
               </div>
@@ -250,13 +333,12 @@ export function ActualizarEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Semestre</label>
                 <input
-                  type='number'
-                  min='1'
-                  max='20'
+                  type='text'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='semestre'
+                  maxLength='2'
                   defaultValue={datosOriginales.semestre || ''}
                 />
               </div>
@@ -264,22 +346,24 @@ export function ActualizarEstudiante() {
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Créditos Cursados</label>
                 <input
-                  type='number'
+                  type='text'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={e => handleBeforeInput(e, onlyEntireNumbers.format)}
                   name='creditos_cursados'
                   defaultValue={datosOriginales.creditos_cursados || ''}
+                  maxLength='3'
                 />
               </div>
 
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Promedio Académico</label>
                 <input
-                  type='number'
-                  step='0.01'
-                  min='0'
-                  max='5'
+                  type='text'
+                  // step='0.01'
+                  // min='0'
+                  // max='5'
+                  maxLength='3'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primario'
                   onChange={handleInput}
                   onBeforeInput={e => handleBeforeInput(e, decimalNumber.format)}
@@ -340,13 +424,13 @@ export function ActualizarEstudiante() {
             <button
               type='button'
               onClick={() => navigate('/estudiantes')}
-              className='bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
+              className='cursor-pointer bg-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
             >
               Cancelar
             </button>
             <button
               type='submit'
-              className='w-full bg-primario text-white py-3 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primario transition-colors font-medium'
+              className='cursor-pointer w-full bg-primario text-white py-3 px-4 rounded-md hover:bg-oscuro focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primario transition-colors font-medium'
             >
               Actualizar Datos del Estudiante
             </button>
