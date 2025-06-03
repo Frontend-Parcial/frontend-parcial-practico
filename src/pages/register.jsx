@@ -109,11 +109,6 @@ export function Register() {
                 <p className='mb-6'>Universidad Popular del Cesar</p>
                 <img src={logoUniversidad} alt='Logo universidad' className='h-32 mb-6' />
               </div>
-              <div className='w-[80%] gap-2.5 flex flex-col'>
-                <InfoCard title='Movilidad Internacional' subtitle='Accede a oportunidades académicas globales' />
-                <InfoCard title='Seguimiento Académico' subtitle='Administra tus procesos de intercambio' />
-                <InfoCard title='Gestión Documental' subtitle='Centraliza toda tu documentación' />
-              </div>
             </div>
 
             {/* Columna derecha: Registro */}
