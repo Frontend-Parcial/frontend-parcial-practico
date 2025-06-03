@@ -25,6 +25,23 @@ export function EditarAsignatura() {
 
   const [erroresValidacion, setErroresValidacion] = useState({})
 
+  // Función helper para extraer el ID de solicitud de forma segura
+  const obtenerIdSolicitud = id_solicitud => {
+    if (!id_solicitud) return null
+
+    // Si es un objeto con $oid
+    if (typeof id_solicitud === 'object' && id_solicitud.$oid) {
+      return id_solicitud.$oid
+    }
+
+    // Si es un string
+    if (typeof id_solicitud === 'string') {
+      return id_solicitud
+    }
+
+    return null
+  }
+
   useEffect(() => {
     const cargarAsignatura = async () => {
       try {
@@ -57,6 +74,13 @@ export function EditarAsignatura() {
 
         if (asignaturaData) {
           setAsignatura(asignaturaData)
+
+          // IMPORTANTE: Guardar el id_solicitud en localStorage para futuras navegaciones
+          const idSolicitud = obtenerIdSolicitud(asignaturaData.id_solicitud)
+          if (idSolicitud) {
+            localStorage.setItem('id_solicitud_seleccionada', idSolicitud)
+            console.log('ID solicitud guardado en localStorage:', idSolicitud)
+          }
 
           // Pre-llenar el formulario con los datos actuales
           setForm({
@@ -219,18 +243,16 @@ export function EditarAsignatura() {
           texto: resultado.message || 'Asignatura actualizada exitosamente',
         })
 
-        // Redirigir después de un breve delay, pasando los datos actualizados
-        setTimeout(() => {
-          // Crear objeto con datos actualizados
-          const asignaturaActualizada = {
-            ...asignatura,
-            ...form,
-          }
+        // Asegurar que el id_solicitud esté en localStorage antes de navegar
+        const idSolicitud = obtenerIdSolicitud(asignatura.id_solicitud)
+        if (idSolicitud) {
+          localStorage.setItem('id_solicitud_seleccionada', idSolicitud)
+        }
 
-          // Navegar de vuelta al detalle con los datos actualizados
-          navigate(`/asignaturas/${asignatura._id}`, {
-            state: { asignatura: asignaturaActualizada },
-          })
+        // Redirigir después de un breve delay al listado de solicitudes
+        setTimeout(() => {
+          // Navegar directamente al listado de solicitudes
+          navigate('/solicitudes')
         }, 2000)
       }
     } catch (error) {
@@ -245,6 +267,12 @@ export function EditarAsignatura() {
     } finally {
       setGuardando(false)
     }
+  }
+
+  // Función para manejar la cancelación
+  const handleCancelar = () => {
+    // Navegar directamente al listado de solicitudes
+    navigate('/solicitudes')
   }
 
   // Componente para mostrar errores
@@ -321,11 +349,7 @@ export function EditarAsignatura() {
           </div>
           <button
             className='bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg shadow-md transition-all'
-            onClick={() =>
-              navigate(`/asignaturas/${asignatura._id}`, {
-                state: { asignatura },
-              })
-            }
+            onClick={handleCancelar}
           >
             Cancelar
           </button>
@@ -528,11 +552,7 @@ export function EditarAsignatura() {
               <div className='flex justify-end space-x-4 pt-4'>
                 <button
                   type='button'
-                  onClick={() =>
-                    navigate(`/solicitudes`, {
-                      state: { asignatura },
-                    })
-                  }
+                  onClick={handleCancelar}
                   className='px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-all'
                   disabled={guardando}
                 >
@@ -540,7 +560,6 @@ export function EditarAsignatura() {
                 </button>
                 <button
                   type='submit'
-                  onClick={() => navigate(`/solicitudes`)}
                   disabled={guardando || Object.keys(erroresValidacion).length > 0}
                   className='px-6 py-2 bg-primario hover:bg-oscuro text-white rounded-lg shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2'
                 >
