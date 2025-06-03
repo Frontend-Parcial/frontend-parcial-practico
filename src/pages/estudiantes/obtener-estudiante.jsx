@@ -90,6 +90,12 @@ export function ObtenerEstudiante() {
                     <p>
                       <span className='font-medium'>Dirección:</span> {estudiante.direccion}
                     </p>
+                    <p>
+                      <span className='font-medium'>Facultad:</span> {estudiante.facultad}
+                    </p>
+                    <p>
+                      <span className='font-medium'>Programa Academico:</span> {estudiante.programa_academico}
+                    </p>
                   </div>
                 </div>
               </div>
