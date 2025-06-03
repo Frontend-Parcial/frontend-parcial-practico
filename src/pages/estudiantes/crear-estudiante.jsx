@@ -51,6 +51,7 @@ export function CrearEstudiante() {
         console.log(estudiante)
         if (await createStudent(estudiante)) {
           alert('Estudiante creado exitosamente')
+          navigate('/estudiantes')
         }
       } catch (error) {
         alert(error.message)

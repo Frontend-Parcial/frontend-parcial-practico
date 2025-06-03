@@ -280,6 +280,7 @@ export function ActualizarEstudiante() {
       alert('Estudiante actualizado correctamente')
       setDatosOriginales({ ...datosOriginales, ...cambios })
       setCambios({})
+      navigate('/estudiantes')
     } catch (error) {
       alert(error.message || 'Error al actualizar estudiante')
     }
