@@ -58,19 +58,26 @@ export function Header() {
             {tabs.map(tab => (
               <button
                 key={tab.name}
-                className='flex items-center px-4 py-2 rounded-md transition-all duration-200 hover:bg-gray-200 hover:shadow-md text-sm'
-                style={{
-                  backgroundColor: activeTab?.name === tab.name ? theme.blanco : 'transparent',
-                  color: activeTab?.name === tab.name ? theme.colorOscuro : theme.colorTextoOscuro,
-                  boxShadow: activeTab?.name === tab.name ? `0 2px 6px ${theme.sombra}` : 'none',
-                  fontWeight: activeTab?.name === tab.name ? '600' : 'normal',
-                  border: activeTab?.name === tab.name ? `1px solid ${theme.colorClaro}` : 'none',
-                }}
+                className={`
+                  flex items-center px-4 py-2 rounded-md transition-all duration-200 text-sm hover:bg-gray-200 hover:shadow-md hover:cursor-pointer
+                  ${activeTab?.name === tab.name ? `
+                    bg-white
+                    text-[${theme.colorOscuro}]
+                    shadow-md
+                    font-semibold
+                  ` : `
+                    bg-transparent
+                    text-[${theme.colorTextoOscuro}]
+                    font-normal
+                    border-none
+                  `}
+                `}
                 onClick={() => navigate(`/${tab.name.toLowerCase()}`)}
               >
                 {tab.icon}
                 {tab.name}
               </button>
+
             ))}
           </div>
           <button
