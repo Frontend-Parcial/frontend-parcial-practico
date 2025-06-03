@@ -173,10 +173,6 @@ export function DetalleAsignaturas() {
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Créditos</label>
                 <p className='text-gray-800 bg-gray-50 p-3 rounded-lg'>{asignatura.creditos_asignatura_origen}</p>
               </div>
-              <div>
-                <label className='block text-sm font-medium text-gray-600 mb-1'>Universidad</label>
-                <p className='text-gray-800 bg-gray-50 p-3 rounded-lg'>{asignatura.universidad_origen}</p>
-              </div>
             </div>
           </div>
 
@@ -214,6 +210,7 @@ export function DetalleAsignaturas() {
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Créditos</label>
                 <p className='text-gray-800 bg-gray-50 p-3 rounded-lg'>{asignatura.creditos_asignatura_destino}</p>
               </div>
+
               <div>
                 <label className='block text-sm font-medium text-gray-600 mb-1'>Estado de Equivalencia</label>
                 <span
