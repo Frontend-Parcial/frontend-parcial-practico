@@ -81,7 +81,7 @@ export function Header() {
             ))}
           </div>
           <button
-            className='flex items-center gap-2 px-5 py-2 rounded-md text-sm font-medium bg-white text-red-600 border border-red-200 hover:bg-logout hover:text-white transition duration-300'
+            className='flex items-center gap-2 px-5 py-2 rounded-md text-sm font-medium bg-white text-red-600 border border-red-200 hover:bg-logout hover:text-white transition duration-300 cursor-pointer'
             onClick={() => auth.logOut()}
           >
             <FiLogOut />

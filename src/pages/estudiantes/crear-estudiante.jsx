@@ -159,7 +159,7 @@ export function CrearEstudiante() {
         <h1 className='text-2xl font-bold text-gray-800 mb-6'>Crear Estudiante</h1>
         <form className='space-y-4' onSubmit={handleSubmitEvent}>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            <div className='space-y-4'>
+            <div className='space-y-5'>
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Nombre Completo*</label>
                 <input
@@ -172,6 +172,9 @@ export function CrearEstudiante() {
                   maxLength='35'
                   required
                 />
+                <div className='flex justify-between'>
+                  <span className='text-xs text-gray-400'>{estudiante.nombre_completo.length}/35</span>
+                </div>
               </div>
 
               <div>
@@ -204,6 +207,9 @@ export function CrearEstudiante() {
                   maxLength='11'
                   required
                 />
+                <div className='flex justify-between'>
+                  <span className='text-xs text-gray-400'>{estudiante.documento_identidad.length}/11</span>
+                </div>
               </div>
 
               <div>
@@ -233,10 +239,13 @@ export function CrearEstudiante() {
                   required
                 />
                 <p className='text-xs text-gray-500 mt-1'>Debe ser un correo institucional @unicesar.edu.co</p>
+                <div className='flex justify-between'>
+                  <span className='text-xs text-gray-400'>{estudiante.email.length}/45</span>
+                </div>
               </div>
             </div>
 
-            <div className='space-y-4'>
+            <div className='space-y-5'>
               <div>
                 <label className='block text-sm font-medium text-gray-700 mb-1'>Teléfono*</label>
                 <input
@@ -249,6 +258,9 @@ export function CrearEstudiante() {
                   maxLength='10'
                   required
                 />
+                <div className='flex justify-between'>
+                  <span className='text-xs text-gray-400'>{estudiante.telefono.length}/10</span>
+                </div>
               </div>
 
               <div>
@@ -263,6 +275,9 @@ export function CrearEstudiante() {
                   maxLength='35'
                   required
                 />
+                <div className='flex justify-between mb-[-20px]'>
+                  <span className='text-xs text-gray-400'>{estudiante.direccion.length}/35</span>
+                </div>
               </div>
 
               <div>
@@ -277,6 +292,9 @@ export function CrearEstudiante() {
                   maxLength='50'
                   required
                 />
+                <div className='flex justify-between'>
+                  <span className='text-xs text-gray-400'>{estudiante.programa_academico.length}/50</span>
+                </div>
               </div>
 
               <div>
@@ -289,7 +307,11 @@ export function CrearEstudiante() {
                   name='facultad'
                   value={estudiante.facultad}
                   required
+                  maxLength='30'
                 />
+                <div className='flex justify-between mb-[-13px]'>
+                  <span className='text-xs text-gray-400'>{estudiante.facultad.length}/30</span>
+                </div>
               </div>
 
               <div>
@@ -304,6 +326,9 @@ export function CrearEstudiante() {
                   maxLength='2'
                   required
                 />
+                <div className='flex justify-between'>
+                  <span className='text-xs text-gray-400'>{estudiante.semestre.length}/2</span>
+                </div>
               </div>
             </div>
           </div>
@@ -321,6 +346,9 @@ export function CrearEstudiante() {
                 maxLength='3'
                 required
               />
+              <div className='flex justify-between'>
+                <span className='text-xs text-gray-400'>{estudiante.creditos_cursados.length}/3</span>
+              </div>
             </div>
 
             <div>
@@ -332,8 +360,12 @@ export function CrearEstudiante() {
                 onChange={handleInput}
                 name='promedio_academico'
                 value={estudiante.promedio_academico}
+                maxLength='3'
                 required
               />
+              <div className='flex justify-between'>
+                <span className='text-xs text-gray-400'>{estudiante.promedio_academico.length}/3</span>
+              </div>
             </div>
 
             <div>
@@ -388,13 +420,13 @@ export function CrearEstudiante() {
             <button
               type='button'
               onClick={() => navigate('/estudiantes')}
-              className='bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
+              className='cursor-pointer bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-lg shadow-md hover:shadow-lg transition-all'
             >
               Cancelar
             </button>
             <button
               type='submit'
-              className='bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
+              className='cursor-pointer bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
             >
               Registrar Estudiante
             </button>
@@ -402,6 +434,6 @@ export function CrearEstudiante() {
           <p className='text-xs text-gray-500 mt-2'>* Campos obligatorios</p>
         </form>
       </div>
-    </PageWrapper> 
+    </PageWrapper>
   )
 }
