@@ -28,7 +28,7 @@ export function ObtenerEstudiante() {
           </div>
           <button
             type='button'
-            className='bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg shadow flex items-center gap-2 transition-all'
+            className='cursor-pointer bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg shadow flex items-center gap-2 transition-all'
             onClick={() => navigate(`/estudiantes/actualizar/${id}`)}
           >
             <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
@@ -156,14 +156,14 @@ export function ObtenerEstudiante() {
             <div className='bg-gray-50 px-6 py-4 flex justify-end gap-4'>
               <button
                 type='button'
-                className='text-gray-700 hover:text-gray-900 font-medium'
+                className='cursor-pointer text-gray-700 hover:text-gray-900 font-medium'
                 onClick={() => navigate(-1)}
               >
                 Volver al listado
               </button>
               <button
                 type='button'
-                className='bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg shadow flex items-center gap-2 transition-all'
+                className='cursor-pointer bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg shadow flex items-center gap-2 transition-all'
                 onClick={() => navigate(`/estudiantes/actualizar/${id}`)}
               >
                 <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>

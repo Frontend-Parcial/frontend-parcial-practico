@@ -58,7 +58,7 @@ export function Header() {
             {tabs.map(tab => (
               <button
                 key={tab.name}
-                className='flex items-center px-4 py-2 rounded-md transition-all duration-200 hover:bg-gray-200 hover:shadow-md text-sm'
+                className='flex items-center px-4 py-2 rounded-md transition-all duration-200 hover:bg-gray-200 hover:shadow-md text-sm cursor-pointer'
                 style={{
                   backgroundColor: activeTab?.name === tab.name ? theme.blanco : 'transparent',
                   color: activeTab?.name === tab.name ? theme.colorOscuro : theme.colorTextoOscuro,
@@ -74,7 +74,7 @@ export function Header() {
             ))}
           </div>
           <button
-            className='flex items-center gap-2 px-5 py-2 rounded-md text-sm font-medium bg-white text-red-600 border border-red-200 hover:bg-logout hover:text-white transition duration-300'
+            className='flex items-center gap-2 px-5 py-2 rounded-md text-sm font-medium bg-white text-red-600 border border-red-200 hover:bg-logout hover:text-white transition duration-300 cursor-pointer'
             onClick={() => auth.logOut()}
           >
             <FiLogOut />

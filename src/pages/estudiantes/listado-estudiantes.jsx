@@ -28,12 +28,12 @@ export function ListadoEstudiantes() {
             <button
               type='button'
               onClick={() => navigate(-1)}
-              className='bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-base shadow-md hover:shadow-lg transition-all'
+              className='cursor-pointer bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 font-medium text-base shadow-md hover:shadow-lg transition-all'
             >
               Atrás
             </button>
             <button
-              className='bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
+              className='cursor-pointer bg-primario text-white py-2 px-6 rounded-lg hover:bg-oscuro font-medium text-base shadow-md hover:shadow-lg transition-all flex items-center'
               onClick={() => navigate('/estudiantes/nuevo')}
             >
               <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
