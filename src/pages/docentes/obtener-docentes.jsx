@@ -11,7 +11,7 @@ export function ObtenerDocentes() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getDocentesXid(id)
-      setDatos([data]) // Convertimos a array con []
+      setDatos([data]) 
     }
     fetchData()
   }, [id])

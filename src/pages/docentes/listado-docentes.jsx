@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { listDocentes, listDocentesPaginate } from '../../lib/docentes-data'
 import PageWrapper from '../../components/PageWrapper'
 
-//! ESTE ES EL PUNTO DE ENTRADA DE LOS DOCENTES
 export function ListadoDocentes() {
   const [datos, setDatos] = useState([])
   const [loading, setLoading] = useState(true)

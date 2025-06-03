@@ -11,7 +11,7 @@ export function ObtenerEstudiante() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getStudents(id)
-      setDatos([data]) // Convertimos a array con []
+      setDatos([data])
     }
     fetchData()
   }, [id])

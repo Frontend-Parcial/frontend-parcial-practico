@@ -48,7 +48,6 @@ export function CrearEstudiante() {
       estudiante.promedio_academico !== ''
     ) {
       try {
-        // await createStudent(estudiante)
         console.log(estudiante)
         if (await createStudent(estudiante)) {
           alert('Estudiante creado exitosamente')
@@ -65,7 +64,6 @@ export function CrearEstudiante() {
     const { name, value, type, checked } = e.target
     let newValue = type === 'checkbox' ? checked : value
 
-    // Validaciones específicas por campo
     if (name === 'nombre_completo' && newValue.length > 35) {
       return
     }
@@ -137,14 +135,12 @@ export function CrearEstudiante() {
       newValue = processedValue
     }
 
-    // Lógica especial para cuando cambia la facultad
     if (name === 'facultad') {
       handleProgramas(newValue)
-      // Limpiar el programa académico cuando cambia la facultad
       setEstudiante(prev => ({
         ...prev,
         [name]: newValue,
-        programa_academico: '', // Resetear programa académico
+        programa_academico: '', 
       }))
       return
     }
@@ -185,7 +181,6 @@ export function CrearEstudiante() {
     { value: 'Facultad de Educacion', label: 'Facultad de Educacion' },
   ]
 
-  //! Programas
   const programasCiencias = [
     { value: 'Administracion de Empresas', label: 'Administracion de Empresas' },
     {
