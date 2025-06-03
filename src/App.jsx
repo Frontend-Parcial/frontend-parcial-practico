@@ -22,6 +22,7 @@ import { DetalleConvenio } from './pages/convenios/DetalleConvenio'
 import { ListadoAsignaturas } from './pages/asignaturas/listado-asignaturas'
 import { DetalleAsignaturas } from './pages/asignaturas/detalleAsignaturas'
 import { CrearAsignaturas } from './pages/asignaturas/crearAsignaturas'
+import { EditarAsignatura } from './pages/asignaturas/editarAsignatura'
 
 import { AnimatePresence } from 'framer-motion'
 import Layout from './components/Layout'
@@ -187,6 +188,15 @@ function AnimatedRoutes() {
             element={
               <Layout>
                 <CrearAsignaturas />
+              </Layout>
+            }
+          />
+
+          <Route
+            path='/asignaturas/editarAsignatura/:id'
+            element={
+              <Layout>
+                <EditarAsignatura />
               </Layout>
             }
           />

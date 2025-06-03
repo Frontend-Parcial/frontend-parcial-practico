@@ -37,21 +37,38 @@ export const obtenerAsignaturas = async id => {
 }
 
 // Función para obtener una asignatura específica por ID
-export const obtenerAsignaturaPorId = async (id, token) => {
+export const obtenerAsignaturaPorId = async id => {
+  const userToken = localStorage.getItem('userToken') || localStorage.getItem('site')
+
   try {
-    const response = await fetch(`${apiUrl}/api/asignaturas/${id}`, {
+    const headers = {
+      'Content-Type': 'application/json',
+    }
+
+    // Solo agregar Authorization si hay token
+    if (userToken) {
+      headers['Authorization'] = `Bearer ${userToken}`
+    }
+
+    console.log(`Obteniendo asignatura: ${apiUrl}/asignaturas/${id}`)
+
+    const response = await fetch(`${apiUrl}/asignaturas/${id}`, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
+      headers,
     })
 
     if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error('No autorizado')
+      }
+      if (response.status === 404) {
+        throw new Error('Asignatura no encontrada')
+      }
       throw new Error(`Error: ${response.status} - ${response.statusText}`)
     }
 
     const data = await response.json()
+    console.log('Asignatura obtenida:', data)
     return data
   } catch (error) {
     console.error('Error al obtener asignatura:', error)
@@ -271,6 +288,113 @@ export const crearAsignatura = async datosAsignatura => {
         console.error('Error en todos los reintentos:', retryError)
       }
     }
+
+    // Verificar si es un error específico de CORS
+    if (error.message.includes('CORS') || error.message.includes('preflight')) {
+      throw new Error(
+        'Error de conexión con el servidor. El servidor puede estar inactivo o tener problemas de configuración CORS. Por favor, contacte al administrador.',
+      )
+    }
+
+    // Verificar si es un error de red
+    if (error.message.includes('Failed to fetch') || error.message.includes('net::ERR_FAILED')) {
+      throw new Error('No se pudo conectar con el servidor. Verifique su conexión a internet o intente más tarde.')
+    }
+
+    // Re-lanzar el error original
+    throw error
+  }
+}
+
+// Función para actualizar una asignatura por ID
+export const actualizarAsignatura = async (idAsignatura, datosAsignatura) => {
+  let token
+
+  try {
+    token = localStorage.getItem('userToken') || localStorage.getItem('site')
+
+    if (!token) {
+      throw new Error('No se encontró token de autenticación')
+    }
+
+    // Validar campos requeridos para actualización
+    const camposRequeridos = ['codigo_asignatura_destino', 'nombre_asignatura_destino', 'creditos_asignatura_destino']
+
+    for (const campo of camposRequeridos) {
+      if (!datosAsignatura[campo]) {
+        throw new Error(`El campo ${campo} es requerido`)
+      }
+    }
+
+    // Validaciones adicionales
+    if (isNaN(datosAsignatura.creditos_asignatura_destino) || datosAsignatura.creditos_asignatura_destino < 1) {
+      throw new Error('Los créditos de la asignatura destino deben ser un número mayor a 0')
+    }
+
+    // Preparar datos para enviar (solo los campos editables)
+    const datosParaEnviar = {
+      codigo_asignatura_destino: datosAsignatura.codigo_asignatura_destino.trim(),
+      nombre_asignatura_destino: datosAsignatura.nombre_asignatura_destino.trim(),
+      creditos_asignatura_destino: String(datosAsignatura.creditos_asignatura_destino),
+      descripcion_asignatura_destino: datosAsignatura.descripcion_asignatura_destino?.trim() || '',
+      estado_equivalencia: datosAsignatura.estado_equivalencia || 'propuesta',
+      observaciones: datosAsignatura.observaciones?.trim() || '',
+    }
+
+    console.log('Actualizando asignatura con datos:', datosParaEnviar)
+
+    const response = await fetch(`${apiUrl}/asignaturas/${idAsignatura}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(datosParaEnviar),
+    })
+
+    // Manejar respuesta
+    if (!response.ok) {
+      let errorMessage = 'Error desconocido'
+
+      try {
+        const errorData = await response.json()
+        errorMessage = errorData.message || errorData.error || `Error del servidor: ${response.status}`
+      } catch (parseError) {
+        console.error('Error parsing error response:', parseError)
+        errorMessage = `Error del servidor: ${response.status} ${response.statusText}`
+      }
+
+      // Errores específicos por código de estado
+      switch (response.status) {
+        case 400:
+          throw new Error(`Datos inválidos: ${errorMessage}`)
+        case 401:
+          throw new Error('No autorizado. Por favor, inicie sesión nuevamente.')
+        case 403:
+          throw new Error('No tiene permisos para realizar esta acción.')
+        case 404:
+          throw new Error('La asignatura especificada no fue encontrada.')
+        case 409:
+          throw new Error('Ya existe una asignatura con el mismo código.')
+        case 422:
+          throw new Error(`Error de validación: ${errorMessage}`)
+        case 500:
+          throw new Error('Error interno del servidor. Intente nuevamente.')
+        default:
+          throw new Error(errorMessage)
+      }
+    }
+
+    const data = await response.json()
+    console.log('Asignatura actualizada exitosamente:', data)
+
+    return {
+      success: true,
+      data: data,
+      message: 'Asignatura actualizada exitosamente',
+    }
+  } catch (error) {
+    console.error('Error al actualizar asignatura:', error)
 
     // Verificar si es un error específico de CORS
     if (error.message.includes('CORS') || error.message.includes('preflight')) {

@@ -59,6 +59,19 @@ export function DetalleAsignaturas() {
     navigate('/asignaturas/crearAsignaturas')
   }
 
+  // Reemplazar el botón "Editar" en detalleAsignaturas.jsx (línea aproximada 185)
+  // Y agregar esta función antes del return:
+
+  const handleEditarAsignatura = () => {
+    // Método 1: Navigation state (recomendado)
+    navigate(`/asignaturas/editar/${asignatura._id}`, {
+      state: { asignatura },
+    })
+
+    // Método 2: localStorage como backup
+    localStorage.setItem('asignatura_seleccionada', JSON.stringify(asignatura))
+  }
+
   if (loading) {
     return (
       <PageWrapper>
@@ -260,7 +273,11 @@ export function DetalleAsignaturas() {
             Nueva Asignatura
           </button>
           <button
-            onClick={() => navigate(`/asignaturas/editar/${asignatura._id}`)}
+            onClick={() =>
+              navigate(`/asignaturas/editarAsignatura/${asignatura._id}`, {
+                state: { asignatura },
+              })
+            }
             className='bg-primario hover:bg-oscuro text-white px-6 py-2 rounded-lg transition-all flex items-center gap-2'
           >
             <svg xmlns='http://www.w3.org/2000/svg' className='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'>
@@ -268,6 +285,7 @@ export function DetalleAsignaturas() {
             </svg>
             Editar
           </button>
+
           <button
             onClick={() => navigate('/solicitudes')}
             className='bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-all'
